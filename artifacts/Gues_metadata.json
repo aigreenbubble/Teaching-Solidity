@@ -1,0 +1,78 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "myName",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "newName",
+						"type": "string"
+					}
+				],
+				"name": "updateMyName",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "_myName",
+						"type": "string"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Solidity Basics/Lesson2-GuessTheWordGame.sol": "Gues"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Solidity Basics/Lesson2-GuessTheWordGame.sol": {
+			"keccak256": "0x8da533b85e2cd23c909aa439a563ae485c060c31a3dc6e523588e11e4292e2bd",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://40fbb11d4471675b14a6ed5b9ba4c223a344bec475ebb0babe48c5919a0bad45",
+				"dweb:/ipfs/QmZKiFSXCKwHyceWhMYZ8M9X5GXeNmYMwPUUzcnoJCRf2n"
+			]
+		}
+	},
+	"version": 1
+}

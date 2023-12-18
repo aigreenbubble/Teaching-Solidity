@@ -1,0 +1,91 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_guessWord",
+						"type": "uint256"
+					}
+				],
+				"name": "guessTheWord",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "newWord",
+						"type": "uint256"
+					}
+				],
+				"name": "setGuessWord",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "treasury",
+				"outputs": [
+					{
+						"internalType": "address payable",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Solidity Basics/Lesson2-GuessTheWordGame.sol": "GuessTheWord"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Solidity Basics/Lesson2-GuessTheWordGame.sol": {
+			"keccak256": "0x1fb75482f8283376992d1939b5d50addbd358a8b9851af24207fe599b4637673",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://10f9c8eea660581401c4a073616a345a76b725a41216bf30c20f35e68c0bf609",
+				"dweb:/ipfs/QmPYQu4oLpkitSBh6pVvYdKXhDoptgPrNfvAiii5VFydZ6"
+			]
+		}
+	},
+	"version": 1
+}
