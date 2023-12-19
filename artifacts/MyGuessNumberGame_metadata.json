@@ -7,33 +7,7 @@
 		"abi": [
 			{
 				"inputs": [],
-				"name": "isTrue",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "myName",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "myNumber",
+				"name": "guessNumber",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -46,34 +20,67 @@
 			},
 			{
 				"inputs": [],
-				"name": "myWallet",
+				"name": "logicCheck",
 				"outputs": [
 					{
-						"internalType": "address",
+						"internalType": "string",
 						"name": "",
-						"type": "address"
+						"type": "string"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "newGuessNumber",
+						"type": "uint256"
+					}
+				],
+				"name": "setGuessNumber",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "newTargetNubmer",
+						"type": "uint256"
+					}
+				],
+				"name": "setTargetNumber",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "targetNumber",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "newName",
-						"type": "string"
-					}
-				],
-				"name": "updateMyName",
+				"inputs": [],
+				"name": "treasury",
 				"outputs": [
 					{
-						"internalType": "string",
-						"name": "_myName",
-						"type": "string"
+						"internalType": "address payable",
+						"name": "",
+						"type": "address"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -90,7 +97,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Lesson1.sol": "DataTypes"
+			"Practical1-Jason.sol": "MyGuessNumberGame"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -104,12 +111,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Lesson1.sol": {
-			"keccak256": "0xe96beca765e1e2af64922e13db67cb6597db0b26040f3c1bb39a2844524e9a79",
+		"Practical1-Jason.sol": {
+			"keccak256": "0xea9d2745012064fd1c523cbe19da432602aa28cef7847aee0cfbc246d290fdba",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a6ceeab95fdf8d2c74e22b8efcc1c814dacc9e4a53aa4b74cf6001300197671c",
-				"dweb:/ipfs/QmQ7aDPQ4J1uLpVtzNU2pG1iUMxLrfkWx8MRQ46MwN4v7Q"
+				"bzz-raw://b4d64f46c124d5b13c47d50aff48a9410860a2230ec093d87e3a2dcfe44c9c32",
+				"dweb:/ipfs/QmUv5sF8xzYfGRyacUA9pVxnXozMxT4wDXmFADem7ryMvg"
 			]
 		}
 	},

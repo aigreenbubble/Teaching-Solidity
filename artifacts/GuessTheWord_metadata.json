@@ -64,7 +64,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Solidity Basics/Lesson2-GuessTheWordGame.sol": "GuessTheWord"
+			"Lesson2-GuessTheWordGame.sol": "GuessTheWord"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -78,7 +78,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"Solidity Basics/Lesson2-GuessTheWordGame.sol": {
+		"Lesson2-GuessTheWordGame.sol": {
 			"keccak256": "0x1fb75482f8283376992d1939b5d50addbd358a8b9851af24207fe599b4637673",
 			"license": "MIT",
 			"urls": [
