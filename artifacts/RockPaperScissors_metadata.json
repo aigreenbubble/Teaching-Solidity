@@ -99,11 +99,11 @@
 	},
 	"sources": {
 		"Practical1-Jason.sol": {
-			"keccak256": "0x5761712884a28f38594b24c2bef77f389a1fff72576a4cba498c5f62e60785e8",
+			"keccak256": "0x0c3d5e65cc48f7fb53feb4bb59c50259ba5528bdabbf54e69b360b6aa4027554",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://19331e7b8042e8324438433920e3f9f77a771e9585cbbb391b50076bbb0300ac",
-				"dweb:/ipfs/QmWRnaA7dwnTba59D9eqTatpHRpwRMapDdJQK6oBYh2HEb"
+				"bzz-raw://1a9e1373b3f7e59b6be86588683b136ccad6e605853e0c523d8add716af64263",
+				"dweb:/ipfs/QmdGRz1Vds2UKgqK2HUNMPKVRbcXrp5X8NZ5XaUfE3MTeV"
 			]
 		}
 	},

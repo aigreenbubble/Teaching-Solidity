@@ -23,7 +23,7 @@ contract MyGuessNumberGame {
     function logicCheck() external returns (string memory){
         for (uint256 i = 1; i <= 2; i++)
         {
-            // I want to get the user real time input.
+            // Get the user real time input.
             //uint newGuessNumber = processUserInput(uint _inputValue);
             //setGuessNumber();
             if(guessNumber == targetNumber){
