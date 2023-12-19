@@ -28,7 +28,7 @@
 						"type": "string"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -69,6 +69,19 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "treasury",
+				"outputs": [
+					{
+						"internalType": "address payable",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -99,11 +112,11 @@
 	},
 	"sources": {
 		"Practical1-Jason.sol": {
-			"keccak256": "0x0c3d5e65cc48f7fb53feb4bb59c50259ba5528bdabbf54e69b360b6aa4027554",
+			"keccak256": "0xea9d2745012064fd1c523cbe19da432602aa28cef7847aee0cfbc246d290fdba",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1a9e1373b3f7e59b6be86588683b136ccad6e605853e0c523d8add716af64263",
-				"dweb:/ipfs/QmdGRz1Vds2UKgqK2HUNMPKVRbcXrp5X8NZ5XaUfE3MTeV"
+				"bzz-raw://b4d64f46c124d5b13c47d50aff48a9410860a2230ec093d87e3a2dcfe44c9c32",
+				"dweb:/ipfs/QmUv5sF8xzYfGRyacUA9pVxnXozMxT4wDXmFADem7ryMvg"
 			]
 		}
 	},

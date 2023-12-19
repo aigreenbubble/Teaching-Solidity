@@ -5,6 +5,7 @@ contract MyGuessNumberGame {
     uint public targetNumber;
     uint public guessNumber;
     bool win = false;
+    address payable public treasury = payable(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2);
 
     function setTargetNumber(uint newTargetNubmer) external {
         targetNumber = newTargetNubmer;
@@ -20,21 +21,31 @@ contract MyGuessNumberGame {
     // }
 
 
-    function logicCheck() external returns (string memory){
-        for (uint256 i = 1; i <= 2; i++)
-        {
-            // Get the user real time input.
-            //uint newGuessNumber = processUserInput(uint _inputValue);
-            //setGuessNumber();
-            if(guessNumber == targetNumber){
-                win = true;
-            }
+    function logicCheck() external payable returns (string memory){
+        if(guessNumber == targetNumber){
+            win = true;
         }
+
+        // for (uint256 i = 1; i <= 5; i++)
+        // {
+        //     // Get the user real time input. Cannot do that.
+        //     //uint newGuessNumber = processUserInput(uint _inputValue);
+        //     //setGuessNumber();
+        //     if(guessNumber == targetNumber){
+        //         win = true;
+        //     }
+        // }
 
         if(win)
             return ("You win!!");
         else 
-            revert ("You loss");
+        {
+            require(msg.value >= 100, "Error: Send 100 wei!");
+            bool success = treasury.send(msg.value);
+            require(success, "Failed to send");
+            return ("You loss");
+        }
+            
     }
     
 }
