@@ -7,33 +7,7 @@
 		"abi": [
 			{
 				"inputs": [],
-				"name": "isTrue",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "myName",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "myNumber",
+				"name": "guessNumber",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -46,34 +20,54 @@
 			},
 			{
 				"inputs": [],
-				"name": "myWallet",
+				"name": "logicCheck",
 				"outputs": [
 					{
-						"internalType": "address",
+						"internalType": "string",
 						"name": "",
-						"type": "address"
+						"type": "string"
 					}
 				],
-				"stateMutability": "view",
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
 				"inputs": [
 					{
-						"internalType": "string",
-						"name": "newName",
-						"type": "string"
+						"internalType": "uint256",
+						"name": "newGuessNumber",
+						"type": "uint256"
 					}
 				],
-				"name": "updateMyName",
+				"name": "setGuessNumber",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "newTargetNubmer",
+						"type": "uint256"
+					}
+				],
+				"name": "setTargetNumber",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "targetNumber",
 				"outputs": [
 					{
-						"internalType": "string",
-						"name": "_myName",
-						"type": "string"
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -90,7 +84,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Lesson1.sol": "DataTypes"
+			"Practical1-Jason.sol": "MySmallGame"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -104,12 +98,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Lesson1.sol": {
-			"keccak256": "0xe96beca765e1e2af64922e13db67cb6597db0b26040f3c1bb39a2844524e9a79",
+		"Practical1-Jason.sol": {
+			"keccak256": "0xf9963b73b273358901ae9b8da1a5cc6801fc84a08550cb83a71b1454b4c67099",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a6ceeab95fdf8d2c74e22b8efcc1c814dacc9e4a53aa4b74cf6001300197671c",
-				"dweb:/ipfs/QmQ7aDPQ4J1uLpVtzNU2pG1iUMxLrfkWx8MRQ46MwN4v7Q"
+				"bzz-raw://af42282d9341088118f795b9bac2a03cf4c0c1308b7102aee12ef049a3573282",
+				"dweb:/ipfs/QmSyae4YAi5ggy6wRqBkQjh2ka6nYt75jEdVkY3Atdf1WG"
 			]
 		}
 	},

@@ -211,7 +211,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Solidity Basics/Lesson1.sol": "ArithmeticOperators"
+			"Lesson1.sol": "ArithmeticOperators"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -225,7 +225,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"Solidity Basics/Lesson1.sol": {
+		"Lesson1.sol": {
 			"keccak256": "0xe96beca765e1e2af64922e13db67cb6597db0b26040f3c1bb39a2844524e9a79",
 			"license": "MIT",
 			"urls": [
