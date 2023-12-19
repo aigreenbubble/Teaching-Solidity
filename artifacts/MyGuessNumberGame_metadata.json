@@ -7,7 +7,7 @@
 		"abi": [
 			{
 				"inputs": [],
-				"name": "guessNumber",
+				"name": "getRandomNumber",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -19,7 +19,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "guessNumber",
+						"type": "uint256"
+					}
+				],
 				"name": "logicCheck",
 				"outputs": [
 					{
@@ -29,32 +35,6 @@
 					}
 				],
 				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "newGuessNumber",
-						"type": "uint256"
-					}
-				],
-				"name": "setGuessNumber",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "newTargetNubmer",
-						"type": "uint256"
-					}
-				],
-				"name": "setTargetNumber",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -97,7 +77,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Practical1-Jason.sol": "MyGuessNumberGame"
+			"Practical1-GuessNumber-Jason.sol": "MyGuessNumberGame"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -111,12 +91,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Practical1-Jason.sol": {
-			"keccak256": "0xea9d2745012064fd1c523cbe19da432602aa28cef7847aee0cfbc246d290fdba",
+		"Practical1-GuessNumber-Jason.sol": {
+			"keccak256": "0xd08b59e268f02a38b10c147bedb06e73e24c71169a16ef259fe0b8e26b7cee8f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b4d64f46c124d5b13c47d50aff48a9410860a2230ec093d87e3a2dcfe44c9c32",
-				"dweb:/ipfs/QmUv5sF8xzYfGRyacUA9pVxnXozMxT4wDXmFADem7ryMvg"
+				"bzz-raw://ef21497f701d2645577fffe663fae05bafce92c22332f20895299097d2de13be",
+				"dweb:/ipfs/QmYSwz5Av1AFF7jyimE5Y69jvr4T3YYy4MTDrBAE2hEkkJ"
 			]
 		}
 	},

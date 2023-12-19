@@ -6,21 +6,98 @@
 	"output": {
 		"abi": [
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "Options",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "userInput",
+						"type": "uint256"
+					}
+				],
+				"name": "enterOption",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
-				"name": "logicCheck",
+				"name": "getRandomNumber",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "lastChoice",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "option",
+						"type": "uint256"
+					}
+				],
+				"name": "play",
 				"outputs": [
 					{
 						"internalType": "string",
-						"name": "",
+						"name": "result",
 						"type": "string"
 					}
 				],
-				"stateMutability": "view",
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
 				"inputs": [],
-				"name": "user1Choose",
+				"name": "playMutiTimes",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "result",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "playerOption",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -35,18 +112,11 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "decisionofRockPaperScissors",
+						"name": "",
 						"type": "uint256"
 					}
 				],
-				"name": "user1Dicision",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "user2Choose",
+				"name": "randomNumSet",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -58,16 +128,16 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
+				"inputs": [],
+				"name": "salt",
+				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "decisionofRockPaperScissors",
+						"name": "",
 						"type": "uint256"
 					}
 				],
-				"name": "user2Dicision",
-				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -84,7 +154,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Practical1-Jason.sol": "RockPaperScissors"
+			"Practical2-RockPaperScissors-Jason.sol": "RockPaperScissors"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -98,12 +168,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Practical1-Jason.sol": {
-			"keccak256": "0xea9d2745012064fd1c523cbe19da432602aa28cef7847aee0cfbc246d290fdba",
+		"Practical2-RockPaperScissors-Jason.sol": {
+			"keccak256": "0xa25b3ef1d7c8b02826ea771547b72b15bd8956e8735d4265992a266a3cb0cd52",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b4d64f46c124d5b13c47d50aff48a9410860a2230ec093d87e3a2dcfe44c9c32",
-				"dweb:/ipfs/QmUv5sF8xzYfGRyacUA9pVxnXozMxT4wDXmFADem7ryMvg"
+				"bzz-raw://073c2c203f4b51a96226b1a33af29c1a87a34f94202e59dbd9a588c1e7c39da2",
+				"dweb:/ipfs/QmTNAhHeE2QSiEMKGPyiNjBYy96awEZxQX6pDV1QjpBgER"
 			]
 		}
 	},
