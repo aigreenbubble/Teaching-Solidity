@@ -8,34 +8,102 @@ contract RockPaperScissors {
     uint public playerOption;
     uint[] public Options;
     uint[] public randomNumSet;
-    uint public salt = 1;
+    uint salt = 1;
+    uint public userWin;
+    uint public systemWin;
+    uint public tied;
 
-    function enterOption(uint256 userInput) external {
+    //get user input and push to array
+    function enterOption(uint256 userInput) external returns (uint[] memory result){
         require(userInput <= 3, "Error: Can't input more than 3");
         playerOption = userInput;
         Options.push(playerOption);
+        // 1 = Rock 2 = Paper 3 = Scissors
+        return (Options);
+    }
+    //use to check the random set generate by system
+    function getRandomSet () external view returns (uint[] memory result){
+        return (randomNumSet);
     }
 
-    function playMutiTimes() 
-        external 
-        returns (uint[] memory result) {
-            
-            //uint totalNunber = 
-            for(uint i = 0; i < 3; i++){
+    //game logic checking
+    //How many round is depand on user input
+    function playMutiTimes()  
+        public 
+        returns (string memory result) {
+            //init the parameters
+            delete randomNumSet;
+            tied = 0;
+            systemWin = 0;
+            userWin = 0;
+
+            //generate the random number set
+            for(uint i = 0; i < Options.length; i++){
                 randomNumSet.push(getRandomNumber());
             }
+            
+            //compare the results
+            for(uint i = 0; i < Options.length; i++){
+                if (Options[i] == randomNumSet[i]) {
+                    tied++;
+                    continue; 
+                }
+                if (
+                    // 1 = Rock 2 = Paper 3 = Scissors
+                    (Options[i] == 1 && randomNumSet[i] == 2) ||
+                    (Options[i] == 3 && randomNumSet[i] == 1) ||
+                    (Options[i] == 2 && randomNumSet[i] == 3)
+                ) {
+                   systemWin++;
+                } else {
+                    userWin++;
+                }
+            }
 
-
-
+            //Judge who wins
+            if(userWin == systemWin)
+                return ("Tied");
+            if(userWin > systemWin){
+                return("You Win");
+            } else {
+                return ("You Lose");
+            }
+        //return ("something worng");    
+    }
     
-        return (Options);
+    // User guess the final result
+    //1 = Tied 2 = User Win 3 = User Lose
+    function guessResult(uint guessAnswer) external returns  (string memory result){
+        require(guessAnswer <= 3, "Error: Can't input more than 3");
+        string memory getResult = playMutiTimes(); 
+        uint intResult;
+
+        //convert string to int
+        if(compareStrings("Tied", getResult))
+            intResult = 1;
+        if(compareStrings("You Win", getResult))
+            intResult = 2;
+        if(compareStrings("You Lose", getResult))
+            intResult = 3;
+
+        if(intResult == guessAnswer){
+            return ("You guess is correct");
+        } else {
+            return ("You guess is wrong");
+        }
+    }
+
+    //using hash function to compare the string.
+    function compareStrings(string memory a, string memory b) public pure returns (bool) {
+        //Use bytes32 to store the result from keccak256 hash function
+        return keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));
     }
 
     //declear user 1 and 2
     // uint256 public user1Choose;
     // uint256 public user2Choose;
 
-    //what they want to choose
+    //One round
     function play(uint256 option) 
         external 
         returns (string memory result) {

@@ -27,13 +27,43 @@
 			{
 				"inputs": [
 					{
+						"internalType": "string",
+						"name": "a",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "b",
+						"type": "string"
+					}
+				],
+				"name": "compareStrings",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "userInput",
 						"type": "uint256"
 					}
 				],
 				"name": "enterOption",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "result",
+						"type": "uint256[]"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -45,6 +75,38 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getRandomSet",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "result",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "guessAnswer",
+						"type": "uint256"
+					}
+				],
+				"name": "guessResult",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "result",
+						"type": "string"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -87,9 +149,9 @@
 				"name": "playMutiTimes",
 				"outputs": [
 					{
-						"internalType": "uint256[]",
+						"internalType": "string",
 						"name": "result",
-						"type": "uint256[]"
+						"type": "string"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -129,7 +191,33 @@
 			},
 			{
 				"inputs": [],
-				"name": "salt",
+				"name": "systemWin",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "tied",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "userWin",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -162,18 +250,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0xa25b3ef1d7c8b02826ea771547b72b15bd8956e8735d4265992a266a3cb0cd52",
+			"keccak256": "0x7f64c6a4b830fa2068f5c956b3de1032bd95403328945a4bbbfdaecaad2f9d2c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://073c2c203f4b51a96226b1a33af29c1a87a34f94202e59dbd9a588c1e7c39da2",
-				"dweb:/ipfs/QmTNAhHeE2QSiEMKGPyiNjBYy96awEZxQX6pDV1QjpBgER"
+				"bzz-raw://84f8b83b2e5fc6e0dc48fcfe5518e561cfc513e73edfe41d1024ba0b64a8218a",
+				"dweb:/ipfs/QmdFcSppDZRz8GwvAr4CCvPBGuVPN5HM1DyFmLCSvzLWvX"
 			]
 		}
 	},
