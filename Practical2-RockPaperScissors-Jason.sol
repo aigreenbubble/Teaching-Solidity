@@ -2,8 +2,23 @@
 pragma solidity 0.8.19;
 
 contract RockPaperScissors {
+
+    //Use to store the user information
+    struct UserInfo{
+        address userAddress;
+        uint userOption;
+    }
+
+    //Use to store the game information
+    struct GameInfo{
+        UserInfo user1;
+        UserInfo user2;
+        string finalResult;
+    }
+
+
     //enum State{Rock, Paper, Scissors}
-    uint public lastChoice;
+    uint public lastChoice = 800;
 
     uint[] public Options;
     uint[] public randomNumSet;
