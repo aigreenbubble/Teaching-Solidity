@@ -25,6 +25,13 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "cleanAll",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "string",
@@ -158,19 +165,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "playerOption",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -257,11 +251,11 @@
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0x7f64c6a4b830fa2068f5c956b3de1032bd95403328945a4bbbfdaecaad2f9d2c",
+			"keccak256": "0x885535066f67b9a8e4948ffbe97aa1a757162ec160aa73fd291b554f972c8c16",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://84f8b83b2e5fc6e0dc48fcfe5518e561cfc513e73edfe41d1024ba0b64a8218a",
-				"dweb:/ipfs/QmdFcSppDZRz8GwvAr4CCvPBGuVPN5HM1DyFmLCSvzLWvX"
+				"bzz-raw://b97b9aa8f582c49c0a280150b01c19e160e791e0825cef85fa5cb51674253fa0",
+				"dweb:/ipfs/QmRBj93H28fHnuzMPScfXxM4dwFSCpkqb8rMppwBBLAdq5"
 			]
 		}
 	},

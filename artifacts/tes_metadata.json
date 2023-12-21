@@ -1,0 +1,45 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Practical1-GuessNumber-Jason.sol": "tes"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Practical1-GuessNumber-Jason.sol": {
+			"keccak256": "0x838690e4d402d9fc09d41e2dcc737426d68b742fe9631ed0d6c6400728a1951f",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://32d82b64951d2bb4ea52e7d7aee8d2905eb3262bf99805c2cbe2f38510beac0c",
+				"dweb:/ipfs/QmRotXJXyRqedNbYrDYdzVKy4UGvXg8LNSoLxoPUbKeWnF"
+			]
+		}
+	},
+	"version": 1
+}

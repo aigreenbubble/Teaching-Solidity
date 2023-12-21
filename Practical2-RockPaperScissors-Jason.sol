@@ -5,7 +5,6 @@ contract RockPaperScissors {
     //enum State{Rock, Paper, Scissors}
     uint public lastChoice;
 
-    uint public playerOption;
     uint[] public Options;
     uint[] public randomNumSet;
     uint salt = 1;
@@ -13,14 +12,19 @@ contract RockPaperScissors {
     uint public systemWin;
     uint public tied;
 
+    //for testing 
+    function cleanAll () external {
+        delete Options;
+    }
+
     //get user input and push to array
     function enterOption(uint256 userInput) external returns (uint[] memory result){
         require(userInput <= 3, "Error: Can't input more than 3");
-        playerOption = userInput;
-        Options.push(playerOption);
+        Options.push(userInput);
         // 1 = Rock 2 = Paper 3 = Scissors
         return (Options);
     }
+
     //use to check the random set generate by system
     function getRandomSet () external view returns (uint[] memory result){
         return (randomNumSet);
@@ -40,6 +44,7 @@ contract RockPaperScissors {
             //generate the random number set
             for(uint i = 0; i < Options.length; i++){
                 randomNumSet.push(getRandomNumber());
+                //randomNumSet.push(1);
             }
             
             //compare the results
@@ -58,16 +63,31 @@ contract RockPaperScissors {
                 } else {
                     userWin++;
                 }
+                
+                //Check the current wins for both sides, and if one side has won more than 50% of the total rounds, that side wins the game.
+                // if(userWin == systemWin)
+                //     continue;
+                if(userWin > systemWin){
+                    //cacluate the percentage and check it.
+                    uint winTimeRate = (userWin*100)/Options.length;
+                    if(winTimeRate > 50)
+                        return ("You Win");
+                } else {
+                    uint winTimeRate = (systemWin*100)/Options.length;
+                    if(winTimeRate > 50)
+                        return ("You Lose");
+                }
+
             }
 
             //Judge who wins
             if(userWin == systemWin)
                 return ("Tied");
-            if(userWin > systemWin){
-                return("You Win");
-            } else {
-                return ("You Lose");
-            }
+            // if(userWin > systemWin){
+            //     return("You Win");
+            // } else {
+            //     return ("You Lose");
+            // }
         //return ("something worng");    
     }
     
@@ -77,14 +97,24 @@ contract RockPaperScissors {
         require(guessAnswer <= 3, "Error: Can't input more than 3");
         string memory getResult = playMutiTimes(); 
         uint intResult;
+        string[3] memory possibleResult = ["Tied", "You Win", "You Lose"];
+
+        for(uint i = 0; i < possibleResult.length; i++){
+            if(compareStrings(possibleResult[i], getResult)){
+                intResult = i+1;
+                break;
+            }
+                
+        }
 
         //convert string to int
-        if(compareStrings("Tied", getResult))
-            intResult = 1;
-        if(compareStrings("You Win", getResult))
-            intResult = 2;
-        if(compareStrings("You Lose", getResult))
-            intResult = 3;
+        //improve use array later
+        // if(compareStrings("Tied", getResult))
+        //     intResult = 1;
+        // if(compareStrings("You Win", getResult))
+        //     intResult = 2;
+        // if(compareStrings("You Lose", getResult))
+        //     intResult = 3;
 
         if(intResult == guessAnswer){
             return ("You guess is correct");
