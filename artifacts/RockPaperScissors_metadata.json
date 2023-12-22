@@ -149,6 +149,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "option",
+						"type": "uint256"
+					}
+				],
+				"name": "play",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "userCount",
 				"outputs": [
@@ -159,19 +172,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "option",
-						"type": "uint256"
-					}
-				],
-				"name": "waitUserCome",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -203,11 +203,11 @@
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0xd74eba1365dd5d39a6f2a5b23c88dfb8846286fb958df0119926d849d2ea31e2",
+			"keccak256": "0x52c955296601c8cf3852926f8266013dd9a6e85d6b2a0e37695f2200c1660a1c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c4bde6f553244a113a28579335d108802a74969e566214efc1d4c90f90e09e21",
-				"dweb:/ipfs/QmQRWDE6ZpDfEVgwRaM2gJcHrQjtF6CxeVk25S4ZDLLrVU"
+				"bzz-raw://b2a54562417d78ee41b7b823c236add20d3f5575d342537e3f3fa2d70c3112ac",
+				"dweb:/ipfs/QmQkvwywEUYj1R7KHVdaMtbXthpiE31byHVSnWbJ7Kny6D"
 			]
 		}
 	},

@@ -29,17 +29,22 @@ contract RockPaperScissors {
 
     //check the user information
     //If there are two users waiting, it triggers the game to start.
-    function waitUserCome (uint option) external {
+    function play (uint option) external {
         //check user input
         require(option != 0, "Error: Can't input 0");
         require(option <= 3, "Error: Can't input more than 3");  
-
+        
         if(userCount == 0){
+            //when no user in the queue, put the user in to user 1
             _user1.userAddress = msg.sender;
             _user1.userOption = option;
             userCount++;
         }
         else{
+            //Check whether the users are the same person
+            require(msg.sender != _user1.userAddress,"You cannot play with yourself");
+
+            //when second user come, assign the user to user 2
             _user2.userAddress = msg.sender;
             _user2.userOption = option;
             userCount++;
@@ -48,8 +53,9 @@ contract RockPaperScissors {
             userCount = 0;
             //Do i need to init the previous parameter such as address
         }
-
-        //How can i solve the third person coming when game is excuting and userCount still not equal to 0
+        // Q: How can i solve the third person coming when game is excuting and userCount still not equal to 0
+        // A: No need to worry this, the user is assign by blockchain one by one. 
+        // Even they come in the same time. Which transaction done first, that will be the correct one.
     }
 
     //game logic check
@@ -81,6 +87,4 @@ contract RockPaperScissors {
             }
         }
     }
-
-
 }
