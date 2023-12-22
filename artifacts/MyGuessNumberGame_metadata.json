@@ -19,6 +19,13 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "getnumber",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -35,6 +42,71 @@
 					}
 				],
 				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "maxNumber",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "minNumber",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "number",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_maxNumber",
+						"type": "uint256"
+					}
+				],
+				"name": "setMaxNumber",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_minNumber",
+						"type": "uint256"
+					}
+				],
+				"name": "setMinNumber",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -92,11 +164,11 @@
 	},
 	"sources": {
 		"Practical1-GuessNumber-Jason.sol": {
-			"keccak256": "0xd08b59e268f02a38b10c147bedb06e73e24c71169a16ef259fe0b8e26b7cee8f",
+			"keccak256": "0x59bede80ac06d37c546152907bdc1e5a55ac034c7c17f67e8ae1b28d502559e7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ef21497f701d2645577fffe663fae05bafce92c22332f20895299097d2de13be",
-				"dweb:/ipfs/QmYSwz5Av1AFF7jyimE5Y69jvr4T3YYy4MTDrBAE2hEkkJ"
+				"bzz-raw://f4e9b097ec58322292d93a8b378fa45ce8fed09a9e142bd491d370ca71623f00",
+				"dweb:/ipfs/QmWsbmco69GTZKymNPg3nNimA1KECtU5PptrMEFnD6QioR"
 			]
 		}
 	},
