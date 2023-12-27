@@ -6,6 +6,45 @@
 	"output": {
 		"abi": [
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "showError",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "logResult",
+						"type": "string"
+					}
+				],
+				"name": "showResult",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "logUserAddress",
+						"type": "address"
+					}
+				],
+				"name": "showUserAddress",
+				"type": "event"
+			},
+			{
 				"inputs": [],
 				"name": "_user1",
 				"outputs": [
@@ -42,53 +81,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
+				"inputs": [],
+				"name": "gameCount",
+				"outputs": [
 					{
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
-					}
-				],
-				"name": "gameHistory",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "address",
-								"name": "userAddress",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "userOption",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct RockPaperScissors.UserInfo",
-						"name": "user1",
-						"type": "tuple"
-					},
-					{
-						"components": [
-							{
-								"internalType": "address",
-								"name": "userAddress",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "userOption",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct RockPaperScissors.UserInfo",
-						"name": "user2",
-						"type": "tuple"
-					},
-					{
-						"internalType": "string",
-						"name": "finalResult",
-						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -152,6 +151,66 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "getSpecificGameHistory",
+				"outputs": [
+					{
+						"components": [
+							{
+								"components": [
+									{
+										"internalType": "address",
+										"name": "userAddress",
+										"type": "address"
+									},
+									{
+										"internalType": "uint256",
+										"name": "userOption",
+										"type": "uint256"
+									}
+								],
+								"internalType": "struct RockPaperScissors.UserInfo",
+								"name": "user1",
+								"type": "tuple"
+							},
+							{
+								"components": [
+									{
+										"internalType": "address",
+										"name": "userAddress",
+										"type": "address"
+									},
+									{
+										"internalType": "uint256",
+										"name": "userOption",
+										"type": "uint256"
+									}
+								],
+								"internalType": "struct RockPaperScissors.UserInfo",
+								"name": "user2",
+								"type": "tuple"
+							},
+							{
+								"internalType": "string",
+								"name": "finalResult",
+								"type": "string"
+							}
+						],
+						"internalType": "struct RockPaperScissors.GameInfo",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "option",
 						"type": "uint256"
 					}
@@ -196,18 +255,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0x52c955296601c8cf3852926f8266013dd9a6e85d6b2a0e37695f2200c1660a1c",
+			"keccak256": "0x99ba6857ddb1cee9c14ab2adcc48ea9dd7afded2ef68d1a9b0bdfa9d7bd6ce96",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b2a54562417d78ee41b7b823c236add20d3f5575d342537e3f3fa2d70c3112ac",
-				"dweb:/ipfs/QmQkvwywEUYj1R7KHVdaMtbXthpiE31byHVSnWbJ7Kny6D"
+				"bzz-raw://6f30a30c1f8327d2e19cc13045b5a14f4b6c46abdae29f4cf91da23ba7554e74",
+				"dweb:/ipfs/QmSPn2opSj64mzr4E1J7Nvqvyuckox6b2MyDobCCP7m9v4"
 			]
 		}
 	},
