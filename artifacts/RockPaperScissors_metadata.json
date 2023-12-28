@@ -46,55 +46,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "_user1",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "userOption",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "_user2",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "userOption",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "gameCount",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "getGameHistory",
 				"outputs": [
 					{
@@ -211,6 +162,37 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "getUser1",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "userAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "userOption",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct RockPaperScissors.UserInfo",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "option",
 						"type": "uint256"
 					}
@@ -218,19 +200,6 @@
 				"name": "play",
 				"outputs": [],
 				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "userCount",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -262,11 +231,11 @@
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0x99ba6857ddb1cee9c14ab2adcc48ea9dd7afded2ef68d1a9b0bdfa9d7bd6ce96",
+			"keccak256": "0x297240f9517535d5baf0e555afb7d0031a1cfe964a52059565bbc46b15179d38",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6f30a30c1f8327d2e19cc13045b5a14f4b6c46abdae29f4cf91da23ba7554e74",
-				"dweb:/ipfs/QmSPn2opSj64mzr4E1J7Nvqvyuckox6b2MyDobCCP7m9v4"
+				"bzz-raw://ff06ea2a0949ad9bc1888b00d3d3528c13f353ff83f2295ca4d2ff2bb31c7beb",
+				"dweb:/ipfs/QmQ4QFG3xQ7qMhqDTLyfdMhApPie65ar86vCpYEcdHcEyV"
 			]
 		}
 	},

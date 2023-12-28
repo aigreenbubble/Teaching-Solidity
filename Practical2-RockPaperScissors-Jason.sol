@@ -16,34 +16,39 @@ contract RockPaperScissors {
         string finalResult;  //store game result
     }
 
-    //declare user
-    UserInfo public _user1;
-    UserInfo public _user2;
-    uint public userCount = 0; // count the user for condition check
+    uint private userCount = 0; // count the user for condition check
     GameInfo[] private gameHistory; // store all game history
     bool private locked;  // declear the lock of critical section code
-    uint public gameCount; // count how many game
 
     //setting the event to track the progress
     event showUserAddress(address indexed logUserAddress);
     event showResult(string logResult); 
     event showError(string);
+
+    function getUser1 (uint index) external view returns(UserInfo memory){
+        //do condition check then return the data
+        require(index <= gameHistory.length, "Error: Invalid length");
+        return (gameHistory[index].user1);
+    }
     
     //use to testing, check the array data
     function getGameHistory () external view returns(GameInfo[] memory){
-        //do some condition check then return the data
+        //do condition check then return the data
         return (gameHistory);
     }
 
     function getSpecificGameHistory (uint index) external view returns(GameInfo memory){
-        //do some condition check then return the data
+        //do condition check then return the data
         require(index <= gameHistory.length, "Error: Invalid length");
-        require(gameHistory[index].user2.userAddress == address(0), "Error: The game not finish yet");
+
+        //Avoid the second user to check the user1 option and choose the option that is favourable to user2
+        require(gameHistory[index].user2.userAddress != address(0), "Error: The game not finish yet");
 
         return (gameHistory[index]);
     }
 
     //lock of critical section code
+    //but now problem is it may reject transaction
     modifier noReentrancy() {
         require(!locked, "Error: Reentrant call");
         locked = true;
@@ -60,37 +65,27 @@ contract RockPaperScissors {
         require(option <= 3, "Error: Can't input more than 3");  
         
         if(userCount == 0){
-            //when no user in the queue, put the user in to user 1
-            // GameInfo memory gameInfo;
-            // gameHistory.push(gameInfo); 
-            // gameHistory[gameCount].user1.userAddress = msg.sender;
-            // gameHistory[gameCount].user1.userOption = option;
-            _user1.userAddress = msg.sender;
-            _user1.userOption = option;
+            //when no user in the queue, create a new gameInfo and push to array
+            GameInfo memory gameInfo;
+            gameHistory.push(gameInfo); 
+            //Store the user1 information to gameInfo which just created.
+            gameHistory[gameHistory.length - 1].user1.userAddress = msg.sender;
+            gameHistory[gameHistory.length - 1].user1.userOption = option;
+
+            //count user 
             userCount++;
         }
         else{
             //Check whether the users are the same person
-            require(msg.sender != _user1.userAddress,"Error: You cannot play with yourself");
+            require(msg.sender != gameHistory[gameHistory.length - 1].user1.userAddress,"Error: You cannot play with yourself");
 
-            // gameHistory[gameCount].user2.userAddress = msg.sender;
-            // gameHistory[gameCount].user2.userOption = option;
+            //Store the user2 information to array.
+            gameHistory[gameHistory.length - 1].user2.userAddress = msg.sender;
+            gameHistory[gameHistory.length - 1].user2.userOption = option;
             
-
-            //when second user come, assign the user to user 2
-            _user2.userAddress = msg.sender;
-            _user2.userOption = option;
-            userCount++;
             //Trigger game condition
             game();
             userCount = 0;
-            //Do i need to init the previous parameter such as address
-            //Need
-            //Initial users address
-            _user1.userAddress = address(0);
-            _user2.userAddress = address(0);
-
-            // gameCount++;
 
         }
         // Q: How can i solve the third person coming when game is excuting and userCount still not equal to 0
@@ -101,36 +96,24 @@ contract RockPaperScissors {
 
     //game logic check
     function game () private {
-        //store 2 user information to gameinfo
-        GameInfo memory newGameinfo;
-        newGameinfo.user1.userAddress = _user1.userAddress;
-        newGameinfo.user1.userOption = _user1.userOption;
-        newGameinfo.user2.userAddress = _user2.userAddress;
-        newGameinfo.user2.userOption = _user2.userOption;
 
-        //check who wins the game and store result in array(game history)
+        //check who wins the game and store final result in array(game history)
         // 1 = Rock 2 = Paper 3 = Scissors
-        if (_user1.userOption == _user2.userOption) {
-            newGameinfo.finalResult = "Tied";
-            emit showResult("Tied");  //
-            gameHistory.push(newGameinfo);
-            //gameHistory[gameCount].finalResult = "Tied";
+        if (gameHistory[gameHistory.length - 1].user1.userOption == gameHistory[gameHistory.length - 1].user2.userOption) {
+            gameHistory[gameHistory.length - 1].finalResult = "Tied";
+            emit showResult("Tied");
         }
         else {
             if (
-                (_user1.userOption == 1 && _user2.userOption == 2) ||
-                (_user1.userOption == 3 && _user2.userOption == 1) ||
-                (_user1.userOption == 2 && _user2.userOption == 3)
+                (gameHistory[gameHistory.length - 1].user1.userOption == 1 && gameHistory[gameHistory.length - 1].user2.userOption == 2) ||
+                (gameHistory[gameHistory.length - 1].user1.userOption == 3 && gameHistory[gameHistory.length - 1].user2.userOption == 1) ||
+                (gameHistory[gameHistory.length - 1].user1.userOption == 2 && gameHistory[gameHistory.length - 1].user2.userOption == 3)
             ) {
-                newGameinfo.finalResult = "User2 win";
+                gameHistory[gameHistory.length - 1].finalResult = "User2 win";
                 emit showResult("User2 win");
-                gameHistory.push(newGameinfo);
-                //gameHistory[gameCount].finalResult = "User2 win";
             } else {
-                newGameinfo.finalResult = "User1 win";
+                gameHistory[gameHistory.length - 1].finalResult = "User1 win";
                 emit showResult("User1 win");
-                gameHistory.push(newGameinfo);
-                //gameHistory[gameCount].finalResult = "User1 win";
             }
         }
     }
