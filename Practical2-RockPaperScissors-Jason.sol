@@ -17,13 +17,75 @@ contract RockPaperScissors {
     }
 
     uint private userCount = 0; // count the user for condition check
+    
     GameInfo[] private gameHistory; // store all game history
     bool private locked;  // declear the lock of critical section code
+
+
+    // 1/2/2024
+    uint private salt = 1;
+    UserInfo[] private waitingPoll; 
 
     //setting the event to track the progress
     event showUserAddress(address indexed logUserAddress);
     event showResult(string logResult); 
     event showError(string);
+
+    function getUserOption(uint option) external {
+        emit showUserAddress(msg.sender);
+        //check user input
+        require(option != 0, "Error: Can't input 0");
+        require(option <= 3, "Error: Can't input more than 3");  
+
+        UserInfo memory userinfo;
+        waitingPoll.push(userinfo);
+        waitingPoll[waitingPoll.length - 1].userAddress = msg.sender;
+        waitingPoll[waitingPoll.length - 1].userOption = option;
+
+        if(waitingPoll.length == 4){
+            //go to game logic
+        }
+    }
+
+    function newgame () private {
+        do {
+            UserInfo memory user1 = ChooseRandomUser();
+            UserInfo memory user2 = ChooseRandomUser();
+        } 
+        while (waitingPoll.length == 0);
+        //choose 2 player to play the game
+
+        //store result and go to next one
+    }
+
+    function ChooseRandomUser () private  returns (UserInfo memory){
+        require(waitingPoll.length > 0, "Array is empty");
+
+        // Generate a pseudo-random index based on block information
+        uint256 randomIndex = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp, salt))) % waitingPoll.length;
+        salt++;
+        // Get the randomly selected element
+        UserInfo memory randomUser = waitingPoll[randomIndex];
+
+        // Remove the selected element by swapping it with the last element and then reducing the array size
+        waitingPoll[randomIndex] = waitingPoll[waitingPoll.length - 1];
+        waitingPoll.pop();
+
+        return randomUser;
+    }
+
+    // function getRandomNumber() public returns (uint256) {
+    //     // Increment the seed based on certain parameters
+    //     uint256 seed = uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty, blockhash(block.number - 1))));
+
+    //     // Use the seed to generate three random numbers
+    //     uint256 random1 = uint256(keccak256(abi.encodePacked(seed, salt)));
+    //     salt += 1;
+    //     // Get a random number between 1 and 3
+    //     return random1 % waitingPoll.length;
+    // }
+
+    // 1/2/2024
 
     function getUser1 (uint index) external view returns(UserInfo memory){
         //do condition check then return the data

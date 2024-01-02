@@ -197,6 +197,19 @@
 						"type": "uint256"
 					}
 				],
+				"name": "getUserOption",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "option",
+						"type": "uint256"
+					}
+				],
 				"name": "play",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -231,11 +244,11 @@
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0x297240f9517535d5baf0e555afb7d0031a1cfe964a52059565bbc46b15179d38",
+			"keccak256": "0x063d7e0238aa1ce6cf3175ae26ed94a0f84fa2792e3942cc64ea88b9ef385c1d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ff06ea2a0949ad9bc1888b00d3d3528c13f353ff83f2295ca4d2ff2bb31c7beb",
-				"dweb:/ipfs/QmQ4QFG3xQ7qMhqDTLyfdMhApPie65ar86vCpYEcdHcEyV"
+				"bzz-raw://3e85ab881f56209d2607df739917bcc79cb09b6146fc82a0b99f0a9e350f0cfb",
+				"dweb:/ipfs/QmcLPByYtkLFYKafomn24dYvCywV3Twq4X71GEisY3X23G"
 			]
 		}
 	},
