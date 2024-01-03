@@ -17,83 +17,24 @@ contract RockPaperScissors {
     }
 
     uint private userCount = 0; // count the user for condition check
-    
     GameInfo[] private gameHistory; // store all game history
     bool private locked;  // declear the lock of critical section code
 
-
     // 1/2/2024
     uint private salt = 1;
-    UserInfo[] private waitingPoll; 
+    UserInfo[] public waitingPool;  // Store the player data in array temporary
 
     //setting the event to track the progress
     event showUserAddress(address indexed logUserAddress);
     event showResult(string logResult); 
     event showError(string);
+    event showArraylenght(uint);
 
-    function getUserOption(uint option) external {
-        emit showUserAddress(msg.sender);
-        //check user input
-        require(option != 0, "Error: Can't input 0");
-        require(option <= 3, "Error: Can't input more than 3");  
-
-        UserInfo memory userinfo;
-        waitingPoll.push(userinfo);
-        waitingPoll[waitingPoll.length - 1].userAddress = msg.sender;
-        waitingPoll[waitingPoll.length - 1].userOption = option;
-
-        if(waitingPoll.length == 4){
-            //go to game logic
-        }
+    function showWaitingPoll () external view returns (UserInfo[] memory) {
+        return (waitingPool);
     }
 
-    function newgame () private {
-        do {
-            UserInfo memory user1 = ChooseRandomUser();
-            UserInfo memory user2 = ChooseRandomUser();
-        } 
-        while (waitingPoll.length == 0);
-        //choose 2 player to play the game
-
-        //store result and go to next one
-    }
-
-    function ChooseRandomUser () private  returns (UserInfo memory){
-        require(waitingPoll.length > 0, "Array is empty");
-
-        // Generate a pseudo-random index based on block information
-        uint256 randomIndex = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp, salt))) % waitingPoll.length;
-        salt++;
-        // Get the randomly selected element
-        UserInfo memory randomUser = waitingPoll[randomIndex];
-
-        // Remove the selected element by swapping it with the last element and then reducing the array size
-        waitingPoll[randomIndex] = waitingPoll[waitingPoll.length - 1];
-        waitingPoll.pop();
-
-        return randomUser;
-    }
-
-    // function getRandomNumber() public returns (uint256) {
-    //     // Increment the seed based on certain parameters
-    //     uint256 seed = uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty, blockhash(block.number - 1))));
-
-    //     // Use the seed to generate three random numbers
-    //     uint256 random1 = uint256(keccak256(abi.encodePacked(seed, salt)));
-    //     salt += 1;
-    //     // Get a random number between 1 and 3
-    //     return random1 % waitingPoll.length;
-    // }
-
-    // 1/2/2024
-
-    function getUser1 (uint index) external view returns(UserInfo memory){
-        //do condition check then return the data
-        require(index <= gameHistory.length, "Error: Invalid length");
-        return (gameHistory[index].user1);
-    }
-    
-    //use to testing, check the array data
+        //Testing purpose, check the array data
     function getGameHistory () external view returns(GameInfo[] memory){
         //do condition check then return the data
         return (gameHistory);
@@ -102,10 +43,6 @@ contract RockPaperScissors {
     function getSpecificGameHistory (uint index) external view returns(GameInfo memory){
         //do condition check then return the data
         require(index <= gameHistory.length, "Error: Invalid length");
-
-        //Avoid the second user to check the user1 option and choose the option that is favourable to user2
-        require(gameHistory[index].user2.userAddress != address(0), "Error: The game not finish yet");
-
         return (gameHistory[index]);
     }
 
@@ -118,46 +55,77 @@ contract RockPaperScissors {
         locked = false;
     }
 
-    //check the user information
-    //If there are two users waiting, it triggers the game to start.
-    function play (uint option) external noReentrancy{
+    function getUserOption(uint option) external noReentrancy{
         emit showUserAddress(msg.sender);
         //check user input
         require(option != 0, "Error: Can't input 0");
         require(option <= 3, "Error: Can't input more than 3");  
+
+        //check the user is inside the array
+        //Question: Do i need to allow user join in same match and do some logic check to let user play with other?
+        bool exist;
+        for (uint i = 0; i < waitingPool.length; i++) 
+        {
+            if(msg.sender == waitingPool[i].userAddress){
+                exist = true;
+                require(!exist, "Error: You already in the queue, wait for other play join"); 
+            }
+        }
         
-        if(userCount == 0){
-            //when no user in the queue, create a new gameInfo and push to array
-            GameInfo memory gameInfo;
-            gameHistory.push(gameInfo); 
-            //Store the user1 information to gameInfo which just created.
-            gameHistory[gameHistory.length - 1].user1.userAddress = msg.sender;
-            gameHistory[gameHistory.length - 1].user1.userOption = option;
+        // store the user info to the poll and wait for other user join
+        UserInfo memory userinfo;
+        waitingPool.push(userinfo);
+        waitingPool[waitingPool.length - 1].userAddress = msg.sender;
+        waitingPool[waitingPool.length - 1].userOption = option;
 
-            //count user 
-            userCount++;
+        // trigger the game start condition
+        if(waitingPool.length == 6){
+            //go to game logic
+            choosePlayerPlay();
         }
-        else{
-            //Check whether the users are the same person
-            require(msg.sender != gameHistory[gameHistory.length - 1].user1.userAddress,"Error: You cannot play with yourself");
-
-            //Store the user2 information to array.
-            gameHistory[gameHistory.length - 1].user2.userAddress = msg.sender;
-            gameHistory[gameHistory.length - 1].user2.userOption = option;
-            
-            //Trigger game condition
-            game();
-            userCount = 0;
-
-        }
-        // Q: How can i solve the third person coming when game is excuting and userCount still not equal to 0
-        // A: No need to worry this, the user is assign by blockchain one by one. 
-        // Even they come in the same time. Which transaction done first, that will be the correct one.
-        // But still need to avoid the Race condition. 
     }
 
-    //game logic check
-    function game () private {
+
+    function choosePlayerPlay () private {
+        
+        do {
+            //Random choose 2 player to play the game
+            //if want to allow same user play in the same match, add check condition here.
+            UserInfo memory user1 = ChooseRandomUser();
+            UserInfo memory user2 = ChooseRandomUser();
+
+            //play game, store result and go to next one
+            game(user1, user2);
+        } 
+        while (waitingPool.length != 0);
+        emit showArraylenght(waitingPool.length);
+
+    }
+
+    function ChooseRandomUser () private returns (UserInfo memory){
+        require(waitingPool.length > 0, "Array is empty");
+
+        // Generate a pseudo-random index based on block information
+        uint256 randomIndex = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp, salt))) % waitingPool.length;
+        salt++;
+        // Get the randomly selected element
+        UserInfo memory randomUser = waitingPool[randomIndex];
+
+        // Remove the selected element by swapping it with the last element and then reducing the array size
+        waitingPool[randomIndex] = waitingPool[waitingPool.length - 1];
+        waitingPool.pop();
+
+        return randomUser;
+    }
+
+    function game (UserInfo memory userOne, UserInfo memory userTwo) private {
+
+        // init a gameinfo and push to gameHistory array
+        GameInfo memory gameinfo;
+        gameHistory.push(gameinfo);
+        // store user information to gameHistory array
+        gameHistory[gameHistory.length - 1].user1 = userOne;
+        gameHistory[gameHistory.length - 1].user2 = userTwo;
 
         //check who wins the game and store final result in array(game history)
         // 1 = Rock 2 = Paper 3 = Scissors
@@ -179,4 +147,9 @@ contract RockPaperScissors {
             }
         }
     }
+
+    // 1/2/2024
+
+    
+
 }

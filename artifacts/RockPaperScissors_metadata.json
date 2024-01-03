@@ -10,6 +10,19 @@
 				"inputs": [
 					{
 						"indexed": false,
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "showArraylenght",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
 						"internalType": "string",
 						"name": "",
 						"type": "string"
@@ -162,11 +175,18 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "index",
+						"name": "option",
 						"type": "uint256"
 					}
 				],
-				"name": "getUser1",
+				"name": "getUserOption",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "showWaitingPoll",
 				"outputs": [
 					{
 						"components": [
@@ -181,9 +201,9 @@
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct RockPaperScissors.UserInfo",
+						"internalType": "struct RockPaperScissors.UserInfo[]",
 						"name": "",
-						"type": "tuple"
+						"type": "tuple[]"
 					}
 				],
 				"stateMutability": "view",
@@ -193,26 +213,24 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "option",
+						"name": "",
 						"type": "uint256"
 					}
 				],
-				"name": "getUserOption",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
+				"name": "waitingPool",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					},
 					{
 						"internalType": "uint256",
-						"name": "option",
+						"name": "userOption",
 						"type": "uint256"
 					}
 				],
-				"name": "play",
-				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -244,11 +262,11 @@
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0x063d7e0238aa1ce6cf3175ae26ed94a0f84fa2792e3942cc64ea88b9ef385c1d",
+			"keccak256": "0x8faa5078c2d939ee458f38215294e55470f7c35e3ba169c996de8961a2869f11",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3e85ab881f56209d2607df739917bcc79cb09b6146fc82a0b99f0a9e350f0cfb",
-				"dweb:/ipfs/QmcLPByYtkLFYKafomn24dYvCywV3Twq4X71GEisY3X23G"
+				"bzz-raw://d35da5507ae82c242669f873fcdc44f8c560160ed1f1c4733d718dde7335eef8",
+				"dweb:/ipfs/QmbP1ZABfUJGTz5eMpwYwpE3DnWWbJmLRNRkSpoDuCQ3oe"
 			]
 		}
 	},
