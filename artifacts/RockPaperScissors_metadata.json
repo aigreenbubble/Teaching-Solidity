@@ -208,30 +208,6 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "waitingPool",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "userOption",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -262,11 +238,11 @@
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0x8faa5078c2d939ee458f38215294e55470f7c35e3ba169c996de8961a2869f11",
+			"keccak256": "0x716790f67ce26893d57ed16a87729ddde2ebb541b87e7f2986c83d87028c8eec",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d35da5507ae82c242669f873fcdc44f8c560160ed1f1c4733d718dde7335eef8",
-				"dweb:/ipfs/QmbP1ZABfUJGTz5eMpwYwpE3DnWWbJmLRNRkSpoDuCQ3oe"
+				"bzz-raw://4876d2d870b7e2f54239f31c4620e305182694646f5d5ec8ef9b734c63f02a39",
+				"dweb:/ipfs/QmPny81mjUGZarX6P4iaTzyZ1ca1vxBv911tBgKGCWk9Ki"
 			]
 		}
 	},
