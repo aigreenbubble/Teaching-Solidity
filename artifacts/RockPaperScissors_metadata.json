@@ -6,93 +6,56 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
-				"name": "_user1",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "userOption",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "_user2",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "userOption",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
+				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": false,
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
 					}
 				],
-				"name": "gameHistory",
-				"outputs": [
+				"name": "showArraylenght",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
 					{
-						"components": [
-							{
-								"internalType": "address",
-								"name": "userAddress",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "userOption",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct RockPaperScissors.UserInfo",
-						"name": "user1",
-						"type": "tuple"
-					},
-					{
-						"components": [
-							{
-								"internalType": "address",
-								"name": "userAddress",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "userOption",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct RockPaperScissors.UserInfo",
-						"name": "user2",
-						"type": "tuple"
-					},
-					{
+						"indexed": false,
 						"internalType": "string",
-						"name": "finalResult",
+						"name": "",
 						"type": "string"
 					}
 				],
-				"stateMutability": "view",
-				"type": "function"
+				"name": "showError",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "logResult",
+						"type": "string"
+					}
+				],
+				"name": "showResult",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "logUserAddress",
+						"type": "address"
+					}
+				],
+				"name": "showUserAddress",
+				"type": "event"
 			},
 			{
 				"inputs": [],
@@ -149,13 +112,60 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "userCount",
-				"outputs": [
+				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "index",
 						"type": "uint256"
+					}
+				],
+				"name": "getSpecificGameHistory",
+				"outputs": [
+					{
+						"components": [
+							{
+								"components": [
+									{
+										"internalType": "address",
+										"name": "userAddress",
+										"type": "address"
+									},
+									{
+										"internalType": "uint256",
+										"name": "userOption",
+										"type": "uint256"
+									}
+								],
+								"internalType": "struct RockPaperScissors.UserInfo",
+								"name": "user1",
+								"type": "tuple"
+							},
+							{
+								"components": [
+									{
+										"internalType": "address",
+										"name": "userAddress",
+										"type": "address"
+									},
+									{
+										"internalType": "uint256",
+										"name": "userOption",
+										"type": "uint256"
+									}
+								],
+								"internalType": "struct RockPaperScissors.UserInfo",
+								"name": "user2",
+								"type": "tuple"
+							},
+							{
+								"internalType": "string",
+								"name": "finalResult",
+								"type": "string"
+							}
+						],
+						"internalType": "struct RockPaperScissors.GameInfo",
+						"name": "",
+						"type": "tuple"
 					}
 				],
 				"stateMutability": "view",
@@ -169,9 +179,58 @@
 						"type": "uint256"
 					}
 				],
-				"name": "waitUserCome",
+				"name": "getUserOption",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "showWaitingPoll",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "userAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "userOption",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct RockPaperScissors.UserInfo[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "waitingPool",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "userOption",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -196,18 +255,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0xd74eba1365dd5d39a6f2a5b23c88dfb8846286fb958df0119926d849d2ea31e2",
+			"keccak256": "0x8faa5078c2d939ee458f38215294e55470f7c35e3ba169c996de8961a2869f11",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c4bde6f553244a113a28579335d108802a74969e566214efc1d4c90f90e09e21",
-				"dweb:/ipfs/QmQRWDE6ZpDfEVgwRaM2gJcHrQjtF6CxeVk25S4ZDLLrVU"
+				"bzz-raw://d35da5507ae82c242669f873fcdc44f8c560160ed1f1c4733d718dde7335eef8",
+				"dweb:/ipfs/QmbP1ZABfUJGTz5eMpwYwpE3DnWWbJmLRNRkSpoDuCQ3oe"
 			]
 		}
 	},

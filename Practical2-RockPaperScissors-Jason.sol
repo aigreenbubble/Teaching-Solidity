@@ -16,71 +16,140 @@ contract RockPaperScissors {
         string finalResult;  //store game result
     }
 
-    //declare user
-    UserInfo public _user1;
-    UserInfo public _user2;
-    uint public userCount = 0; // count the user for condition check
-    GameInfo[] public gameHistory; // store all game history
+    uint private userCount = 0; // count the user for condition check
+    GameInfo[] private gameHistory; // store all game history
+    bool private locked;  // declear the lock of critical section code
 
-    //use to testing, check the array data
+    // 1/2/2024
+    uint private salt = 1;
+    UserInfo[] public waitingPool;  // Store the player data in array temporary
+
+    //setting the event to track the progress
+    event showUserAddress(address indexed logUserAddress);
+    event showResult(string logResult); 
+    event showError(string);
+    event showArraylenght(uint);
+
+    function showWaitingPoll () external view returns (UserInfo[] memory) {
+        return (waitingPool);
+    }
+
+        //Testing purpose, check the array data
     function getGameHistory () external view returns(GameInfo[] memory){
+        //do condition check then return the data
         return (gameHistory);
     }
 
-    //check the user information
-    //If there are two users waiting, it triggers the game to start.
-    function waitUserCome (uint option) external {
+    function getSpecificGameHistory (uint index) external view returns(GameInfo memory){
+        //do condition check then return the data
+        require(index <= gameHistory.length, "Error: Invalid length");
+        return (gameHistory[index]);
+    }
+
+    //lock of critical section code
+    //but now problem is it may reject transaction
+    modifier noReentrancy() {
+        require(!locked, "Error: Reentrant call");
+        locked = true;
+        _;
+        locked = false;
+    }
+
+    function getUserOption(uint option) external noReentrancy{
+        emit showUserAddress(msg.sender);
         //check user input
         require(option != 0, "Error: Can't input 0");
         require(option <= 3, "Error: Can't input more than 3");  
 
-        if(userCount == 0){
-            _user1.userAddress = msg.sender;
-            _user1.userOption = option;
-            userCount++;
+        //check the user is inside the array
+        //Question: Do i need to allow user join in same match and do some logic check to let user play with other?
+        bool exist;
+        for (uint i = 0; i < waitingPool.length; i++) 
+        {
+            if(msg.sender == waitingPool[i].userAddress){
+                exist = true;
+                require(!exist, "Error: You already in the queue, wait for other play join"); 
+            }
         }
-        else{
-            _user2.userAddress = msg.sender;
-            _user2.userOption = option;
-            userCount++;
-            //Trigger game condition
-            game();
-            userCount = 0;
-            //Do i need to init the previous parameter such as address
-        }
+        
+        // store the user info to the poll and wait for other user join
+        UserInfo memory userinfo;
+        waitingPool.push(userinfo);
+        waitingPool[waitingPool.length - 1].userAddress = msg.sender;
+        waitingPool[waitingPool.length - 1].userOption = option;
 
-        //How can i solve the third person coming when game is excuting and userCount still not equal to 0
+        // trigger the game start condition
+        if(waitingPool.length == 6){
+            //go to game logic
+            choosePlayerPlay();
+        }
     }
 
-    //game logic check
-    function game () private {
-        //store 2 user information to gameinfo
-        GameInfo memory newGameinfo;
-        newGameinfo.user1.userAddress = _user1.userAddress;
-        newGameinfo.user1.userOption = _user1.userOption;
-        newGameinfo.user2.userAddress = _user2.userAddress;
-        newGameinfo.user2.userOption = _user2.userOption;
 
-        //check who wins the game and store result in array(game history)
+    function choosePlayerPlay () private {
+        
+        do {
+            //Random choose 2 player to play the game
+            //if want to allow same user play in the same match, add check condition here.
+            UserInfo memory user1 = ChooseRandomUser();
+            UserInfo memory user2 = ChooseRandomUser();
+
+            //play game, store result and go to next one
+            game(user1, user2);
+        } 
+        while (waitingPool.length != 0);
+        emit showArraylenght(waitingPool.length);
+
+    }
+
+    function ChooseRandomUser () private returns (UserInfo memory){
+        require(waitingPool.length > 0, "Array is empty");
+
+        // Generate a pseudo-random index based on block information
+        uint256 randomIndex = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp, salt))) % waitingPool.length;
+        salt++;
+        // Get the randomly selected element
+        UserInfo memory randomUser = waitingPool[randomIndex];
+
+        // Remove the selected element by swapping it with the last element and then reducing the array size
+        waitingPool[randomIndex] = waitingPool[waitingPool.length - 1];
+        waitingPool.pop();
+
+        return randomUser;
+    }
+
+    function game (UserInfo memory userOne, UserInfo memory userTwo) private {
+
+        // init a gameinfo and push to gameHistory array
+        GameInfo memory gameinfo;
+        gameHistory.push(gameinfo);
+        // store user information to gameHistory array
+        gameHistory[gameHistory.length - 1].user1 = userOne;
+        gameHistory[gameHistory.length - 1].user2 = userTwo;
+
+        //check who wins the game and store final result in array(game history)
         // 1 = Rock 2 = Paper 3 = Scissors
-        if (_user1.userOption == _user2.userOption) {
-            newGameinfo.finalResult = "Tied";
-            gameHistory.push(newGameinfo);
+        if (gameHistory[gameHistory.length - 1].user1.userOption == gameHistory[gameHistory.length - 1].user2.userOption) {
+            gameHistory[gameHistory.length - 1].finalResult = "Tied";
+            emit showResult("Tied");
         }
         else {
             if (
-                (_user1.userOption == 1 && _user2.userOption == 2) ||
-                (_user1.userOption == 3 && _user2.userOption == 1) ||
-                (_user1.userOption == 2 && _user2.userOption == 3)
+                (gameHistory[gameHistory.length - 1].user1.userOption == 1 && gameHistory[gameHistory.length - 1].user2.userOption == 2) ||
+                (gameHistory[gameHistory.length - 1].user1.userOption == 3 && gameHistory[gameHistory.length - 1].user2.userOption == 1) ||
+                (gameHistory[gameHistory.length - 1].user1.userOption == 2 && gameHistory[gameHistory.length - 1].user2.userOption == 3)
             ) {
-                newGameinfo.finalResult = "User2 win";
-                gameHistory.push(newGameinfo);
+                gameHistory[gameHistory.length - 1].finalResult = "User2 win";
+                emit showResult("User2 win");
             } else {
-                newGameinfo.finalResult = "User1 win";
-                gameHistory.push(newGameinfo);
+                gameHistory[gameHistory.length - 1].finalResult = "User1 win";
+                emit showResult("User1 win");
             }
         }
     }
 
+    // 1/2/2024
+
+    
 
 }
