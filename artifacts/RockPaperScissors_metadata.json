@@ -186,6 +186,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "showNumber",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "showWaitingPoll",
 				"outputs": [
 					{
@@ -207,6 +220,19 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_number",
+						"type": "uint256"
+					}
+				],
+				"name": "updateNumber",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -238,11 +264,11 @@
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0x716790f67ce26893d57ed16a87729ddde2ebb541b87e7f2986c83d87028c8eec",
+			"keccak256": "0xb696bd33ec11d4bd0ab9a1ba415bc372cf1d6cdface2a2bc893805f495b5fb41",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4876d2d870b7e2f54239f31c4620e305182694646f5d5ec8ef9b734c63f02a39",
-				"dweb:/ipfs/QmPny81mjUGZarX6P4iaTzyZ1ca1vxBv911tBgKGCWk9Ki"
+				"bzz-raw://71b7ecbd9c58a3ad529d83357e97468ba12af234527ee8d202c4a86468101198",
+				"dweb:/ipfs/QmaC4KG6acPKjDEueVyhcQAzBN9nQvTX4cjCUvGajAWPVU"
 			]
 		}
 	},

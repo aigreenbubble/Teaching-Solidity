@@ -3,6 +3,13 @@ pragma solidity 0.8.19;
 
 contract RockPaperScissors {
 
+    //use to test website connect to smart contract
+    uint public showNumber = 1;
+    function updateNumber (uint _number) external {
+        showNumber = _number;
+    }
+
+
     //Use to store the user information
     struct UserInfo{
         address userAddress;  //store particular user address
@@ -21,6 +28,7 @@ contract RockPaperScissors {
     bool private locked;  // declear the lock of critical section code
     uint private salt = 1;  // Salt for random number generate
     UserInfo[] private waitingPool;  // Store the player data in array temporary
+
 
     //setting the event to track the progress
     event showUserAddress(address indexed logUserAddress);
