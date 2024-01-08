@@ -10,12 +10,18 @@
 				"inputs": [
 					{
 						"indexed": false,
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
+						"internalType": "address",
+						"name": "user1",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "user2",
+						"type": "address"
 					}
 				],
-				"name": "showArraylenght",
+				"name": "inputOption",
 				"type": "event"
 			},
 			{
@@ -175,31 +181,11 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "option",
+						"name": "index",
 						"type": "uint256"
 					}
 				],
-				"name": "getUserOption",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "showNumber",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "showWaitingPoll",
+				"name": "getUser1",
 				"outputs": [
 					{
 						"components": [
@@ -214,9 +200,42 @@
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct RockPaperScissors.UserInfo[]",
+						"internalType": "struct RockPaperScissors.UserInfo",
 						"name": "",
-						"type": "tuple[]"
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "play",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "user1address",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "user2address",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
@@ -226,11 +245,11 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_number",
+						"name": "option",
 						"type": "uint256"
 					}
 				],
-				"name": "updateNumber",
+				"name": "userEnterOption",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -249,7 +268,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Practical2-RockPaperScissors-Jason.sol": "RockPaperScissors"
+			"Practical3-Use-UI_Play-Jason.sol": "RockPaperScissors"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -263,12 +282,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0xb696bd33ec11d4bd0ab9a1ba415bc372cf1d6cdface2a2bc893805f495b5fb41",
+		"Practical3-Use-UI_Play-Jason.sol": {
+			"keccak256": "0xc134e1c1944b9145bd1e2e846948d874a58ea42248154b7aee37b86860c7e5ce",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://71b7ecbd9c58a3ad529d83357e97468ba12af234527ee8d202c4a86468101198",
-				"dweb:/ipfs/QmaC4KG6acPKjDEueVyhcQAzBN9nQvTX4cjCUvGajAWPVU"
+				"bzz-raw://79d62a63ee4321a40f9b3f8e17cb6de593e0f3b62b4f49a8983038ab8ad65861",
+				"dweb:/ipfs/QmTpPAettsZe3efGiaPTo29ZfJANynHwWqBuTJ4emARCZn"
 			]
 		}
 	},

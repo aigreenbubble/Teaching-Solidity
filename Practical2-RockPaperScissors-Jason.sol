@@ -5,10 +5,14 @@ contract RockPaperScissors {
 
     //use to test website connect to smart contract
     uint public showNumber = 1;
+    event showCurrentNumber(uint currentNumber);
     function updateNumber (uint _number) external {
         showNumber = _number;
+        emit showCurrentNumber(showNumber);
     }
 
+    // a pool wait for user come and play
+    //-------------------------------------------------------
 
     //Use to store the user information
     struct UserInfo{
