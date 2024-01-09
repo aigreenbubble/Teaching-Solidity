@@ -10,6 +10,19 @@
 				"inputs": [
 					{
 						"indexed": false,
+						"internalType": "address[]",
+						"name": "pool",
+						"type": "address[]"
+					}
+				],
+				"name": "sendWaitingPool",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
@@ -270,18 +283,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0x00832968519e4492b77e9f982c1ddcf5265d4756f753bd4ceea2197ec244a6d8",
+			"keccak256": "0xdfdd9aefea19afbd0af02c770a1c7e484061d76ac8655e630208e183fa2bf729",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://27ef7bf0a6297756ac1a619f7faf398703efbb65eb9da0c1124585a61bac4a43",
-				"dweb:/ipfs/QmfA2ndRLk6D5GVuk8cHhX6u1c8e7EY1aJ7cRsVUW6W4AQ"
+				"bzz-raw://f96853d63293f18d9de753b83e9a5821bb2a02f4dfa8777c072b91813af23c74",
+				"dweb:/ipfs/Qmb7sGm5PqHVGYRn9T8jFkkmB726XUnjsBkr8BNzCbnHhW"
 			]
 		}
 	},

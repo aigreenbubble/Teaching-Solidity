@@ -32,6 +32,7 @@ contract RockPaperScissors {
     bool private locked;  // declear the lock of critical section code
     uint private salt = 1;  // Salt for random number generate
     UserInfo[] private waitingPool;  // Store the player data in array temporary
+    address[] private userAddresses;  // Store user address for emit event 
 
 
     //setting the event to track the progress
@@ -39,6 +40,7 @@ contract RockPaperScissors {
     event showResult(string logResult); 
     event showError(string);
     event showArraylenght(uint);
+    event sendWaitingPool(address[] pool);
 
     // Testing purpose, use to check the WaitingPoll array data
     function showWaitingPoll () external view returns (UserInfo[] memory) {
@@ -80,6 +82,7 @@ contract RockPaperScissors {
         {
             if(msg.sender == waitingPool[i].userAddress){
                 exist = true;
+                emit showError("You already in the queue, wait for other play join");
                 require(!exist, "Error: You already in the queue, wait for other play join"); 
             }
        }
@@ -89,6 +92,9 @@ contract RockPaperScissors {
         waitingPool.push(userinfo);
         waitingPool[waitingPool.length - 1].userAddress = msg.sender;
         waitingPool[waitingPool.length - 1].userOption = option;
+        userAddresses.push(msg.sender);
+
+        emit sendWaitingPool(userAddresses);        
 
         // when the number of users = 6
         // trigger the game start condition
