@@ -61,6 +61,60 @@
 				"anonymous": false,
 				"inputs": [
 					{
+						"components": [
+							{
+								"components": [
+									{
+										"internalType": "address",
+										"name": "userAddress",
+										"type": "address"
+									},
+									{
+										"internalType": "uint256",
+										"name": "userOption",
+										"type": "uint256"
+									}
+								],
+								"internalType": "struct RockPaperScissors.UserInfo",
+								"name": "user1",
+								"type": "tuple"
+							},
+							{
+								"components": [
+									{
+										"internalType": "address",
+										"name": "userAddress",
+										"type": "address"
+									},
+									{
+										"internalType": "uint256",
+										"name": "userOption",
+										"type": "uint256"
+									}
+								],
+								"internalType": "struct RockPaperScissors.UserInfo",
+								"name": "user2",
+								"type": "tuple"
+							},
+							{
+								"internalType": "string",
+								"name": "finalResult",
+								"type": "string"
+							}
+						],
+						"indexed": false,
+						"internalType": "struct RockPaperScissors.GameInfo[]",
+						"name": "gameinfo",
+						"type": "tuple[]"
+					}
+				],
+				"name": "showLatestResult",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
 						"indexed": false,
 						"internalType": "string",
 						"name": "logResult",
@@ -211,6 +265,72 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "latestGameResult",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "userAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "userOption",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct RockPaperScissors.UserInfo",
+						"name": "user1",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "userAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "userOption",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct RockPaperScissors.UserInfo",
+						"name": "user2",
+						"type": "tuple"
+					},
+					{
+						"internalType": "string",
+						"name": "finalResult",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "poolUserAddress",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "showNumber",
 				"outputs": [
@@ -290,11 +410,11 @@
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0xdfdd9aefea19afbd0af02c770a1c7e484061d76ac8655e630208e183fa2bf729",
+			"keccak256": "0x736dfcd7f04775a51c8d5ec5fca09ac4e100a6b36f73c49ca3332b7084801a97",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f96853d63293f18d9de753b83e9a5821bb2a02f4dfa8777c072b91813af23c74",
-				"dweb:/ipfs/Qmb7sGm5PqHVGYRn9T8jFkkmB726XUnjsBkr8BNzCbnHhW"
+				"bzz-raw://a3a0ceac8de991957c744d6a21d798b9b9e5ed024e4b06aec94bc7b06ad16a4e",
+				"dweb:/ipfs/QmZ1BGx5NrqbVrQHa1LEMLbfTcMy6jVnAzdA3EZkXLCkaV"
 			]
 		}
 	},

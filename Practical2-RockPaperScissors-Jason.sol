@@ -33,14 +33,20 @@ contract RockPaperScissors {
     uint private salt = 1;  // Salt for random number generate
     UserInfo[] private waitingPool;  // Store the player data in array temporary
     address[] private userAddresses;  // Store user address for emit event 
+    GameInfo[] public latestGameResult; 
 
 
     //setting the event to track the progress
     event showUserAddress(address indexed logUserAddress);
     event showResult(string logResult); 
+    event showLatestResult(GameInfo[] gameinfo);
     event showError(string);
     event showArraylenght(uint);
     event sendWaitingPool(address[] pool);
+
+    function poolUserAddress () external view returns (address[] memory){
+        return (userAddresses);
+    }
 
     // Testing purpose, use to check the WaitingPoll array data
     function showWaitingPoll () external view returns (UserInfo[] memory) {
@@ -99,8 +105,13 @@ contract RockPaperScissors {
         // when the number of users = 6
         // trigger the game start condition
         if(waitingPool.length == 6){
+
+            delete latestGameResult;
             //go to game logic
             choosePlayerPlay();
+            //init waitingPool array 
+            emit showLatestResult(latestGameResult);
+            delete userAddresses;
         }
     }
 
@@ -117,7 +128,6 @@ contract RockPaperScissors {
             game(user1, user2);
         } 
         while (waitingPool.length != 0);
-        emit showArraylenght(waitingPool.length);
 
     }
 
@@ -150,6 +160,7 @@ contract RockPaperScissors {
         // 1 = Rock 2 = Paper 3 = Scissors
         if (gameHistory[gameHistory.length - 1].user1.userOption == gameHistory[gameHistory.length - 1].user2.userOption) {
             gameHistory[gameHistory.length - 1].finalResult = "Tied";
+            latestGameResult.push(gameHistory[gameHistory.length - 1]);
             emit showResult("Tied");
         }
         else {
@@ -159,9 +170,11 @@ contract RockPaperScissors {
                 (gameHistory[gameHistory.length - 1].user1.userOption == 2 && gameHistory[gameHistory.length - 1].user2.userOption == 3)
             ) {
                 gameHistory[gameHistory.length - 1].finalResult = "User2 win";
+                latestGameResult.push(gameHistory[gameHistory.length - 1]);
                 emit showResult("User2 win");
             } else {
                 gameHistory[gameHistory.length - 1].finalResult = "User1 win";
+                latestGameResult.push(gameHistory[gameHistory.length - 1]);
                 emit showResult("User1 win");
             }
         }
