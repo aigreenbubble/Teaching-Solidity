@@ -33,7 +33,9 @@ contract RockPaperScissors {
     uint private salt = 1;  // Salt for random number generate
     UserInfo[] private waitingPool;  // Store the player data in array temporary
     address[] private userAddresses;  // Store user address for emit event 
-    GameInfo[] public latestGameResult; 
+    GameInfo[] public latestGameResult; // Store the latest match game result
+    uint public numberofPool = 6; // Max number of pool
+
 
 
     //setting the event to track the progress
@@ -43,7 +45,46 @@ contract RockPaperScissors {
     event showError(string);
     event showArraylenght(uint);
     event sendWaitingPool(address[] pool);
+    event showGameStatus(string);
+    event numberofPoolUpdate();
 
+    // for front can check the max number of pool
+    function getNumberofPool () external view returns (uint){
+        return(numberofPool);
+    }
+
+    // check the game status
+    //if start then cannot change the max number of pool
+    function checkGamestart () private view returns (bool status) {
+        if(waitingPool.length == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    //change the max number of pool
+    function changeNumberofPool (uint _Number) external {
+        //number of pool cannot be odd
+        require(_Number%2 == 0, "This input must be an even number");
+        // check the game is start or not
+        if(checkGamestart()){
+            // update number of pool
+            numberofPool = _Number;
+            //send a message to front-end 
+            emit numberofPoolUpdate();
+        }else{
+            emit showGameStatus("Game already start, need to wait the game finish");
+        }
+    }
+
+    //for front-end to get the latest match game result array length
+    function latestGameLength () external view returns (uint){
+        return (latestGameResult.length);
+    }
+
+    // for frond-end to get the user address in pool
     function poolUserAddress () external view returns (address[] memory){
         return (userAddresses);
     }
@@ -55,7 +96,6 @@ contract RockPaperScissors {
 
     //Testing purpose, check the array data
     function getGameHistory () external view returns(GameInfo[] memory){
-        //do condition check then return the data
         return (gameHistory);
     }
 
@@ -104,7 +144,7 @@ contract RockPaperScissors {
 
         // when the number of users = 6
         // trigger the game start condition
-        if(waitingPool.length == 6){
+        if(waitingPool.length == numberofPool){
 
             delete latestGameResult;
             //go to game logic
@@ -156,7 +196,7 @@ contract RockPaperScissors {
         gameHistory[gameHistory.length - 1].user1 = userOne;
         gameHistory[gameHistory.length - 1].user2 = userTwo;
 
-        //check who wins the game and store final result in array(game history)
+        //check who wins the game and store final result in array(game history and latest game match)
         // 1 = Rock 2 = Paper 3 = Scissors
         if (gameHistory[gameHistory.length - 1].user1.userOption == gameHistory[gameHistory.length - 1].user2.userOption) {
             gameHistory[gameHistory.length - 1].finalResult = "Tied";

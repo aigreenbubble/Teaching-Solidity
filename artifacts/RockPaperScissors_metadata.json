@@ -7,6 +7,12 @@
 		"abi": [
 			{
 				"anonymous": false,
+				"inputs": [],
+				"name": "numberofPoolUpdate",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
 				"inputs": [
 					{
 						"indexed": false,
@@ -55,6 +61,19 @@
 					}
 				],
 				"name": "showError",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "showGameStatus",
 				"type": "event"
 			},
 			{
@@ -138,6 +157,19 @@
 				"type": "event"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_Number",
+						"type": "uint256"
+					}
+				],
+				"name": "changeNumberofPool",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "getGameHistory",
 				"outputs": [
@@ -186,6 +218,19 @@
 						"internalType": "struct RockPaperScissors.GameInfo[]",
 						"name": "",
 						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getNumberofPool",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -265,6 +310,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "latestGameLength",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -312,6 +370,19 @@
 						"internalType": "string",
 						"name": "finalResult",
 						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "numberofPool",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -410,11 +481,11 @@
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0x736dfcd7f04775a51c8d5ec5fca09ac4e100a6b36f73c49ca3332b7084801a97",
+			"keccak256": "0x9e92644f1e6fec767aa810bdded8a3f9dacb0c8e55ea3815e8490590a1be77d9",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a3a0ceac8de991957c744d6a21d798b9b9e5ed024e4b06aec94bc7b06ad16a4e",
-				"dweb:/ipfs/QmZ1BGx5NrqbVrQHa1LEMLbfTcMy6jVnAzdA3EZkXLCkaV"
+				"bzz-raw://332b8a9de424685f61d5769a71d02aa95780f28478e2e8b1d9dc85a23666b763",
+				"dweb:/ipfs/QmYzmMm19mnzvMdLg4RJkKmJNERGxXCFKgf634pi1tuUgP"
 			]
 		}
 	},
