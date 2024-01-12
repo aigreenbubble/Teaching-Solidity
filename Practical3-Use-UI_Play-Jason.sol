@@ -33,6 +33,11 @@ contract RockPaperScissors {
         require(index <= gameHistory.length, "Error: Invalid length");
         return (gameHistory[index].user1);
     }
+
+    //for front end to check the length
+    function getGameHistoryLength() external view returns(uint){
+        return (gameHistory.length);
+    }
     
     //use to testing, check the array data
     function getGameHistory () external view returns(GameInfo[] memory){
@@ -43,9 +48,6 @@ contract RockPaperScissors {
     function getSpecificGameHistory (uint index) external view returns(GameInfo memory){
         //do condition check then return the data
         require(index <= gameHistory.length, "Error: Invalid length");
-
-        //Avoid the second user to check the user1 option and choose the option that is favourable to user2
-        require(gameHistory[index].user2.userAddress != address(0), "Error: The game not finish yet");
 
         return (gameHistory[index]);
     }
@@ -94,10 +96,12 @@ contract RockPaperScissors {
     //Wait for user input their option
     function userEnterOption (uint option) external {
         if(msg.sender == gameHistory[gameHistory.length - 1].user1.userAddress){
+            require(gameHistory[gameHistory.length - 1].user1.userOption == 0, "You already select option and it cannot change");
             gameHistory[gameHistory.length - 1].user1.userOption = option;
         }
         else{
             if(msg.sender == gameHistory[gameHistory.length - 1].user2.userAddress){
+                require(gameHistory[gameHistory.length - 1].user2.userOption == 0, "You already select option and it cannot change");
                 gameHistory[gameHistory.length - 1].user2.userOption = option;
             }      
         }
@@ -107,6 +111,8 @@ contract RockPaperScissors {
             emit showError("go in to condition check");
             game();
             userCount = 0;
+            user1address = address(0);
+            user2address = address(0);
         }
     }
 

@@ -75,6 +75,7 @@ contract RockPaperScissors {
             //send a message to front-end 
             emit numberofPoolUpdate();
         }else{
+            //if game already start, sned the message to front end
             emit showGameStatus("Game already start, need to wait the game finish");
         }
     }
@@ -139,19 +140,19 @@ contract RockPaperScissors {
         waitingPool[waitingPool.length - 1].userAddress = msg.sender;
         waitingPool[waitingPool.length - 1].userOption = option;
         userAddresses.push(msg.sender);
-
+        //send the pool's user address 
         emit sendWaitingPool(userAddresses);        
 
-        // when the number of users = 6
+        // when the number of users = max number of pool
         // trigger the game start condition
         if(waitingPool.length == numberofPool){
 
-            delete latestGameResult;
+            delete latestGameResult; //clear the last metch game result
             //go to game logic
             choosePlayerPlay();
             //init waitingPool array 
             emit showLatestResult(latestGameResult);
-            delete userAddresses;
+            delete userAddresses; //clear pool's user address
         }
     }
 
