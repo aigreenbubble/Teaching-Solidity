@@ -5,13 +5,13 @@ contract TickTackToe{
     //validate the user
     address public player1address; //store user 1 address
     address public player2address; //store uesr 2 address
-    uint playerCount = 0;
+    uint public playerCount = 0;
 
     //User 1 set to X    User 2 set to O     
     // basic game logic
     string[] public options = ["", "", "", "", "", "", "", "", ""];
-    bool activate = true;
-    string currentPlayer = "X";
+    bool public activate = false;
+    string public currentPlayer = "X";
     uint[][] private winConditionSet= 
     [[0, 1, 2],
     [3, 4, 5],
@@ -26,7 +26,8 @@ contract TickTackToe{
     event queueFull(string message);
     event metchSuccessful(string message);
     event startGame(string message, address player1, address player2);
-    event nextUser(address nestUser);
+    event nextUser(address nextUser);
+    event updateUI(string[] options);
 
     function getoption () external view returns (string[] memory){
         return options;
@@ -35,12 +36,14 @@ contract TickTackToe{
     // user queue
     function joinGame () external {
         if(playerCount == 0){
+            restartGame();
             player1address = msg.sender;
             playerCount++;
         }else if(playerCount == 1){
             require((msg.sender != player1address), "Error: You cannot play with yourself");
-            player2address == msg.sender;
+            player2address = msg.sender;
             playerCount++;
+            activate = true;
             //send message to inform the player
             emit startGame("Start game!", player1address, player2address);
         }else{
@@ -52,11 +55,16 @@ contract TickTackToe{
     function userInput(uint input) external {
         require(activate,"The game still not start yet");
         require(compareStrings(options[input],""),"Invalid input");
+        if(compareStrings(currentPlayer, "X")){
+            require(msg.sender == player1address,"You are not player 1");
+        }else{
+            require(msg.sender == player2address,"You are not player 2");
+        }
         options[input] = currentPlayer;
-
+        emit updateUI(options);
         checkWinner();
     }
-
+    // use to check the win, draw  
     function checkWinner () private {
         bool userWon = false;
         for(uint i = 0 ; i < winConditionSet.length; i++){
@@ -78,21 +86,25 @@ contract TickTackToe{
             //sent message
             emit showResult(currentPlayer);
             activate = false;
+            playerCount = 0;
         } else if(checkOptions()){
             emit showResult("Draw");
+            activate = false;
+            playerCount = 0;
         } else {
-            if(compareStrings(currentPlayer, "X")){
-                emit nextUser(player2address);
-            }else{
-                emit nextUser(player1address);
-            }
             changePlayer();
         }
     }
-
+    event nextUesrStr(string next);
     function changePlayer() private {
+        if(compareStrings(currentPlayer, "X")){
+            emit nextUser(player2address);
+        }else{
+            emit nextUser(player1address);
+        }
         //change the player per round
         currentPlayer = (compareStrings(currentPlayer, "X")) ? "O" : "X";
+        emit nextUesrStr(currentPlayer);
     }
 
     function checkOptions() private view returns (bool) {
@@ -111,11 +123,15 @@ contract TickTackToe{
         return keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));
     }
 
-
-    function restartGame() external {
+    event resetUI(string initPLayer);
+    function restartGame() public {
         currentPlayer = "X";
         options = ["", "", "", "", "", "", "", "", ""];
-        activate = true;
+        activate = true;  //modify here
+        emit resetUI(currentPlayer);
+        playerCount = 0;
+        player1address = address(0);
+        player2address = address(0);
     }
 
 }

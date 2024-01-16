@@ -23,8 +23,21 @@
 				"inputs": [
 					{
 						"indexed": false,
+						"internalType": "string",
+						"name": "next",
+						"type": "string"
+					}
+				],
+				"name": "nextUesrStr",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
 						"internalType": "address",
-						"name": "nestUser",
+						"name": "nextUser",
 						"type": "address"
 					}
 				],
@@ -42,6 +55,19 @@
 					}
 				],
 				"name": "queueFull",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "initPLayer",
+						"type": "string"
+					}
+				],
+				"name": "resetUI",
 				"type": "event"
 			},
 			{
@@ -83,6 +109,32 @@
 				"type": "event"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string[]",
+						"name": "options",
+						"type": "string[]"
+					}
+				],
+				"name": "updateUI",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "activate",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "string",
@@ -104,6 +156,19 @@
 					}
 				],
 				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "currentPlayer",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -173,6 +238,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "playerCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "restartGame",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -220,11 +298,11 @@
 	},
 	"sources": {
 		"Practical4-Tick-Tack-Toe-Jason.sol": {
-			"keccak256": "0x37b7fbb6f50a1c90d0a479a830f2b106b79f76c67230147237ba9d3860f25107",
+			"keccak256": "0x57093fdf01bdb3b6725cab906361d00ce1b1c1d03fd4ed77e6298673502ec027",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://32fe4fb649f9b971fdd1ddb8277aaf30269d17a4af8875454a53907ce15d9c10",
-				"dweb:/ipfs/QmZ8cMunvCX4qnThhwHA98YuquVbQAneewJKVjiER1GY7N"
+				"bzz-raw://65b877da6ba86831b1d532e435ff9d09e0bab221936d0d04888760e9aa74e803",
+				"dweb:/ipfs/QmPxiXARm5fL2GCGaqsX8djvzw2tGZnfYBfqFEFjq4hfSm"
 			]
 		}
 	},
