@@ -44,7 +44,7 @@ contract TickTackToe{
             player2address = msg.sender;
             playerCount++;
             activate = true;
-            //send message to inform the player
+            //send message to inform the player start game
             emit startGame("Start game!", player1address, player2address);
         }else{
             emit queueFull("Now queue is full, try later");
@@ -127,7 +127,6 @@ contract TickTackToe{
     function restartGame() public {
         currentPlayer = "X";
         options = ["", "", "", "", "", "", "", "", ""];
-        activate = true;  //modify here
         emit resetUI(currentPlayer);
         playerCount = 0;
         player1address = address(0);
