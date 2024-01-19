@@ -13,19 +13,15 @@ contract TickTackToe{
     bool public activate = false; // initial game status is false
     string public currentPlayer = "X"; // frist player is X
     uint[][] private winConditionSet=  
-    [[0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
+    [[0, 1, 2], 
+    [3, 4, 5],      //set all win condition
+    [6, 7, 8],      // tick tack toe grid
+    [0, 3, 6],      // 0 1 2
+    [1, 4, 7],      // 3 4 5
+    [2, 5, 8],      // 6 7 8
     [0, 4, 8],
-    [2, 4, 6]]; //set all win condition
-                // tick tack toe grid
-                // 0 1 2
-                // 3 4 5
-                // 6 7 8
-    
+    [2, 4, 6]]; 
+
     event showResult (string result); // send the game result to UI
     event startGame(string message, address player1, address player2); // send the player in this metch
     event nextUser(address nextUser); // send next user address
@@ -33,7 +29,7 @@ contract TickTackToe{
     event nextUesrStr(string next); // send next uesr (X or O)
     event resetUI(string initPLayer); // use to trigger front end reset function   
 
-    // for front to get option array
+    // for UI to get option array
     function getoption () external view returns (string[] memory){
         return options;
     }
