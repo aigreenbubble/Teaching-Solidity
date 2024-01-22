@@ -27,7 +27,7 @@ contract TickTackToe{
     event nextUser(address nextUser); // send next user address
     event updateUI(string[] options); // send message to update UI
     event nextUesrStr(string next); // send next uesr (X or O)
-    event resetUI(string initPLayer); // use to trigger front end reset function   
+    event resetUI(string initPLayer); // use to trigger UI reset function   
 
     // for UI to get option array
     function getoption () external view returns (string[] memory){
@@ -49,7 +49,7 @@ contract TickTackToe{
             //send message to inform the player start game
             emit startGame("Start game!", player1address, player2address);
         }else{
-            //if player more than 2, send the message to front end
+            //if player more than 2, send the message to UI
             require(playerCount < 2,"Now queue is full, try later");
         }
     } 
@@ -57,8 +57,8 @@ contract TickTackToe{
     // basic game logic
     // check player input and ensure the input is from correct player 
     function userInput(uint input) external {
-        require(activate,"The game still not start yet");           //check game status
-        require(compareStrings(options[input],""),"Invalid input"); //check the input
+        require(activate,"The game still not start yet");               //check game status
+        require(compareStrings(options[input],""),"Invalid input");     //check the input
         //check player
         if(compareStrings(currentPlayer, "X")){
             require(msg.sender == player1address,"You are not player 1");
@@ -72,7 +72,7 @@ contract TickTackToe{
     }
     // use to check the win, draw  
     function checkWinner () private {
-        bool userWon = false;
+        bool userWon = false;  //condition to check game status
         //get the win condition on array and do the condition check
         for(uint i = 0 ; i < winConditionSet.length; i++){
             uint[] memory winCondition = winConditionSet[i];
@@ -94,7 +94,7 @@ contract TickTackToe{
                 break;
             }
         }
-        //if someone win or draw, send message to front end
+        //if someone win or draw, send message to UI
         //else change player and go to next round
         if(userWon){
             //sent winer to info UI
@@ -115,7 +115,7 @@ contract TickTackToe{
     }
     //change player per round
     function changePlayer() private {
-        //send the change message to front end
+        //send the change message to UI
         if(compareStrings(currentPlayer, "X")){
             emit nextUser(player2address);
         }else{
