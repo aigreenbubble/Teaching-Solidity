@@ -9,7 +9,7 @@ contract TickTackToe{
 
     //User 1 set to X    User 2 set to O     
     // basic game logic
-    string[] public options = ["", "", "", "", "", "", "", "", ""]; //option to store player option
+    string[] public options = ["", "", "", "", "", "", "", "", ""]; //options to store player option
     bool public activate = false; // initial game status is false
     string public currentPlayer = "X"; // frist player is X
     uint[][] private winConditionSet=  
@@ -26,7 +26,7 @@ contract TickTackToe{
     event startGame(string message, address player1, address player2); // send the player in this metch
     event nextUser(address nextUser); // send next user address
     event updateUI(string[] options); // send message to update UI
-    event nextUesrStr(string next); // send next uesr (X or O)
+    event nextUesrStr(string next);   // send next uesr (X or O)
     event resetUI(string initPLayer); // use to trigger UI reset function   
 
     // for UI to get option array
