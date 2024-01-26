@@ -1,0 +1,53 @@
+{
+	"compiler": {
+		"version": "0.8.20+commit.a1b79de6"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"ERC20-Practical.sol": "ERC20Pra"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0xc6a8ff0ea489379b61faa647490411b80102578440ab9d84e9a957cc12164e70",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0ea104e577e63faea3b69c415637e99e755dcbf64c5833d7140c35a714d6d90c",
+				"dweb:/ipfs/Qmau6x4Ns9XdyynRCNNp3RhLqijJjFm7z5fyZazfYFGYdq"
+			]
+		},
+		"ERC20-Practical.sol": {
+			"keccak256": "0x35788bee7a3be4353cfdbd91465861c914145aeca705fdf799c40e5e87914e7d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://94fece67658f797993b6c5107d933384c9ba9d74895a7209e4db9b315e3ffe39",
+				"dweb:/ipfs/QmVSb8NE2V9ktCzw1ejZCpmii1pK1tP8n7igor8sXi4m4w"
+			]
+		}
+	},
+	"version": 1
+}

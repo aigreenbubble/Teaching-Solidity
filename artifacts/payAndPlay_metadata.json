@@ -73,7 +73,7 @@
 				"inputs": [],
 				"name": "getAllMoney",
 				"outputs": [],
-				"stateMutability": "payable",
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -158,12 +158,8 @@
 				"inputs": [],
 				"name": "withdrawMoney",
 				"outputs": [],
-				"stateMutability": "payable",
+				"stateMutability": "nonpayable",
 				"type": "function"
-			},
-			{
-				"stateMutability": "payable",
-				"type": "receive"
 			}
 		],
 		"devdoc": {
@@ -194,11 +190,11 @@
 	},
 	"sources": {
 		"SelfPractice-Jason.sol": {
-			"keccak256": "0xe60fff77c138efee8db6abd61e3df3b7218d98bb147a1a78da8eb20363762c92",
+			"keccak256": "0x57d052f7b824cfaba87040bdb340f8bc110831f006ef7ced8f3575aa5e9a7fc8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9ada86a6a2f8c8466767e6643db33a26b4cb9de9d8ef59d05168fe7282b64ba1",
-				"dweb:/ipfs/QmZSuWh3nWb7zpYa1bDVK6VzFczBewBWpc7MXXVi1v1nDf"
+				"bzz-raw://e45e1b7fd208941357c73d779cbf838e74a04878baf07e5b2be1042f4183f2fe",
+				"dweb:/ipfs/QmPS4P4y5M8Hmq77r7c82mAjWfHcwpugA5GFFnqs78iNQk"
 			]
 		}
 	},
