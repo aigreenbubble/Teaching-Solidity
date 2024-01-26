@@ -7,6 +7,25 @@
 		"abi": [
 			{
 				"anonymous": false,
+				"inputs": [],
+				"name": "numberofPoolUpdate",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address[]",
+						"name": "pool",
+						"type": "address[]"
+					}
+				],
+				"name": "sendWaitingPool",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
 				"inputs": [
 					{
 						"indexed": false,
@@ -23,12 +42,92 @@
 				"inputs": [
 					{
 						"indexed": false,
+						"internalType": "uint256",
+						"name": "currentNumber",
+						"type": "uint256"
+					}
+				],
+				"name": "showCurrentNumber",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
 						"internalType": "string",
 						"name": "",
 						"type": "string"
 					}
 				],
 				"name": "showError",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "showGameStatus",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"components": [
+							{
+								"components": [
+									{
+										"internalType": "address",
+										"name": "userAddress",
+										"type": "address"
+									},
+									{
+										"internalType": "uint256",
+										"name": "userOption",
+										"type": "uint256"
+									}
+								],
+								"internalType": "struct RockPaperScissors.UserInfo",
+								"name": "user1",
+								"type": "tuple"
+							},
+							{
+								"components": [
+									{
+										"internalType": "address",
+										"name": "userAddress",
+										"type": "address"
+									},
+									{
+										"internalType": "uint256",
+										"name": "userOption",
+										"type": "uint256"
+									}
+								],
+								"internalType": "struct RockPaperScissors.UserInfo",
+								"name": "user2",
+								"type": "tuple"
+							},
+							{
+								"internalType": "string",
+								"name": "finalResult",
+								"type": "string"
+							}
+						],
+						"indexed": false,
+						"internalType": "struct RockPaperScissors.GameInfo[]",
+						"name": "gameinfo",
+						"type": "tuple[]"
+					}
+				],
+				"name": "showLatestResult",
 				"type": "event"
 			},
 			{
@@ -56,6 +155,19 @@
 				],
 				"name": "showUserAddress",
 				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_Number",
+						"type": "uint256"
+					}
+				],
+				"name": "changeNumberofPool",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			},
 			{
 				"inputs": [],
@@ -106,6 +218,19 @@
 						"internalType": "struct RockPaperScissors.GameInfo[]",
 						"name": "",
 						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getNumberofPool",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -186,6 +311,111 @@
 			},
 			{
 				"inputs": [],
+				"name": "latestGameLength",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "latestGameResult",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "userAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "userOption",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct RockPaperScissors.UserInfo",
+						"name": "user1",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "userAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "userOption",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct RockPaperScissors.UserInfo",
+						"name": "user2",
+						"type": "tuple"
+					},
+					{
+						"internalType": "string",
+						"name": "finalResult",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "numberofPool",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "poolUserAddress",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "showNumber",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "showWaitingPoll",
 				"outputs": [
 					{
@@ -213,24 +443,13 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "_number",
 						"type": "uint256"
 					}
 				],
-				"name": "waitingPool",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "userOption",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
+				"name": "updateNumber",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -262,11 +481,11 @@
 	},
 	"sources": {
 		"Practical2-RockPaperScissors-Jason.sol": {
-			"keccak256": "0x8faa5078c2d939ee458f38215294e55470f7c35e3ba169c996de8961a2869f11",
+			"keccak256": "0xfe6202854b5a2c2434901869ac5700151d443a1ba09c7f938a37792de652b490",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d35da5507ae82c242669f873fcdc44f8c560160ed1f1c4733d718dde7335eef8",
-				"dweb:/ipfs/QmbP1ZABfUJGTz5eMpwYwpE3DnWWbJmLRNRkSpoDuCQ3oe"
+				"bzz-raw://b91b3fabf46dd7908860c942202b40f3db709513b7433dc3ca9fc605fc1ff54e",
+				"dweb:/ipfs/QmVhkE6wdPpuEx2B2bavB9mAFM9Z4sa3h5bXJZz8GgAzM9"
 			]
 		}
 	},

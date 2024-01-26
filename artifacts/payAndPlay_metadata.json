@@ -7,7 +7,78 @@
 		"abi": [
 			{
 				"inputs": [],
-				"name": "getRandomNumber",
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "showBalance",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "showError",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "showResult",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "contractAddress",
+				"outputs": [
+					{
+						"internalType": "address payable",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "depositeMoney",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAllMoney",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getBalance",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -20,9 +91,54 @@
 			},
 			{
 				"inputs": [],
-				"name": "getnumber",
-				"outputs": [],
+				"name": "getPlayerBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getRandomNumber",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "numberCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -33,106 +149,16 @@
 						"type": "uint256"
 					}
 				],
-				"name": "logicCheck",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
+				"name": "playGame",
+				"outputs": [],
 				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
 				"inputs": [],
-				"name": "maxNumber",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "minNumber",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "number",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_maxNumber",
-						"type": "uint256"
-					}
-				],
-				"name": "setMaxNumber",
+				"name": "withdrawMoney",
 				"outputs": [],
 				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_minNumber",
-						"type": "uint256"
-					}
-				],
-				"name": "setMinNumber",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "targetNumber",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "treasury",
-				"outputs": [
-					{
-						"internalType": "address payable",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -149,7 +175,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Practical1-GuessNumber-Jason.sol": "MyGuessNumberGame"
+			"SelfPractice-Jason.sol": "payAndPlay"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -163,12 +189,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Practical1-GuessNumber-Jason.sol": {
-			"keccak256": "0x59bede80ac06d37c546152907bdc1e5a55ac034c7c17f67e8ae1b28d502559e7",
+		"SelfPractice-Jason.sol": {
+			"keccak256": "0x57d052f7b824cfaba87040bdb340f8bc110831f006ef7ced8f3575aa5e9a7fc8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f4e9b097ec58322292d93a8b378fa45ce8fed09a9e142bd491d370ca71623f00",
-				"dweb:/ipfs/QmWsbmco69GTZKymNPg3nNimA1KECtU5PptrMEFnD6QioR"
+				"bzz-raw://e45e1b7fd208941357c73d779cbf838e74a04878baf07e5b2be1042f4183f2fe",
+				"dweb:/ipfs/QmPS4P4y5M8Hmq77r7c82mAjWfHcwpugA5GFFnqs78iNQk"
 			]
 		}
 	},

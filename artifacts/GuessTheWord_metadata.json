@@ -79,11 +79,11 @@
 	},
 	"sources": {
 		"Lesson2-GuessTheWordGame.sol": {
-			"keccak256": "0x1fb75482f8283376992d1939b5d50addbd358a8b9851af24207fe599b4637673",
+			"keccak256": "0x6b079f5f7b0af3d099f69114013180ed2a824c77938acc2c0aa9769f9d8b8fc0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://10f9c8eea660581401c4a073616a345a76b725a41216bf30c20f35e68c0bf609",
-				"dweb:/ipfs/QmPYQu4oLpkitSBh6pVvYdKXhDoptgPrNfvAiii5VFydZ6"
+				"bzz-raw://a94f07659c4789fcc9e635cec03766f5dcd955a075dbaea6ed8fa079431391eb",
+				"dweb:/ipfs/QmVCNnRf8jykFeZNx3iotnXLRWYjx8hiqtFdZ2KqEkUZYc"
 			]
 		}
 	},
