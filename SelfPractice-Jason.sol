@@ -73,9 +73,9 @@ contract payAndPlay{
         if(numberCount <= 10){
             numberCount++;
         }
-        //win condition check
+        //win condition check user win or not
         if(getRandomNumber() == guessNumber){
-            //winer get the reward
+            //get the user address and send reward
             playerAddress = msg.sender;
             withdrawMoney();
             //initail the game information 
@@ -101,4 +101,3 @@ contract payAndPlay{
         return (random1 % numberCount) + 1;
     }
 }
-
