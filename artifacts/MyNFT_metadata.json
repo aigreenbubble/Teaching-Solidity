@@ -874,11 +874,11 @@
 			]
 		},
 		"ERC721-Practical.sol": {
-			"keccak256": "0xc4740c7507d3aedf0b77868ffc05aab4b965523be1b28ddfd93d5384d688adca",
+			"keccak256": "0xfb72d5da153f6ea760badcdfd58b24483f9da123bddd533bcb00bd20c719d1a8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d865d29fd36fca0c6ac6b1ed18908f4764aaa9cc9cf07cfe0d6fcc416f0b3b47",
-				"dweb:/ipfs/QmVGVfDUjynLKitM4Lbad99VzZ6mfw7Bp8Ass3H28ymJfu"
+				"bzz-raw://bda3a2f65d3bd7b66280996758adc15168ae4bbfe2a26e3b919dbb80c9693ff2",
+				"dweb:/ipfs/Qmd3WMvT1dJtDvJc9TxGWSMxdyPUJDQH4fEnwwzMpnB2fn"
 			]
 		}
 	},

@@ -6,15 +6,10 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
-				"stateMutability": "nonpayable",
-				"type": "constructor"
-			},
-			{
 				"inputs": [
 					{
-						"internalType": "address payable",
-						"name": "_to",
+						"internalType": "address",
+						"name": "recipient",
 						"type": "address"
 					},
 					{
@@ -23,29 +18,9 @@
 						"type": "uint256"
 					}
 				],
-				"name": "calltransfer",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "transfer",
 				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					}
-				],
-				"name": "transferFrom",
-				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "function"
 			}
 		],
@@ -62,7 +37,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"ERC20-Practical.sol": "ERC20Practical"
+			"ERC20-Practical.sol": "Owner"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},

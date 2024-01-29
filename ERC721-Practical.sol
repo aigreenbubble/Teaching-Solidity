@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract MyNFT is ERC721URIStorage, Ownable{
-    constructor() ERC721("TestNFT","MNFT") Ownable(msg.sender){}
+    constructor() ERC721("TestNFT","MyNFT") Ownable(msg.sender){}
 
     function mint(
         address _to,
