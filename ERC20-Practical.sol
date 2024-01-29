@@ -23,6 +23,7 @@ contract ERC20Practical{
     }
 
     function calltransfer (address payable _to, uint amount) external {
+        address to = _to;
         _token.approve(0x5B38Da6a701c568545dCfcB03FcB875f56beddC4, amount);
 
         //transferFrom(_to, amount);

@@ -2,6 +2,16 @@
 pragma solidity 0.8.19;
 
 contract TickTackToe{
+    struct GameInfo{
+        bool _activate;
+        string _currentPlayer;
+        string[] _options;
+        address _player1address;
+        address _player2address;
+        uint _playerCount;
+        //game id?
+    }
+
     //validate the user
     address public player1address; //store user 1 address
     address public player2address; //store uesr 2 address

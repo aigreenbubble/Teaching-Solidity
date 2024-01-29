@@ -49,6 +49,19 @@
 				"inputs": [
 					{
 						"indexed": false,
+						"internalType": "address",
+						"name": "player1Address",
+						"type": "address"
+					}
+				],
+				"name": "showFirstPlayer",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
 						"internalType": "string",
 						"name": "result",
 						"type": "string"
@@ -140,6 +153,38 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "finalWinOption",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getFinalWinOption",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
 					}
 				],
 				"stateMutability": "view",
@@ -257,7 +302,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Practical4-Tick-Tack-Toe-Jason.sol": "TickTackToe"
+			"Prectical5-Tick-Tack-Toe-More-Jason.sol": "TickTackToe"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -271,12 +316,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Practical4-Tick-Tack-Toe-Jason.sol": {
-			"keccak256": "0xa2dd6f2db81d7f392b33977cb444a52ca6bfa1f8ddfe10607b8b04cdfc77fcd9",
+		"Prectical5-Tick-Tack-Toe-More-Jason.sol": {
+			"keccak256": "0xf74e706c8364b23fdbc374895f6060b6f1b17977d774401567c063d8a8ec3520",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4eabad3483182e8901a915b9e8d54d10f6ce7ce96d1c5bf5859b9081f329cd4e",
-				"dweb:/ipfs/QmWRu5GGtSpykxZixbGDtSdrjRsPVuFq2HH9UmhVXQbLSu"
+				"bzz-raw://23fd16b4e89a613198a37b77663e411f4874265f4c2ff6370aed20b79fb973f6",
+				"dweb:/ipfs/QmcHGAomLEh3me5LA9v8HHb4LUPboeiBF4egUTycC94SJv"
 			]
 		}
 	},
