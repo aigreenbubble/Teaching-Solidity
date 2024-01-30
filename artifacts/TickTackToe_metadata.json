@@ -99,6 +99,61 @@
 				"anonymous": false,
 				"inputs": [
 					{
+						"components": [
+							{
+								"internalType": "bool",
+								"name": "_activate",
+								"type": "bool"
+							},
+							{
+								"internalType": "string",
+								"name": "_currentPlayer",
+								"type": "string"
+							},
+							{
+								"internalType": "string[]",
+								"name": "_options",
+								"type": "string[]"
+							},
+							{
+								"internalType": "uint256[]",
+								"name": "_finalWinOption",
+								"type": "uint256[]"
+							},
+							{
+								"internalType": "address",
+								"name": "_player1address",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "_player2address",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_playerCount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "_winer",
+								"type": "address"
+							}
+						],
+						"indexed": false,
+						"internalType": "struct TickTackToe.GameInfo",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"name": "testing",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
 						"indexed": false,
 						"internalType": "string[]",
 						"name": "options",
@@ -107,19 +162,6 @@
 				],
 				"name": "updateUI",
 				"type": "event"
-			},
-			{
-				"inputs": [],
-				"name": "activate",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
 			},
 			{
 				"inputs": [
@@ -147,65 +189,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "currentPlayer",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "finalWinOption",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getFinalWinOption",
-				"outputs": [
-					{
-						"internalType": "uint256[]",
-						"name": "",
-						"type": "uint256[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getoption",
-				"outputs": [
-					{
-						"internalType": "string[]",
-						"name": "",
-						"type": "string[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "joinGame",
+				"name": "createGameRoom",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -218,58 +202,63 @@
 						"type": "uint256"
 					}
 				],
-				"name": "options",
+				"name": "gameInformation",
 				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "_activate",
+						"type": "bool"
+					},
 					{
 						"internalType": "string",
-						"name": "",
+						"name": "_currentPlayer",
 						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "player1address",
-				"outputs": [
+					},
 					{
 						"internalType": "address",
-						"name": "",
+						"name": "_player1address",
 						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "player2address",
-				"outputs": [
+					},
 					{
 						"internalType": "address",
-						"name": "",
+						"name": "_player2address",
 						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "playerCount",
-				"outputs": [
+					},
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "_playerCount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_winer",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "gameId",
 						"type": "uint256"
 					}
 				],
-				"stateMutability": "view",
+				"name": "joinGame",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
+					}
+				],
 				"name": "restartGame",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -280,6 +269,11 @@
 					{
 						"internalType": "uint256",
 						"name": "input",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "gameId",
 						"type": "uint256"
 					}
 				],
@@ -317,11 +311,11 @@
 	},
 	"sources": {
 		"Prectical5-Tick-Tack-Toe-More-Jason.sol": {
-			"keccak256": "0xf74e706c8364b23fdbc374895f6060b6f1b17977d774401567c063d8a8ec3520",
+			"keccak256": "0x63be1c97e7a7d51948021f68e6eb8992413767066382d6461a5c334bc5cf26ee",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://23fd16b4e89a613198a37b77663e411f4874265f4c2ff6370aed20b79fb973f6",
-				"dweb:/ipfs/QmcHGAomLEh3me5LA9v8HHb4LUPboeiBF4egUTycC94SJv"
+				"bzz-raw://c6216cf034fca9fe229468e4eb7b8da1cc896506f386dcfe3ac2608b238334bb",
+				"dweb:/ipfs/QmRGqqZHHWoQDc77ySpYiHdBaaLzJ1BNeEi6cN2yN5kJA8"
 			]
 		}
 	},

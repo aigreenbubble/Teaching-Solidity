@@ -6,23 +6,26 @@ contract TickTackToe{
         bool _activate;
         string _currentPlayer;
         string[] _options;
+        uint[] _finalWinOption;
         address _player1address;
         address _player2address;
         uint _playerCount;
+        address _winer;
         //game id?
     }
+    GameInfo[] public gameInformation;
 
     //validate the user
-    address public player1address; //store user 1 address
-    address public player2address; //store uesr 2 address
-    uint public playerCount = 0; //count current user
+    // address public player1address;  //store user 1 address
+    // address public player2address;  //store uesr 2 address
+    // uint public playerCount = 0;    //count current user
 
     //User 1 set to X    User 2 set to O     
     // basic game logic
-    string[] public options = ["", "", "", "", "", "", "", "", ""]; //options to store player option
-    uint[] public finalWinOption;
-    bool public activate = false; // initial game status is false
-    string public currentPlayer = "X"; // frist player is X
+    // string[] public options = ["", "", "", "", "", "", "", "", ""]; //options to store player option
+    // uint[] public finalWinOption;
+    // bool public activate = false; // initial game status is false
+    // string public currentPlayer = "X"; // frist player is X
     uint[][] private winConditionSet=  
     [[0, 1, 2], 
     [3, 4, 5],      //set all win condition
@@ -40,64 +43,101 @@ contract TickTackToe{
     event nextUesrStr(string next);   // send next uesr (X or O)
     event resetUI(string initPLayer); // use to trigger UI reset function   
     event showFirstPlayer(address player1Address);
+    event testing(GameInfo);
 
     // for UI to get option array
-    function getoption () external view returns (string[] memory){
-        return options;
-    }
+    // function getoption () external view returns (string[] memory){
+    //     return options;
+    // }
 
-    // for UI to get finalWinOption array
-    function getFinalWinOption () external view returns (uint[] memory){
-        return finalWinOption;
+    // // for UI to get finalWinOption array
+    // function getFinalWinOption () external view returns (uint[] memory){
+    //     return finalWinOption;
+    // }
+
+    //create new game room
+    function createGameRoom() external {
+        GameInfo memory gameInfo;
+        gameInformation.push(gameInfo);
+        uint gameLength = gameInformation.length;
+
+        gameInformation[gameLength-1]._player1address = msg.sender;
+        gameInformation[gameLength-1]._activate = false;
+        gameInformation[gameLength-1]._playerCount = 1;
+        gameInformation[gameLength-1]._currentPlayer = "X";
+        for(uint i = 0; i < 9; i++){
+            gameInformation[gameLength-1]._options.push("");
+        }
+        emit testing(gameInformation[gameLength-1]);
+        
     }
 
     // user queue
-    function joinGame () external {
-        //allow player to join if player not more than 2 
-        if(playerCount == 0){
-            restartGame();
-            player1address = msg.sender;
-            playerCount++;
-            emit showFirstPlayer(player1address);
-        }else if(playerCount == 1){
-            require((msg.sender != player1address), "Error: You cannot play with yourself");
-            player2address = msg.sender;
-            playerCount++;
-            activate = true;
+    function joinGame (uint gameId) external {
+        
+
+        if(gameInformation[gameId]._playerCount == 1){
+            require((msg.sender !=  gameInformation[gameId]._player1address), "Error: You cannot play with yourself");
+            gameInformation[gameId]._player2address = msg.sender;
+            gameInformation[gameId]._playerCount = 2;
+            gameInformation[gameId]._activate = true;
             //send message to inform the player start game
-            emit startGame("Start game!", player1address, player2address);
-        }else{
+            //how to send to correct user
+            //emit startGame("Start game!", gameInformation[gameId]._player1address, gameInformation[gameId]._player2address);
+
+        } else {
             //if player more than 2, send the message to UI
-            require(playerCount < 2,"Now queue is full, try later");
+            require(gameInformation[gameId]._playerCount == 2,"Now queue is full, try later. Game already full pls join other");
         }
+
+        //allow player to join if player not more than 2 
+        // if(playerCount == 0){
+        //     restartGame();
+        //     player1address = msg.sender;
+        //     playerCount++;
+        //     emit showFirstPlayer(player1address);
+        // }else if(playerCount == 1){
+        //     require((msg.sender != player1address), "Error: You cannot play with yourself");
+        //     player2address = msg.sender;
+        //     playerCount++;
+        //     activate = true;
+        //     //send message to inform the player start game
+        //     emit startGame("Start game!", player1address, player2address);
+        // }else{
+        //     //if player more than 2, send the message to UI
+        //     require(playerCount < 2,"Now queue is full, try later. Game already full pls join other");
+        // }
+        emit testing(gameInformation[gameId]);
     } 
 
     // basic game logic
     // check player input and ensure the input is from correct player 
-    function userInput(uint input) external {
-        require(activate,"The game still not start yet");               //check game status
-        require(compareStrings(options[input],""),"Invalid input");     //check the input
+    function userInput(uint input, uint gameId) external {
+        require(gameInformation[gameId]._activate,"The game still not start yet");   //check game status
+        require(compareStrings(gameInformation[gameId]._options[input],""),"Invalid input");                  //check the input
         //check player
-        if(compareStrings(currentPlayer, "X")){
-            require(msg.sender == player1address,"You are not player 1");
+        if(compareStrings(gameInformation[gameId]._currentPlayer, "X")){
+            require(msg.sender == gameInformation[gameId]._player1address,"You are not player 1");
         }else{
-            require(msg.sender == player2address,"You are not player 2");
+            require(msg.sender == gameInformation[gameId]._player2address,"You are not player 2");
         }
         
-        options[input] = currentPlayer; //if both no problem, just put into options
-        emit updateUI(options);         //sned data for UI display
-        checkWinner();                  //check the win condition
+        gameInformation[gameId]._options[input] = gameInformation[gameId]._currentPlayer;   //if both no problem, just put into options
+        emit updateUI(gameInformation[gameId]._options);         //sned data for UI display
+        //need to more parameter 
+        checkWinner(gameId);                  //check the win condition
+        emit testing(gameInformation[gameId]);
     }
     // use to check the win, draw  
-    function checkWinner () private {
+    function checkWinner (uint gameId) private {
         bool userWon = false;  //condition to check game status
         //get the win condition on array and do the condition check
         for(uint i = 0 ; i < winConditionSet.length; i++){
             uint[] memory winCondition = winConditionSet[i];
             //get the win condition and check the element
-            string memory resultA= options[winCondition[0]];
-            string memory resultB= options[winCondition[1]];
-            string memory resultC= options[winCondition[2]];
+            string memory resultA= gameInformation[gameId]._options[winCondition[0]];
+            string memory resultB= gameInformation[gameId]._options[winCondition[1]];
+            string memory resultC= gameInformation[gameId]._options[winCondition[2]];
             // tick tack toe grid
             // 0 1 2
             // 3 4 5
@@ -108,7 +148,14 @@ contract TickTackToe{
                 continue;
             }
             if(compareStrings(resultA, resultB) && compareStrings(resultB, resultC)){
-                finalWinOption = winCondition;
+                gameInformation[gameId]._finalWinOption = winCondition;
+                
+                if(compareStrings(gameInformation[gameId]._currentPlayer, "X")){
+                    gameInformation[gameId]._winer = gameInformation[gameId]._player1address;
+                } else {
+                    gameInformation[gameId]._winer = gameInformation[gameId]._player2address;
+                }
+                
                 userWon = true;
                 break;
             }
@@ -117,41 +164,41 @@ contract TickTackToe{
         //else change player and go to next round
         if(userWon){
             //sent winer to info UI
-            emit showResult(currentPlayer);
+            emit showResult(gameInformation[gameId]._currentPlayer); //need to more parameter 
             //reset attribute
-            activate = false;
-            playerCount = 0;
-        } else if(checkOptions()){
+            gameInformation[gameId]._activate = false;
+            //playerCount = 0;
+        } else if(checkOptions(gameId)){
             // send Draw message to UI
-            emit showResult("Draw");
+            emit showResult("Draw"); //need to more parameter 
             //reset attribute
-            activate = false;
-            playerCount = 0;
+            gameInformation[gameId]._activate = false;
+            //playerCount = 0;
         } else {
             //change to next player
-            changePlayer();
+            changePlayer(gameId);
         }
     }
     //change player per round
-    function changePlayer() private {
+    function changePlayer(uint gameId) private {
         //send the change message to UI
-        if(compareStrings(currentPlayer, "X")){
-            emit nextUser(player2address);
+        if(compareStrings(gameInformation[gameId]._currentPlayer, "X")){
+            emit nextUser(gameInformation[gameId]._player2address); //need to more parameter 
         }else{
-            emit nextUser(player1address);
+            emit nextUser(gameInformation[gameId]._player1address); //need to more parameter 
         }
         //change the player
-        currentPlayer = (compareStrings(currentPlayer, "X")) ? "O" : "X";
+        gameInformation[gameId]._currentPlayer = (compareStrings(gameInformation[gameId]._currentPlayer, "X")) ? "O" : "X";
         //sent the player info to UI
-        emit nextUesrStr(currentPlayer);
+        emit nextUesrStr(gameInformation[gameId]._currentPlayer);
     }
 
     // Use to check if there are any empty options.
-    function checkOptions() private view returns (bool) {
+    function checkOptions(uint gameId) private view returns (bool) {
         //check each element in options array
         //if include any "" return false, else return true
-        for(uint i = 0 ; i < options.length; i++){
-            if(compareStrings(options[i], "")){
+        for(uint i = 0 ; i < gameInformation[gameId]._options.length; i++){
+            if(compareStrings(gameInformation[gameId]._options[i], "")){
                 return false;
             }
         }
@@ -165,15 +212,15 @@ contract TickTackToe{
     }
 
     //use to reset game information
-    function restartGame() public {
-        currentPlayer = "X";
-        options = ["", "", "", "", "", "", "", "", ""];
-        emit resetUI(currentPlayer);
-        playerCount = 0;
-        activate = false;
-        player1address = address(0);
-        player2address = address(0);
-        delete finalWinOption;
+    function restartGame(uint gameId) public {
+        gameInformation[gameId]._currentPlayer = "X";
+        gameInformation[gameId]._options = ["", "", "", "", "", "", "", "", ""];
+        emit resetUI(gameInformation[gameId]._currentPlayer);
+        //playerCount = 0;
+        gameInformation[gameId]._activate = false;
+        //player1address = address(0);
+        //player2address = address(0);
+        //delete finalWinOption;
     }
 
 }
