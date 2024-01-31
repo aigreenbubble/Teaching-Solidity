@@ -13,6 +13,12 @@
 						"internalType": "string",
 						"name": "next",
 						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
 					}
 				],
 				"name": "nextUesrStr",
@@ -26,6 +32,12 @@
 						"internalType": "address",
 						"name": "nextUser",
 						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
 					}
 				],
 				"name": "nextUser",
@@ -36,9 +48,9 @@
 				"inputs": [
 					{
 						"indexed": false,
-						"internalType": "string",
-						"name": "initPLayer",
-						"type": "string"
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
 					}
 				],
 				"name": "resetUI",
@@ -52,6 +64,12 @@
 						"internalType": "address",
 						"name": "player1Address",
 						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
 					}
 				],
 				"name": "showFirstPlayer",
@@ -65,6 +83,12 @@
 						"internalType": "string",
 						"name": "result",
 						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
 					}
 				],
 				"name": "showResult",
@@ -90,6 +114,12 @@
 						"internalType": "address",
 						"name": "player2",
 						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
 					}
 				],
 				"name": "startGame",
@@ -143,8 +173,14 @@
 						],
 						"indexed": false,
 						"internalType": "struct TickTackToe.GameInfo",
-						"name": "",
+						"name": "gameInfo",
 						"type": "tuple"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
 					}
 				],
 				"name": "testing",
@@ -158,6 +194,12 @@
 						"internalType": "string[]",
 						"name": "options",
 						"type": "string[]"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
 					}
 				],
 				"name": "updateUI",
@@ -239,6 +281,160 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "getAllGameInformation",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "bool",
+								"name": "_activate",
+								"type": "bool"
+							},
+							{
+								"internalType": "string",
+								"name": "_currentPlayer",
+								"type": "string"
+							},
+							{
+								"internalType": "string[]",
+								"name": "_options",
+								"type": "string[]"
+							},
+							{
+								"internalType": "uint256[]",
+								"name": "_finalWinOption",
+								"type": "uint256[]"
+							},
+							{
+								"internalType": "address",
+								"name": "_player1address",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "_player2address",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_playerCount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "_winer",
+								"type": "address"
+							}
+						],
+						"internalType": "struct TickTackToe.GameInfo[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
+					}
+				],
+				"name": "getFinalWinOption",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
+					}
+				],
+				"name": "getGameInformation",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "bool",
+								"name": "_activate",
+								"type": "bool"
+							},
+							{
+								"internalType": "string",
+								"name": "_currentPlayer",
+								"type": "string"
+							},
+							{
+								"internalType": "string[]",
+								"name": "_options",
+								"type": "string[]"
+							},
+							{
+								"internalType": "uint256[]",
+								"name": "_finalWinOption",
+								"type": "uint256[]"
+							},
+							{
+								"internalType": "address",
+								"name": "_player1address",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "_player2address",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_playerCount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "_winer",
+								"type": "address"
+							}
+						],
+						"internalType": "struct TickTackToe.GameInfo",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
+					}
+				],
+				"name": "getoption",
+				"outputs": [
+					{
+						"internalType": "string[]",
+						"name": "",
+						"type": "string[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -311,11 +507,11 @@
 	},
 	"sources": {
 		"Prectical5-Tick-Tack-Toe-More-Jason.sol": {
-			"keccak256": "0x63be1c97e7a7d51948021f68e6eb8992413767066382d6461a5c334bc5cf26ee",
+			"keccak256": "0x1a789797577131ecb00a646bfec86584e1a6f934ce4f362ab651f53c445ce27b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c6216cf034fca9fe229468e4eb7b8da1cc896506f386dcfe3ac2608b238334bb",
-				"dweb:/ipfs/QmRGqqZHHWoQDc77ySpYiHdBaaLzJ1BNeEi6cN2yN5kJA8"
+				"bzz-raw://cc9fefa296bc456ae6ffecb7e7017c789c5a69be2781733ee0041681f344c437",
+				"dweb:/ipfs/QmbDqTECRvqcHZZR74YoBKSwHPLHwHMW4GBDEgP52Tk2Kz"
 			]
 		}
 	},
