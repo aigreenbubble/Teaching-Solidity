@@ -43,7 +43,8 @@ contract TickTackToe{
     event nextUesrStr(string next, uint gameId);   // send next uesr (X or O)
     event resetUI(uint gameId); // use to trigger UI reset function   
     event showFirstPlayer(address player1Address, uint gameId); 
-    event testing(GameInfo gameInfo, uint gameId);
+    event createRoom(uint gameId);
+    event joinRoom(GameInfo gameinfo, uint gameId);
 
     //for UI to get option array
     function getoption (uint gameId) external view returns (string[] memory){
@@ -76,7 +77,7 @@ contract TickTackToe{
         for(uint i = 0; i < 9; i++){
             gameInformation[gameLength-1]._options.push("");
         }
-        emit testing(gameInformation[gameLength-1], gameLength-1);
+        emit createRoom(gameLength-1);
         
     }
 
@@ -98,7 +99,7 @@ contract TickTackToe{
             require(gameInformation[gameId]._playerCount == 2,"Now queue is full, try later. Game already full pls join other");
         }
         //add event to inform UI finish
-        emit testing(gameInformation[gameId], gameId);
+        emit joinRoom(gameInformation[gameId], gameId);
     } 
 
     // basic game logic
@@ -117,7 +118,6 @@ contract TickTackToe{
         emit updateUI(gameInformation[gameId]._options, gameId);                            //sned data for UI display
         //need to more parameter 
         checkWinner(gameId);       //check the win condition
-        emit testing(gameInformation[gameId], gameId);
     }
     // use to check the win, draw  
     function checkWinner (uint gameId) private {
@@ -201,17 +201,24 @@ contract TickTackToe{
         //Use bytes32 to store the result from keccak256 hash function
         return keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));
     }
+    
+    function validateRestartPlayer (uint gameId) public {
+        //check the player who request restart game is in this game or not
+        require(checkAddress(gameId), "you are not this game player");
+        require(gameInformation[gameId]._activate == false, "Game still playing");
+        restartGame(gameId);
+    }
+    // compare the message address and game player address
+    function checkAddress (uint gameId) private view returns (bool) {
+        return msg.sender == gameInformation[gameId]._player1address || msg.sender == gameInformation[gameId]._player2address ? true : false; 
+    }
 
     //use to reset game information
     function restartGame(uint gameId) public {
         gameInformation[gameId]._currentPlayer = "X";
         gameInformation[gameId]._options = ["", "", "", "", "", "", "", "", ""];
+         gameInformation[gameId]._activate = true;
         emit resetUI(gameId);
-        //playerCount = 0;
-        gameInformation[gameId]._activate = false;
-        //player1address = address(0);
-        //player2address = address(0);
-        //delete finalWinOption;
     }
 
 }

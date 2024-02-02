@@ -10,6 +10,80 @@
 				"inputs": [
 					{
 						"indexed": false,
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
+					}
+				],
+				"name": "createRoom",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "bool",
+								"name": "_activate",
+								"type": "bool"
+							},
+							{
+								"internalType": "string",
+								"name": "_currentPlayer",
+								"type": "string"
+							},
+							{
+								"internalType": "string[]",
+								"name": "_options",
+								"type": "string[]"
+							},
+							{
+								"internalType": "uint256[]",
+								"name": "_finalWinOption",
+								"type": "uint256[]"
+							},
+							{
+								"internalType": "address",
+								"name": "_player1address",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "_player2address",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_playerCount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "_winer",
+								"type": "address"
+							}
+						],
+						"indexed": false,
+						"internalType": "struct TickTackToe.GameInfo",
+						"name": "gameinfo",
+						"type": "tuple"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
+					}
+				],
+				"name": "joinRoom",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
 						"internalType": "string",
 						"name": "next",
 						"type": "string"
@@ -123,67 +197,6 @@
 					}
 				],
 				"name": "startGame",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"components": [
-							{
-								"internalType": "bool",
-								"name": "_activate",
-								"type": "bool"
-							},
-							{
-								"internalType": "string",
-								"name": "_currentPlayer",
-								"type": "string"
-							},
-							{
-								"internalType": "string[]",
-								"name": "_options",
-								"type": "string[]"
-							},
-							{
-								"internalType": "uint256[]",
-								"name": "_finalWinOption",
-								"type": "uint256[]"
-							},
-							{
-								"internalType": "address",
-								"name": "_player1address",
-								"type": "address"
-							},
-							{
-								"internalType": "address",
-								"name": "_player2address",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "_playerCount",
-								"type": "uint256"
-							},
-							{
-								"internalType": "address",
-								"name": "_winer",
-								"type": "address"
-							}
-						],
-						"indexed": false,
-						"internalType": "struct TickTackToe.GameInfo",
-						"name": "gameInfo",
-						"type": "tuple"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "gameId",
-						"type": "uint256"
-					}
-				],
-				"name": "testing",
 				"type": "event"
 			},
 			{
@@ -477,6 +490,19 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "gameId",
+						"type": "uint256"
+					}
+				],
+				"name": "validateRestartPlayer",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -507,11 +533,11 @@
 	},
 	"sources": {
 		"Prectical5-Tick-Tack-Toe-More-Jason.sol": {
-			"keccak256": "0x1a789797577131ecb00a646bfec86584e1a6f934ce4f362ab651f53c445ce27b",
+			"keccak256": "0x9519ff71cb29b2e073ce3ff09bcedc607e2863df91e81ba130baa44cf95b9e14",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://cc9fefa296bc456ae6ffecb7e7017c789c5a69be2781733ee0041681f344c437",
-				"dweb:/ipfs/QmbDqTECRvqcHZZR74YoBKSwHPLHwHMW4GBDEgP52Tk2Kz"
+				"bzz-raw://2793c9008e884949aa5ec68eebcb7be2c7dbbe4daf92a314d73e47b55321df2d",
+				"dweb:/ipfs/QmX6XBAtDkYXbiSkARSDjfKdRpTRKMcuNc1FoFBfJhoibG"
 			]
 		}
 	},
