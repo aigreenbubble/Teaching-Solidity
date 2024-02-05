@@ -474,6 +474,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "showbalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -518,7 +531,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Prectical5-Tick-Tack-Toe-More-Jason.sol": "TickTackToe"
+			"Practical6-Apply-TTT-Token.sol": "TickTackToe"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -532,12 +545,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"Prectical5-Tick-Tack-Toe-More-Jason.sol": {
-			"keccak256": "0x9519ff71cb29b2e073ce3ff09bcedc607e2863df91e81ba130baa44cf95b9e14",
+		"Practical6-Apply-TTT-Token.sol": {
+			"keccak256": "0x5c8bb593ceee6d0607bdcc81aad8c69ecd6068e27142a7bbc6052afacc744822",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2793c9008e884949aa5ec68eebcb7be2c7dbbe4daf92a314d73e47b55321df2d",
-				"dweb:/ipfs/QmX6XBAtDkYXbiSkARSDjfKdRpTRKMcuNc1FoFBfJhoibG"
+				"bzz-raw://afd60b39bd1352870688be2028a0396e7a604d9b2f015accc86522d5904dddac",
+				"dweb:/ipfs/QmdHahEBm5AwwHJ2P4fmf2fXkCwzQyCFLzQwE5BEgJeEXP"
+			]
+		},
+		"TTT_token.sol": {
+			"keccak256": "0x1d3f1eb01c836b2553d0c48b87c9a3e93760d659956347a95d14013f8771a594",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://533e14b105285732fa8cc495691f375b6034b6bc95de45581f7e085aef7450dc",
+				"dweb:/ipfs/QmbwB91pekxeBqRdFQCABtpQWSt2YvEVfasVAPqRha9PY9"
 			]
 		}
 	},
