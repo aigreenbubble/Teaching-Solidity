@@ -104,11 +104,11 @@
 	},
 	"sources": {
 		"TTT_token.sol": {
-			"keccak256": "0x97d2b6d5e8d0099758e444b64614d6f479ea0f9aa957e775707f2429505cc24c",
+			"keccak256": "0x1d3f1eb01c836b2553d0c48b87c9a3e93760d659956347a95d14013f8771a594",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://13f364121ab6b7abff3b8341bdce101434b285eadf05775f99892fbaa08af67c",
-				"dweb:/ipfs/QmdZEVdi59TUktKJMkigaqzoQXSSKDkUiQ4B584WHt89Aa"
+				"bzz-raw://533e14b105285732fa8cc495691f375b6034b6bc95de45581f7e085aef7450dc",
+				"dweb:/ipfs/QmbwB91pekxeBqRdFQCABtpQWSt2YvEVfasVAPqRha9PY9"
 			]
 		}
 	},

@@ -6,6 +6,11 @@
 	"output": {
 		"abi": [
 			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -62,6 +67,21 @@
 								"internalType": "address",
 								"name": "_winer",
 								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_player1Bet",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_player2Bet",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_rewardAmount",
+								"type": "uint256"
 							}
 						],
 						"indexed": false,
@@ -219,6 +239,32 @@
 				"type": "event"
 			},
 			{
+				"inputs": [],
+				"name": "TTTToken",
+				"outputs": [
+					{
+						"internalType": "contract IERC20",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "burnFee",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "string",
@@ -243,7 +289,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "betAmount",
+						"type": "uint256"
+					}
+				],
 				"name": "createGameRoom",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -288,6 +340,21 @@
 						"internalType": "address",
 						"name": "_winer",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_player1Bet",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_player2Bet",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_rewardAmount",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -338,6 +405,21 @@
 								"internalType": "address",
 								"name": "_winer",
 								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_player1Bet",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_player2Bet",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_rewardAmount",
+								"type": "uint256"
 							}
 						],
 						"internalType": "struct TickTackToe.GameInfo[]",
@@ -346,6 +428,20 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAllMoney",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getExcessBalance",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -418,6 +514,21 @@
 								"internalType": "address",
 								"name": "_winer",
 								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_player1Bet",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_player2Bet",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_rewardAmount",
+								"type": "uint256"
 							}
 						],
 						"internalType": "struct TickTackToe.GameInfo",
@@ -453,11 +564,42 @@
 						"internalType": "uint256",
 						"name": "gameId",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "betAmount",
+						"type": "uint256"
 					}
 				],
 				"name": "joinGame",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "minBetAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -475,7 +617,33 @@
 			},
 			{
 				"inputs": [],
-				"name": "showbalance",
+				"name": "totalAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "treasury",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "treasuryFee",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -545,20 +713,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"Practical6-Apply-TTT-Token.sol": {
-			"keccak256": "0x5c8bb593ceee6d0607bdcc81aad8c69ecd6068e27142a7bbc6052afacc744822",
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x4ce6e9f30dba5ae30f26321dc851b669caf3f953f8c832304d05df2a523f1af3",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://afd60b39bd1352870688be2028a0396e7a604d9b2f015accc86522d5904dddac",
-				"dweb:/ipfs/QmdHahEBm5AwwHJ2P4fmf2fXkCwzQyCFLzQwE5BEgJeEXP"
+				"bzz-raw://eb24de66bbfa42093a20d448cb2564655525cba0342035a42a37654e5d922deb",
+				"dweb:/ipfs/QmYgnFHamrgy5qurrxVLR1qDb7MirvGEoxCVwqiF1YvDMf"
 			]
 		},
-		"TTT_token.sol": {
-			"keccak256": "0x1d3f1eb01c836b2553d0c48b87c9a3e93760d659956347a95d14013f8771a594",
+		"Practical6-Apply-TTT-Token.sol": {
+			"keccak256": "0xaf4c17fac8f62bd82386f24ffacd969b316fcdc595c749e16ad9f13a44e88c8e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://533e14b105285732fa8cc495691f375b6034b6bc95de45581f7e085aef7450dc",
-				"dweb:/ipfs/QmbwB91pekxeBqRdFQCABtpQWSt2YvEVfasVAPqRha9PY9"
+				"bzz-raw://689ddba2a377ff8051a1d2766a940f54fd2afe7ca4b2851f3a5d2367aa3ee0f9",
+				"dweb:/ipfs/QmS3U4iH291f3zG6cZ875t8sjd7dGfKVwYFCAaoYfg4UuY"
 			]
 		}
 	},
