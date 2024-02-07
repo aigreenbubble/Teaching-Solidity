@@ -18,7 +18,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Practical6-Buy-Token.sol": "Name"
+			"Practical6-Buy-Token.sol": "B"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -41,11 +41,11 @@
 			]
 		},
 		"Practical6-Buy-Token.sol": {
-			"keccak256": "0xea82b6f5a2d6b08a2b928702d41bba9d4e2367b53643a220a9a24c7d49e010c4",
+			"keccak256": "0x60ec0bf7aa3a3450a07eed05cf014affda5ea3346db00de6492a1a1d9bc1a7ee",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a274d4f15c7d42c85ceb247f2625f39073cbc9af36b9ae1e140b61ff86326c33",
-				"dweb:/ipfs/QmaTnea34dXtzPBcT7h1pXEN85yCu7m6vf2r4AdnJxoEKU"
+				"bzz-raw://a3f5f21467cb3db9f2b75d39789e44872b4a6bce434729f6c17addb65efd42b9",
+				"dweb:/ipfs/QmabRPFDoQWYh8AJ947HcNmMsP2UZT9weXUPxm51BUVheH"
 			]
 		}
 	},

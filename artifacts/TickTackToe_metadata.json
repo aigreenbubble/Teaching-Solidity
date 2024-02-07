@@ -302,6 +302,13 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "faucetToken",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -722,11 +729,11 @@
 			]
 		},
 		"Practical6-Apply-TTT-Token.sol": {
-			"keccak256": "0xaf4c17fac8f62bd82386f24ffacd969b316fcdc595c749e16ad9f13a44e88c8e",
+			"keccak256": "0x187fe3957a0a2bc9d60f0e1060341892f3022e61d5522f24ffea0b91cdcbec59",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://689ddba2a377ff8051a1d2766a940f54fd2afe7ca4b2851f3a5d2367aa3ee0f9",
-				"dweb:/ipfs/QmS3U4iH291f3zG6cZ875t8sjd7dGfKVwYFCAaoYfg4UuY"
+				"bzz-raw://52c2ee76dac1089e13fbeb1f25100365f66e086e86da5e7afc44fe5d78197648",
+				"dweb:/ipfs/QmZDtttnZNU7kPSwnpRQW2hph8tFr4pfyhwvd7fGR5yVcv"
 			]
 		}
 	},

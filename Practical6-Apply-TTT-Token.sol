@@ -5,9 +5,10 @@
 
 
     contract TickTackToe{
-        IERC20 public TTTToken = IERC20(0xc6bDdCd0DA1c50281f02a57B8D2ada2ebF76AEC7); // Token contract address
+        IERC20 public TTTToken = IERC20(0x927E818dDCaB12d025495B228A4ce1dAE82798Ec); // Token contract address
 
-        uint256 public minBetAmount = 10 ether;
+        //uint256 public minBetAmount = 10 * 1e18;
+        uint256 public minBetAmount = 10;
 
         address public treasury = 0x3cE5a8a72820585C60F659896338D57347196991;
         uint256 public burnFee = 5;
@@ -34,17 +35,6 @@
         }
         GameInfo[] public gameInformation;
 
-        //validate the user
-        // address public player1address;  //store user 1 address
-        // address public player2address;  //store uesr 2 address
-        // uint public playerCount = 0;    //count current userJ
-
-        //User 1 set to X    User 2 set to O     
-        // basic game logic
-        // string[] public options = ["", "", "", "", "", "", "", "", ""]; //options to store player option
-        // uint[] public finalWinOption;
-        // bool public activate = false; // initial game status is false
-        // string public currentPlayer = "X"; // frist player is X
         uint[][] private winConditionSet=  
         [[0, 1, 2], 
         [3, 4, 5],      //set all win condition
@@ -64,11 +54,18 @@
         event showFirstPlayer(address player1Address, uint gameId); 
         event createRoom(uint gameId);
         event joinRoom(GameInfo gameinfo, uint gameId);
+        event faucet(address msgSender, bool successful);
 
         constructor() {
             owner = msg.sender;
         }
-
+        //faucet TTT Token
+        function faucetToken() external {
+            require(TTTToken.balanceOf(address(this)) > 100, "The contract does not have tokens to provide.");
+            require(TTTToken.balanceOf(msg.sender) < 10, "You still got enought token");
+            bool successful = TTTToken.transfer(msg.sender, 100 ether);
+            emit faucet(msg.sender, successful);
+        }
         //only for testing purpose
         function getAllMoney() external onlyOwner{
             TTTToken.transfer(owner, TTTToken.balanceOf(address(this)));

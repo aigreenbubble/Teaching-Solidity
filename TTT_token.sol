@@ -202,10 +202,10 @@ contract StandardToken is Ownable, IERC20, IERC20Metadata {
      * construction.
      */
     constructor() {
-        _name = "TickTackToe";
+        _name = "TickTackToe18d";
         _symbol = "TTT";
         
-        _mint(msg.sender, 10 * 1e19 * (10**decimals()));
+        _mint(msg.sender, 10 * 1e9 * (10**decimals()));
     }
 
     /**
@@ -238,7 +238,7 @@ contract StandardToken is Ownable, IERC20, IERC20Metadata {
      * {IERC20-balanceOf} and {IERC20-transfer}.
      */
     function decimals() public view virtual override returns (uint8) {
-        return 9;
+        return 18;
     }
 
     /**

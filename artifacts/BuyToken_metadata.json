@@ -1,0 +1,137 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "buyer",
+						"type": "address"
+					}
+				],
+				"name": "topUpSuccessful",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "TTTToken",
+				"outputs": [
+					{
+						"internalType": "contract IERC20",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "buyTTTToken",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "newRate",
+						"type": "uint256"
+					}
+				],
+				"name": "changeEXCTRate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "exchangeRate",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Practical6-Buy-Token.sol": "BuyToken"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x4ce6e9f30dba5ae30f26321dc851b669caf3f953f8c832304d05df2a523f1af3",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://eb24de66bbfa42093a20d448cb2564655525cba0342035a42a37654e5d922deb",
+				"dweb:/ipfs/QmYgnFHamrgy5qurrxVLR1qDb7MirvGEoxCVwqiF1YvDMf"
+			]
+		},
+		"Practical6-Buy-Token.sol": {
+			"keccak256": "0xbb4f5d9b7f41f945ba3b667d81cec4baab62f629574088b7c015cf8cc6224b3e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://cf004b0904647b5c179b486be3ef6ace2ce3bb816225c6a993fe1798edfa468d",
+				"dweb:/ipfs/Qmdwx9zzWaFAsxKhhkGDh27UHHe4S2sJMgakMN5oG8EFEV"
+			]
+		}
+	},
+	"version": 1
+}
