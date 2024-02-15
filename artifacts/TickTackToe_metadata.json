@@ -27,6 +27,25 @@
 				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "msgSender",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "successful",
+						"type": "bool"
+					}
+				],
+				"name": "faucet",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
 						"components": [
 							{
 								"internalType": "bool",
@@ -729,11 +748,11 @@
 			]
 		},
 		"Practical6-Apply-TTT-Token.sol": {
-			"keccak256": "0x187fe3957a0a2bc9d60f0e1060341892f3022e61d5522f24ffea0b91cdcbec59",
+			"keccak256": "0xe4b9655d0c12d14f7def8657fd9889b806ce3fa40a2eb2d32104edca3bbe52a4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://52c2ee76dac1089e13fbeb1f25100365f66e086e86da5e7afc44fe5d78197648",
-				"dweb:/ipfs/QmZDtttnZNU7kPSwnpRQW2hph8tFr4pfyhwvd7fGR5yVcv"
+				"bzz-raw://d35c94ba9409fa3ef976d7799db9c0964194a32300384060bbcf2dc87d11a4b1",
+				"dweb:/ipfs/Qmcc2j7tQ6pcuF1nCb7XqHhGzmm3yLwmcXTe4dFagtHVV9"
 			]
 		}
 	},

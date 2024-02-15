@@ -12,6 +12,7 @@ contract payAndPlay{
     address playerAddress; // recoed player address
     address public owner; // contract owner
     bool locked;    // lock for re entry
+    //uint time = block.timestamp + 4 weeks;
 
     event showBalance(uint);
     event showResult(uint);

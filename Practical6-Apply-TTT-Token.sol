@@ -8,7 +8,7 @@
         IERC20 public TTTToken = IERC20(0x927E818dDCaB12d025495B228A4ce1dAE82798Ec); // Token contract address
 
         //uint256 public minBetAmount = 10 * 1e18;
-        uint256 public minBetAmount = 10;
+        uint256 public minBetAmount = 10 ether;
 
         address public treasury = 0x3cE5a8a72820585C60F659896338D57347196991;
         uint256 public burnFee = 5;
