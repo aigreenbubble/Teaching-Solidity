@@ -31,7 +31,6 @@
             uint256 _player1Bet;
             uint256 _player2Bet;
             uint256 _rewardAmount;
-            //game id?
         }
         GameInfo[] public gameInformation;
 
@@ -294,7 +293,7 @@
             return msg.sender == gameInformation[gameId]._player1address || msg.sender == gameInformation[gameId]._player2address ? true : false; 
         }
 
-        //use to reset game information
+        //use to reset game information when the game draw
         function restartGame(uint gameId) public {
             gameInformation[gameId]._currentPlayer = "X";
             gameInformation[gameId]._options = ["", "", "", "", "", "", "", "", ""];

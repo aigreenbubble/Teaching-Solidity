@@ -748,11 +748,11 @@
 			]
 		},
 		"Practical6-Apply-TTT-Token.sol": {
-			"keccak256": "0xe4b9655d0c12d14f7def8657fd9889b806ce3fa40a2eb2d32104edca3bbe52a4",
+			"keccak256": "0xab194bde85556fd3884b3e4a86202ecf38219e87e0a5b8973df6134a8b024932",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d35c94ba9409fa3ef976d7799db9c0964194a32300384060bbcf2dc87d11a4b1",
-				"dweb:/ipfs/Qmcc2j7tQ6pcuF1nCb7XqHhGzmm3yLwmcXTe4dFagtHVV9"
+				"bzz-raw://704195e8de2fdbaad5662fdf74bb3b303f23f7722fd41937c54de70c4a28635c",
+				"dweb:/ipfs/QmUPcfTUm8smUrC5TEogYXUw619APQM7rK6nDQtDnZaqWV"
 			]
 		}
 	},
