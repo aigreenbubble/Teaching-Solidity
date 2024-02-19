@@ -61,7 +61,7 @@
         //faucet TTT Token
         function faucetToken() external {
             require(TTTToken.balanceOf(address(this)) > 100, "The contract does not have tokens to provide.");
-            require(TTTToken.balanceOf(msg.sender) < 10, "You still got enought token");
+            require(TTTToken.balanceOf(msg.sender) < 10, "You still got enough token");
             bool successful = TTTToken.transfer(msg.sender, 100 ether);
             emit faucet(msg.sender, successful);
         }
