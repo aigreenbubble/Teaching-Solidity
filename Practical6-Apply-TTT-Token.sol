@@ -2,10 +2,11 @@
     pragma solidity 0.8.19;
 
     import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-
+    import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 
     contract TickTackToe{
         IERC20 public TTTToken = IERC20(0x927E818dDCaB12d025495B228A4ce1dAE82798Ec); // Token contract address
+        ERC1155 public TTT1155Token = ERC1155(0xa911Cf7636D9E2abe9AAf05035EFA47b14160965);
 
         //uint256 public minBetAmount = 10 * 1e18;
         uint256 public minBetAmount = 10 ether;
@@ -58,6 +59,12 @@
         constructor() {
             owner = msg.sender;
         }
+        function toTestERC1155() external {
+            //TTT1155Token.mint(msg.sender, 0, 1);
+            bytes memory empty;
+            TTT1155Token._mint(msg.sender, 0, 1, empty);
+        }
+
         //faucet TTT Token
         function faucetToken() external {
             require(TTTToken.balanceOf(address(this)) > 100, "The contract does not have tokens to provide.");

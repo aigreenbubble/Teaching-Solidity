@@ -1,0 +1,46 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"details": "Collection of functions related to array types.",
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"TTT_ERC1155Token-Jason.sol": "Arrays"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"TTT_ERC1155Token-Jason.sol": {
+			"keccak256": "0x7458ddb04e5e25fb378776399024cdf5b900b8738a64dcb32dbbcc8fbe54a89d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://719ce0305880364bc83537768c2f15aa5ed2115af29bc432d39ad648a8f03b66",
+				"dweb:/ipfs/QmSMfSEW7pb9VbZA9hg1SCkswjTWtCWWezqAvd7ZroLRM5"
+			]
+		}
+	},
+	"version": 1
+}

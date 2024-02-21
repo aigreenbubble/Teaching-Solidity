@@ -6,6 +6,11 @@
 	"output": {
 		"abi": [
 			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -16,6 +21,25 @@
 					}
 				],
 				"name": "createRoom",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "msgSender",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "successful",
+						"type": "bool"
+					}
+				],
+				"name": "faucet",
 				"type": "event"
 			},
 			{
@@ -62,6 +86,21 @@
 								"internalType": "address",
 								"name": "_winer",
 								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_player1Bet",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_player2Bet",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_rewardAmount",
+								"type": "uint256"
 							}
 						],
 						"indexed": false,
@@ -219,6 +258,45 @@
 				"type": "event"
 			},
 			{
+				"inputs": [],
+				"name": "TTT1155Token",
+				"outputs": [
+					{
+						"internalType": "contract IERC1155",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "TTTToken",
+				"outputs": [
+					{
+						"internalType": "contract IERC20",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "burnFee",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "string",
@@ -243,8 +321,21 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "betAmount",
+						"type": "uint256"
+					}
+				],
 				"name": "createGameRoom",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "faucetToken",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -288,6 +379,21 @@
 						"internalType": "address",
 						"name": "_winer",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_player1Bet",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_player2Bet",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_rewardAmount",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -338,6 +444,21 @@
 								"internalType": "address",
 								"name": "_winer",
 								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_player1Bet",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_player2Bet",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_rewardAmount",
+								"type": "uint256"
 							}
 						],
 						"internalType": "struct TickTackToe.GameInfo[]",
@@ -346,6 +467,20 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAllMoney",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getExcessBalance",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -418,6 +553,21 @@
 								"internalType": "address",
 								"name": "_winer",
 								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_player1Bet",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_player2Bet",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "_rewardAmount",
+								"type": "uint256"
 							}
 						],
 						"internalType": "struct TickTackToe.GameInfo",
@@ -453,11 +603,42 @@
 						"internalType": "uint256",
 						"name": "gameId",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "betAmount",
+						"type": "uint256"
 					}
 				],
 				"name": "joinGame",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "minBetAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -471,6 +652,52 @@
 				"name": "restartGame",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "toTestERC1155",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "treasury",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "treasuryFee",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -518,7 +745,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Practical5-Tick-Tack-Toe-More-Jason.sol": "TickTackToe"
+			"Practical6-Apply-TTT-Token.sol": "TickTackToe"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -532,12 +759,36 @@
 		"remappings": []
 	},
 	"sources": {
-		"Practical5-Tick-Tack-Toe-More-Jason.sol": {
-			"keccak256": "0x9519ff71cb29b2e073ce3ff09bcedc607e2863df91e81ba130baa44cf95b9e14",
+		"@openzeppelin/contracts/introspection/IERC165.sol": {
+			"keccak256": "0x6a1120d3dc80014af8f6193331b8559bb6be8bd59c342f5052fc608845995bc7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2793c9008e884949aa5ec68eebcb7be2c7dbbe4daf92a314d73e47b55321df2d",
-				"dweb:/ipfs/QmX6XBAtDkYXbiSkARSDjfKdRpTRKMcuNc1FoFBfJhoibG"
+				"bzz-raw://49a6993c5876ebd5acbbde0e53c035fdbf2fe56fc0b88655ce4856d917c9da5d",
+				"dweb:/ipfs/QmRfxky5SPTAawQmwiC5kQPgaGxWTQt3owjTe4Ut3fY4mm"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC1155/IERC1155.sol": {
+			"keccak256": "0x665f52b274245a3c3b0fb2998ab34d80b6f23b0bb6e196b93295d46ad887f578",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a2d3b961a62022cbce9d63eb4a441aed6a34cacf9c9b5889b4ed6d9a43cb430e",
+				"dweb:/ipfs/QmVfyFXf8bLZNy7avboj5TApz8ZX6c6ziojq1uHAFePkxc"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x25426f3e504d03db010ebc11385b2853f59b20e15c79375e9b08d2eea9f9ba05",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2b15634a3537cd402ee40a70b3f0f37a3b5e5d865a6c4b7a5eba8ed802c30fa8",
+				"dweb:/ipfs/QmNeJ6cWMMvAeLUJXQq5CtQ7yvQmkdpLboQebUJbF3aeQs"
+			]
+		},
+		"Practical6-Apply-TTT-Token.sol": {
+			"keccak256": "0x5200d2c60fc81f8cc66e1d69e6ff2885acfe473aaac7a67bebca65052f66de9d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a132f13faa910a6d83faf26209f06b2f67bdc5770104a0758090b49abd238f4e",
+				"dweb:/ipfs/QmZsLRW6AwTksF18qK95nRDDy27gAm2PMyPUTCgEEWTw9B"
 			]
 		}
 	},

@@ -1,0 +1,46 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"details": "Collection of functions related to the address type",
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"TTT_ERC1155Token-Jason.sol": "Address"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"TTT_ERC1155Token-Jason.sol": {
+			"keccak256": "0xdeddc96a9007960b7cd7ab14295c6e752d070b8cac42d1ca3de151eb3f9d4cc3",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://58e1a2b7a1743f9c094d8360c7570c22f6dc61d92aee03eea61753169efaec9d",
+				"dweb:/ipfs/Qma531WDLjEg22QjFAtypN4efEfTktuZvGZ9XCGkNP9RmS"
+			]
+		}
+	},
+	"version": 1
+}
