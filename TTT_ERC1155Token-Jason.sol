@@ -61,7 +61,7 @@ abstract contract ERC165 is IERC165 {
      */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
-    constructor () internal {
+    constructor () {
         // Derived contracts need only register support for their own interfaces,
         // we register support for ERC165 itself here
         _registerInterface(_INTERFACE_ID_ERC165);
@@ -260,7 +260,7 @@ abstract contract Ownable is Context {
     /**
      * @dev Initializes the contract setting the deployer as the initial owner.
      */
-    constructor () internal {
+    constructor () {
         address msgSender = _msgSender();
         _owner = msgSender;
         emit OwnershipTransferred(address(0), msgSender);
@@ -346,7 +346,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
     /**
      * @dev See {_setURI}.
      */
-    constructor (string memory uri_) public {
+    constructor (string memory uri_) {
         _setURI(uri_);
 
         // register the supported interfaces to conform to ERC1155 via ERC165
@@ -559,7 +559,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
     function _mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data) internal virtual {
         require(to != address(0), "ERC1155: mint to the zero address");
         require(ids.length == amounts.length, "ERC1155: ids and amounts length mismatch");
-
+        
         address operator = _msgSender();
 
         _beforeTokenTransfer(operator, address(0), to, ids, amounts, data);
@@ -1168,18 +1168,6 @@ library Address {
                 revert(errorMessage);
             }
         }
-    }
-}
-
-
-contract TTTERC1155 is ERC1155 {
-
-    constructor() ERC1155("https://game.example/api/item/{id}.json"){
-        
-    }
-    function mint(address winer, uint256 id, uint256 value) external {
-        bytes memory empty;
-        _mint(winer, id, value, empty);
     }
 }
 

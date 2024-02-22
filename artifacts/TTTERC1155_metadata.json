@@ -6,7 +6,13 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "uri_",
+						"type": "string"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
 			},
@@ -204,29 +210,6 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "winer",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "value",
-						"type": "uint256"
-					}
-				],
-				"name": "mint",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
 						"name": "from",
 						"type": "address"
 					},
@@ -347,6 +330,7 @@
 			}
 		],
 		"devdoc": {
+			"details": "Implementation of the basic standard multi-token. See https://eips.ethereum.org/EIPS/eip-1155 Originally based on code by Enjin: https://github.com/enjin/erc-1155 _Available since v3.1._",
 			"events": {
 				"ApprovalForAll(address,address,bool)": {
 					"details": "Emitted when `account` grants or revokes permission to `operator` to transfer their tokens, according to `approved`."
@@ -368,6 +352,9 @@
 				},
 				"balanceOfBatch(address[],uint256[])": {
 					"details": "See {IERC1155-balanceOfBatch}. Requirements: - `accounts` and `ids` must have the same length."
+				},
+				"constructor": {
+					"details": "See {_setURI}."
 				},
 				"isApprovedForAll(address,address)": {
 					"details": "See {IERC1155-isApprovedForAll}."
@@ -413,11 +400,11 @@
 	},
 	"sources": {
 		"TTT_ERC1155Token-Jason.sol": {
-			"keccak256": "0xdeddc96a9007960b7cd7ab14295c6e752d070b8cac42d1ca3de151eb3f9d4cc3",
+			"keccak256": "0x47fcf666f409c90bafe79f34e5fdf7b474564bbc5fe86ab22d954bae777f43d8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://58e1a2b7a1743f9c094d8360c7570c22f6dc61d92aee03eea61753169efaec9d",
-				"dweb:/ipfs/Qma531WDLjEg22QjFAtypN4efEfTktuZvGZ9XCGkNP9RmS"
+				"bzz-raw://5d2c95fff0e18b949a30583cef86ab5851109186ec8c307c216b9da06136c265",
+				"dweb:/ipfs/Qmbks1Cxenfq8ADpX4ajwaPygFRwEpir7Bimt4EZ5yyKZu"
 			]
 		}
 	},

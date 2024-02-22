@@ -1,5 +1,5 @@
 {
-	"id": "29fca47f4cabf7a91b38482dd945cf08",
+	"id": "480bf2ebaf9ada4f4a47fc449cbb77a9",
 	"_format": "hh-sol-build-info-1",
 	"solcVersion": "0.8.19",
 	"solcLongVersion": "0.8.19+commit.7dd6d404",
@@ -10,7 +10,7 @@
 				"content": "    // SPDX-License-Identifier: MIT\r\n    pragma solidity 0.8.19;\r\n\r\n    import \"@openzeppelin/contracts/token/ERC20/IERC20.sol\";\r\n\r\n    contract BuyToken {\r\n        IERC20 public TTTToken = IERC20(0xc6bDdCd0DA1c50281f02a57B8D2ada2ebF76AEC7);\r\n        bool private locked;\r\n        address public owner;\r\n        uint256 public exchangeRate;\r\n        constructor(){\r\n            exchangeRate = 1000;\r\n        }\r\n\r\n        event topUpSuccessful (uint256 amount, address buyer);\r\n\r\n        //check the message sender is owner or not\r\n        modifier onlyOwner() {\r\n            require(msg.sender == owner, \"Not the owner\");\r\n            _;\r\n        }\r\n        //avoid re entry \r\n        modifier noReentrancy() {\r\n            require(!locked, \"Error: Reentrant call\");\r\n            locked = true;\r\n            _;\r\n            locked = false;\r\n        }\r\n\r\n        function changeEXCTRate(uint256 newRate) external onlyOwner{\r\n            exchangeRate = newRate;\r\n        }\r\n\r\n        function buyTTTToken() external payable noReentrancy{\r\n            require(msg.value >= 1 ether, \"Please at least send 1 ether!\");\r\n            require(payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value),\"transfer fail\");\r\n            uint256 buyAmount = (msg.value/1 ether)*exchangeRate;\r\n            //how to approve this transfer\r\n            //TTTToken.transferFrom(owner, msg.sender, buyAmount);\r\n\r\n            emit topUpSuccessful(buyAmount, msg.sender);\r\n\r\n        }\r\n\r\n        //TTTToken.Approval(owner, spender, value);\r\n    }"
 			},
 			"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
-				"content": "// SPDX-License-Identifier: MIT\n// OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/IERC20.sol)\n\npragma solidity ^0.8.19;\n\n/**\n * @dev Interface of the ERC20 standard as defined in the EIP.\n */\ninterface IERC20 {\n    /**\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\n     * another (`to`).\n     *\n     * Note that `value` may be zero.\n     */\n    event Transfer(address indexed from, address indexed to, uint256 value);\n\n    /**\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\n     * a call to {approve}. `value` is the new allowance.\n     */\n    event Approval(address indexed owner, address indexed spender, uint256 value);\n\n    /**\n     * @dev Returns the value of tokens in existence.\n     */\n    function totalSupply() external view returns (uint256);\n\n    /**\n     * @dev Returns the value of tokens owned by `account`.\n     */\n    function balanceOf(address account) external view returns (uint256);\n\n    /**\n     * @dev Moves a `value` amount of tokens from the caller's account to `to`.\n     *\n     * Returns a boolean value indicating whether the operation succeeded.\n     *\n     * Emits a {Transfer} event.\n     */\n    function transfer(address to, uint256 value) external returns (bool);\n\n    /**\n     * @dev Returns the remaining number of tokens that `spender` will be\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\n     * zero by default.\n     *\n     * This value changes when {approve} or {transferFrom} are called.\n     */\n    function allowance(address owner, address spender) external view returns (uint256);\n\n    /**\n     * @dev Sets a `value` amount of tokens as the allowance of `spender` over the\n     * caller's tokens.\n     *\n     * Returns a boolean value indicating whether the operation succeeded.\n     *\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\n     * that someone may use both the old and the new allowance by unfortunate\n     * transaction ordering. One possible solution to mitigate this race\n     * condition is to first reduce the spender's allowance to 0 and set the\n     * desired value afterwards:\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\n     *\n     * Emits an {Approval} event.\n     */\n    function approve(address spender, uint256 value) external returns (bool);\n\n    /**\n     * @dev Moves a `value` amount of tokens from `from` to `to` using the\n     * allowance mechanism. `value` is then deducted from the caller's\n     * allowance.\n     *\n     * Returns a boolean value indicating whether the operation succeeded.\n     *\n     * Emits a {Transfer} event.\n     */\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n}\n"
+				"content": "// SPDX-License-Identifier: MIT\n\npragma solidity >=0.6.0 <=0.8.19;\n\n/**\n * @dev Interface of the ERC20 standard as defined in the EIP.\n */\ninterface IERC20 {\n    /**\n     * @dev Returns the amount of tokens in existence.\n     */\n    function totalSupply() external view returns (uint256);\n\n    /**\n     * @dev Returns the amount of tokens owned by `account`.\n     */\n    function balanceOf(address account) external view returns (uint256);\n\n    /**\n     * @dev Moves `amount` tokens from the caller's account to `recipient`.\n     *\n     * Returns a boolean value indicating whether the operation succeeded.\n     *\n     * Emits a {Transfer} event.\n     */\n    function transfer(address recipient, uint256 amount) external returns (bool);\n\n    /**\n     * @dev Returns the remaining number of tokens that `spender` will be\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\n     * zero by default.\n     *\n     * This value changes when {approve} or {transferFrom} are called.\n     */\n    function allowance(address owner, address spender) external view returns (uint256);\n\n    /**\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\n     *\n     * Returns a boolean value indicating whether the operation succeeded.\n     *\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\n     * that someone may use both the old and the new allowance by unfortunate\n     * transaction ordering. One possible solution to mitigate this race\n     * condition is to first reduce the spender's allowance to 0 and set the\n     * desired value afterwards:\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\n     *\n     * Emits an {Approval} event.\n     */\n    function approve(address spender, uint256 amount) external returns (bool);\n\n    /**\n     * @dev Moves `amount` tokens from `sender` to `recipient` using the\n     * allowance mechanism. `amount` is then deducted from the caller's\n     * allowance.\n     *\n     * Returns a boolean value indicating whether the operation succeeded.\n     *\n     * Emits a {Transfer} event.\n     */\n    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);\n\n    /**\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\n     * another (`to`).\n     *\n     * Note that `value` may be zero.\n     */\n    event Transfer(address indexed from, address indexed to, uint256 value);\n\n    /**\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\n     * a call to {approve}. `value` is the new allowance.\n     */\n    event Approval(address indexed owner, address indexed spender, uint256 value);\n}\n"
 			}
 		},
 		"settings": {
@@ -129,7 +129,7 @@
 								},
 								{
 									"internalType": "uint256",
-									"name": "value",
+									"name": "amount",
 									"type": "uint256"
 								}
 							],
@@ -180,12 +180,12 @@
 							"inputs": [
 								{
 									"internalType": "address",
-									"name": "to",
+									"name": "recipient",
 									"type": "address"
 								},
 								{
 									"internalType": "uint256",
-									"name": "value",
+									"name": "amount",
 									"type": "uint256"
 								}
 							],
@@ -204,17 +204,17 @@
 							"inputs": [
 								{
 									"internalType": "address",
-									"name": "from",
+									"name": "sender",
 									"type": "address"
 								},
 								{
 									"internalType": "address",
-									"name": "to",
+									"name": "recipient",
 									"type": "address"
 								},
 								{
 									"internalType": "uint256",
-									"name": "value",
+									"name": "amount",
 									"type": "uint256"
 								}
 							],
@@ -246,19 +246,19 @@
 								"details": "Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through {transferFrom}. This is zero by default. This value changes when {approve} or {transferFrom} are called."
 							},
 							"approve(address,uint256)": {
-								"details": "Sets a `value` amount of tokens as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event."
+								"details": "Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event."
 							},
 							"balanceOf(address)": {
-								"details": "Returns the value of tokens owned by `account`."
+								"details": "Returns the amount of tokens owned by `account`."
 							},
 							"totalSupply()": {
-								"details": "Returns the value of tokens in existence."
+								"details": "Returns the amount of tokens in existence."
 							},
 							"transfer(address,uint256)": {
-								"details": "Moves a `value` amount of tokens from the caller's account to `to`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event."
+								"details": "Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event."
 							},
 							"transferFrom(address,address,uint256)": {
-								"details": "Moves a `value` amount of tokens from `from` to `to` using the allowance mechanism. `value` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event."
+								"details": "Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism. `amount` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event."
 							}
 						},
 						"version": 1
@@ -293,7 +293,7 @@
 							"transferFrom(address,address,uint256)": "23b872dd"
 						}
 					},
-					"metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Interface of the ERC20 standard as defined in the EIP.\",\"events\":{\"Approval(address,address,uint256)\":{\"details\":\"Emitted when the allowance of a `spender` for an `owner` is set by a call to {approve}. `value` is the new allowance.\"},\"Transfer(address,address,uint256)\":{\"details\":\"Emitted when `value` tokens are moved from one account (`from`) to another (`to`). Note that `value` may be zero.\"}},\"kind\":\"dev\",\"methods\":{\"allowance(address,address)\":{\"details\":\"Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through {transferFrom}. This is zero by default. This value changes when {approve} or {transferFrom} are called.\"},\"approve(address,uint256)\":{\"details\":\"Sets a `value` amount of tokens as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.\"},\"balanceOf(address)\":{\"details\":\"Returns the value of tokens owned by `account`.\"},\"totalSupply()\":{\"details\":\"Returns the value of tokens in existence.\"},\"transfer(address,uint256)\":{\"details\":\"Moves a `value` amount of tokens from the caller's account to `to`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.\"},\"transferFrom(address,address,uint256)\":{\"details\":\"Moves a `value` amount of tokens from `from` to `to` using the allowance mechanism. `value` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":\"IERC20\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x4ce6e9f30dba5ae30f26321dc851b669caf3f953f8c832304d05df2a523f1af3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://eb24de66bbfa42093a20d448cb2564655525cba0342035a42a37654e5d922deb\",\"dweb:/ipfs/QmYgnFHamrgy5qurrxVLR1qDb7MirvGEoxCVwqiF1YvDMf\"]}},\"version\":1}",
+					"metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Interface of the ERC20 standard as defined in the EIP.\",\"events\":{\"Approval(address,address,uint256)\":{\"details\":\"Emitted when the allowance of a `spender` for an `owner` is set by a call to {approve}. `value` is the new allowance.\"},\"Transfer(address,address,uint256)\":{\"details\":\"Emitted when `value` tokens are moved from one account (`from`) to another (`to`). Note that `value` may be zero.\"}},\"kind\":\"dev\",\"methods\":{\"allowance(address,address)\":{\"details\":\"Returns the remaining number of tokens that `spender` will be allowed to spend on behalf of `owner` through {transferFrom}. This is zero by default. This value changes when {approve} or {transferFrom} are called.\"},\"approve(address,uint256)\":{\"details\":\"Sets `amount` as the allowance of `spender` over the caller's tokens. Returns a boolean value indicating whether the operation succeeded. IMPORTANT: Beware that changing an allowance with this method brings the risk that someone may use both the old and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards: https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729 Emits an {Approval} event.\"},\"balanceOf(address)\":{\"details\":\"Returns the amount of tokens owned by `account`.\"},\"totalSupply()\":{\"details\":\"Returns the amount of tokens in existence.\"},\"transfer(address,uint256)\":{\"details\":\"Moves `amount` tokens from the caller's account to `recipient`. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.\"},\"transferFrom(address,address,uint256)\":{\"details\":\"Moves `amount` tokens from `sender` to `recipient` using the allowance mechanism. `amount` is then deducted from the caller's allowance. Returns a boolean value indicating whether the operation succeeded. Emits a {Transfer} event.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":\"IERC20\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x25426f3e504d03db010ebc11385b2853f59b20e15c79375e9b08d2eea9f9ba05\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2b15634a3537cd402ee40a70b3f0f37a3b5e5d865a6c4b7a5eba8ed802c30fa8\",\"dweb:/ipfs/QmNeJ6cWMMvAeLUJXQq5CtQ7yvQmkdpLboQebUJbF3aeQs\"]}},\"version\":1}",
 					"storageLayout": {
 						"storage": [],
 						"types": null
@@ -398,7 +398,7 @@
 						"version": 1
 					},
 					"evm": {
-						"assembly": "    /* \"Practical6-Buy-Token.sol\":136:1533  contract BuyToken {... */\n  mstore(0x40, 0x80)\n    /* \"Practical6-Buy-Token.sol\":165:240  IERC20 public TTTToken = IERC20(0xc6bDdCd0DA1c50281f02a57B8D2ada2ebF76AEC7) */\n  0x00\n  dup1\n  sload\n  not(sub(shl(0xa0, 0x01), 0x01))\n  and\n    /* \"Practical6-Buy-Token.sol\":197:239  0xc6bDdCd0DA1c50281f02a57B8D2ada2ebF76AEC7 */\n  0xc6bddcd0da1c50281f02a57b8d2ada2ebf76aec7\n    /* \"Practical6-Buy-Token.sol\":165:240  IERC20 public TTTToken = IERC20(0xc6bDdCd0DA1c50281f02a57B8D2ada2ebF76AEC7) */\n  or\n  swap1\n  sstore\n    /* \"Practical6-Buy-Token.sol\":350:409  constructor(){... */\n  callvalue\n  dup1\n  iszero\n  tag_1\n  jumpi\n  0x00\n  dup1\n  revert\ntag_1:\n  pop\n    /* \"Practical6-Buy-Token.sol\":393:397  1000 */\n  0x03e8\n    /* \"Practical6-Buy-Token.sol\":378:390  exchangeRate */\n  0x02\n    /* \"Practical6-Buy-Token.sol\":378:397  exchangeRate = 1000 */\n  sstore\n    /* \"Practical6-Buy-Token.sol\":136:1533  contract BuyToken {... */\n  dataSize(sub_0)\n  dup1\n  dataOffset(sub_0)\n  0x00\n  codecopy\n  0x00\n  return\nstop\n\nsub_0: assembly {\n        /* \"Practical6-Buy-Token.sol\":136:1533  contract BuyToken {... */\n      mstore(0x40, 0x80)\n      jumpi(tag_1, lt(calldatasize, 0x04))\n      shr(0xe0, calldataload(0x00))\n      dup1\n      0x3ba0b9a9\n      eq\n      tag_2\n      jumpi\n      dup1\n      0x634a0234\n      eq\n      tag_3\n      jumpi\n      dup1\n      0x7effb427\n      eq\n      tag_4\n      jumpi\n      dup1\n      0x8da5cb5b\n      eq\n      tag_5\n      jumpi\n      dup1\n      0xbbf1095a\n      eq\n      tag_6\n      jumpi\n    tag_1:\n      0x00\n      dup1\n      revert\n        /* \"Practical6-Buy-Token.sol\":312:339  uint256 public exchangeRate */\n    tag_2:\n      callvalue\n      dup1\n      iszero\n      tag_7\n      jumpi\n      0x00\n      dup1\n      revert\n    tag_7:\n      pop\n      tag_8\n      sload(0x02)\n      dup2\n      jump\n    tag_8:\n      mload(0x40)\n        /* \"#utility.yul\":160:185   */\n      swap1\n      dup2\n      mstore\n        /* \"#utility.yul\":148:150   */\n      0x20\n        /* \"#utility.yul\":133:151   */\n      add\n        /* \"Practical6-Buy-Token.sol\":312:339  uint256 public exchangeRate */\n    tag_10:\n      mload(0x40)\n      dup1\n      swap2\n      sub\n      swap1\n      return\n        /* \"Practical6-Buy-Token.sol\":982:1471  function buyTTTToken() external payable noReentrancy{... */\n    tag_3:\n      tag_12\n      tag_13\n      jump\t// in\n    tag_12:\n      stop\n        /* \"Practical6-Buy-Token.sol\":165:240  IERC20 public TTTToken = IERC20(0xc6bDdCd0DA1c50281f02a57B8D2ada2ebF76AEC7) */\n    tag_4:\n      callvalue\n      dup1\n      iszero\n      tag_14\n      jumpi\n      0x00\n      dup1\n      revert\n    tag_14:\n      pop\n      sload(0x00)\n      tag_15\n      swap1\n      sub(shl(0xa0, 0x01), 0x01)\n      and\n      dup2\n      jump\n    tag_15:\n      mload(0x40)\n      sub(shl(0xa0, 0x01), 0x01)\n        /* \"#utility.yul\":373:405   */\n      swap1\n      swap2\n      and\n        /* \"#utility.yul\":355:406   */\n      dup2\n      mstore\n        /* \"#utility.yul\":343:345   */\n      0x20\n        /* \"#utility.yul\":328:346   */\n      add\n        /* \"Practical6-Buy-Token.sol\":165:240  IERC20 public TTTToken = IERC20(0xc6bDdCd0DA1c50281f02a57B8D2ada2ebF76AEC7) */\n      tag_10\n        /* \"#utility.yul\":196:412   */\n      jump\n        /* \"Practical6-Buy-Token.sol\":281:301  address public owner */\n    tag_5:\n      callvalue\n      dup1\n      iszero\n      tag_19\n      jumpi\n      0x00\n      dup1\n      revert\n    tag_19:\n      pop\n      sload(0x01)\n      tag_15\n      swap1\n      sub(shl(0xa0, 0x01), 0x01)\n      and\n      dup2\n      jump\n        /* \"Practical6-Buy-Token.sol\":862:970  function changeEXCTRate(uint256 newRate) external onlyOwner{... */\n    tag_6:\n      callvalue\n      dup1\n      iszero\n      tag_24\n      jumpi\n      0x00\n      dup1\n      revert\n    tag_24:\n      pop\n      tag_12\n      tag_26\n      calldatasize\n      0x04\n      tag_27\n      jump\t// in\n    tag_26:\n      tag_28\n      jump\t// in\n        /* \"Practical6-Buy-Token.sol\":982:1471  function buyTTTToken() external payable noReentrancy{... */\n    tag_13:\n        /* \"Practical6-Buy-Token.sol\":733:739  locked */\n      sload(0x00)\n      shl(0xa0, 0x01)\n      swap1\n      div\n      0xff\n      and\n        /* \"Practical6-Buy-Token.sol\":732:739  !locked */\n      iszero\n        /* \"Practical6-Buy-Token.sol\":724:765  require(!locked, \"Error: Reentrant call\") */\n      tag_30\n      jumpi\n      mload(0x40)\n      shl(0xe5, 0x461bcd)\n      dup2\n      mstore\n        /* \"#utility.yul\":1012:1014   */\n      0x20\n        /* \"Practical6-Buy-Token.sol\":724:765  require(!locked, \"Error: Reentrant call\") */\n      0x04\n      dup3\n      add\n        /* \"#utility.yul\":994:1015   */\n      mstore\n        /* \"#utility.yul\":1051:1053   */\n      0x15\n        /* \"#utility.yul\":1031:1049   */\n      0x24\n      dup3\n      add\n        /* \"#utility.yul\":1024:1054   */\n      mstore\n      shl(0x5a, 0x115c9c9bdc8e881499595b9d1c985b9d0818d85b1b)\n        /* \"#utility.yul\":1070:1088   */\n      0x44\n      dup3\n      add\n        /* \"#utility.yul\":1063:1114   */\n      mstore\n        /* \"#utility.yul\":1131:1149   */\n      0x64\n      add\n        /* \"Practical6-Buy-Token.sol\":724:765  require(!locked, \"Error: Reentrant call\") */\n    tag_31:\n      mload(0x40)\n      dup1\n      swap2\n      sub\n      swap1\n      revert\n    tag_30:\n        /* \"Practical6-Buy-Token.sol\":780:786  locked */\n      0x00\n        /* \"Practical6-Buy-Token.sol\":780:793  locked = true */\n      dup1\n      sload\n      not(shl(0xa0, 0xff))\n      and\n      shl(0xa0, 0x01)\n      or\n      swap1\n      sstore\n        /* \"Practical6-Buy-Token.sol\":1070:1077  1 ether */\n      0x0de0b6b3a7640000\n        /* \"Practical6-Buy-Token.sol\":1057:1066  msg.value */\n      callvalue\n        /* \"Practical6-Buy-Token.sol\":1057:1077  msg.value >= 1 ether */\n      lt\n      iszero\n        /* \"Practical6-Buy-Token.sol\":1049:1111  require(msg.value >= 1 ether, \"Please at least send 1 ether!\") */\n      tag_34\n      jumpi\n      mload(0x40)\n      shl(0xe5, 0x461bcd)\n      dup2\n      mstore\n        /* \"#utility.yul\":1362:1364   */\n      0x20\n        /* \"Practical6-Buy-Token.sol\":1049:1111  require(msg.value >= 1 ether, \"Please at least send 1 ether!\") */\n      0x04\n      dup3\n      add\n        /* \"#utility.yul\":1344:1365   */\n      mstore\n        /* \"#utility.yul\":1401:1403   */\n      0x1d\n        /* \"#utility.yul\":1381:1399   */\n      0x24\n      dup3\n      add\n        /* \"#utility.yul\":1374:1404   */\n      mstore\n        /* \"#utility.yul\":1440:1471   */\n      0x506c65617365206174206c656173742073656e64203120657468657221000000\n        /* \"#utility.yul\":1420:1438   */\n      0x44\n      dup3\n      add\n        /* \"#utility.yul\":1413:1472   */\n      mstore\n        /* \"#utility.yul\":1489:1507   */\n      0x64\n      add\n        /* \"Practical6-Buy-Token.sol\":1049:1111  require(msg.value >= 1 ether, \"Please at least send 1 ether!\") */\n      tag_31\n        /* \"#utility.yul\":1160:1513   */\n      jump\n        /* \"Practical6-Buy-Token.sol\":1049:1111  require(msg.value >= 1 ether, \"Please at least send 1 ether!\") */\n    tag_34:\n        /* \"Practical6-Buy-Token.sol\":1134:1201  payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value) */\n      mload(0x40)\n        /* \"Practical6-Buy-Token.sol\":1142:1184  0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129 */\n      0x9163f6f9a843827ab2fc1b0fbd95b7ef77763129\n      swap1\n        /* \"Practical6-Buy-Token.sol\":1191:1200  msg.value */\n      callvalue\n        /* \"Practical6-Buy-Token.sol\":1134:1201  payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value) */\n      dup1\n      iszero\n      0x08fc\n      mul\n      swap2\n      0x00\n      dup2\n      dup2\n      dup2\n        /* \"Practical6-Buy-Token.sol\":1191:1200  msg.value */\n      dup6\n        /* \"Practical6-Buy-Token.sol\":1142:1184  0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129 */\n      dup9\n        /* \"Practical6-Buy-Token.sol\":1134:1201  payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value) */\n      dup9\n      call\n      swap4\n      pop\n      pop\n      pop\n      pop\n        /* \"Practical6-Buy-Token.sol\":1126:1218  require(payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value),\"transfer fail\") */\n      tag_38\n      jumpi\n      mload(0x40)\n      shl(0xe5, 0x461bcd)\n      dup2\n      mstore\n        /* \"#utility.yul\":1720:1722   */\n      0x20\n        /* \"Practical6-Buy-Token.sol\":1126:1218  require(payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value),\"transfer fail\") */\n      0x04\n      dup3\n      add\n        /* \"#utility.yul\":1702:1723   */\n      mstore\n        /* \"#utility.yul\":1759:1761   */\n      0x0d\n        /* \"#utility.yul\":1739:1757   */\n      0x24\n      dup3\n      add\n        /* \"#utility.yul\":1732:1762   */\n      mstore\n      shl(0x9a, 0x1d1c985b9cd9995c8819985a5b)\n        /* \"#utility.yul\":1778:1796   */\n      0x44\n      dup3\n      add\n        /* \"#utility.yul\":1771:1814   */\n      mstore\n        /* \"#utility.yul\":1831:1849   */\n      0x64\n      add\n        /* \"Practical6-Buy-Token.sol\":1126:1218  require(payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value),\"transfer fail\") */\n      tag_31\n        /* \"#utility.yul\":1518:1855   */\n      jump\n        /* \"Practical6-Buy-Token.sol\":1126:1218  require(payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value),\"transfer fail\") */\n    tag_38:\n        /* \"Practical6-Buy-Token.sol\":1273:1285  exchangeRate */\n      sload(0x02)\n        /* \"Practical6-Buy-Token.sol\":1233:1250  uint256 buyAmount */\n      0x00\n      swap1\n        /* \"Practical6-Buy-Token.sol\":1254:1271  msg.value/1 ether */\n      tag_41\n        /* \"Practical6-Buy-Token.sol\":1264:1271  1 ether */\n      0x0de0b6b3a7640000\n        /* \"Practical6-Buy-Token.sol\":1254:1263  msg.value */\n      callvalue\n        /* \"Practical6-Buy-Token.sol\":1254:1271  msg.value/1 ether */\n      tag_42\n      jump\t// in\n    tag_41:\n        /* \"Practical6-Buy-Token.sol\":1253:1285  (msg.value/1 ether)*exchangeRate */\n      tag_43\n      swap2\n      swap1\n      tag_44\n      jump\t// in\n    tag_43:\n        /* \"Practical6-Buy-Token.sol\":1419:1457  topUpSuccessful(buyAmount, msg.sender) */\n      0x40\n      dup1\n      mload\n        /* \"#utility.yul\":2526:2551   */\n      dup3\n      dup2\n      mstore\n        /* \"Practical6-Buy-Token.sol\":1446:1456  msg.sender */\n      caller\n        /* \"#utility.yul\":2582:2584   */\n      0x20\n        /* \"#utility.yul\":2567:2585   */\n      dup3\n      add\n        /* \"#utility.yul\":2560:2620   */\n      mstore\n        /* \"Practical6-Buy-Token.sol\":1233:1285  uint256 buyAmount = (msg.value/1 ether)*exchangeRate */\n      swap2\n      swap3\n      pop\n        /* \"Practical6-Buy-Token.sol\":1419:1457  topUpSuccessful(buyAmount, msg.sender) */\n      0x57be3b095691f7a70e80aaa69b69ec4b9713302028aebe76ce4629a95380978c\n      swap2\n        /* \"#utility.yul\":2499:2517   */\n      add\n        /* \"Practical6-Buy-Token.sol\":1419:1457  topUpSuccessful(buyAmount, msg.sender) */\n      mload(0x40)\n      dup1\n      swap2\n      sub\n      swap1\n      log1\n      pop\n        /* \"Practical6-Buy-Token.sol\":833:838  false */\n      0x00\n        /* \"Practical6-Buy-Token.sol\":824:838  locked = false */\n      dup1\n      sload\n      not(shl(0xa0, 0xff))\n      and\n      swap1\n      sstore\n        /* \"Practical6-Buy-Token.sol\":982:1471  function buyTTTToken() external payable noReentrancy{... */\n      jump\t// out\n        /* \"Practical6-Buy-Token.sol\":862:970  function changeEXCTRate(uint256 newRate) external onlyOwner{... */\n    tag_28:\n        /* \"Practical6-Buy-Token.sol\":597:602  owner */\n      and(sub(shl(0xa0, 0x01), 0x01), sload(0x01))\n        /* \"Practical6-Buy-Token.sol\":583:593  msg.sender */\n      caller\n        /* \"Practical6-Buy-Token.sol\":583:602  msg.sender == owner */\n      eq\n        /* \"Practical6-Buy-Token.sol\":575:620  require(msg.sender == owner, \"Not the owner\") */\n      tag_48\n      jumpi\n      mload(0x40)\n      shl(0xe5, 0x461bcd)\n      dup2\n      mstore\n        /* \"#utility.yul\":2833:2835   */\n      0x20\n        /* \"Practical6-Buy-Token.sol\":575:620  require(msg.sender == owner, \"Not the owner\") */\n      0x04\n      dup3\n      add\n        /* \"#utility.yul\":2815:2836   */\n      mstore\n        /* \"#utility.yul\":2872:2874   */\n      0x0d\n        /* \"#utility.yul\":2852:2870   */\n      0x24\n      dup3\n      add\n        /* \"#utility.yul\":2845:2875   */\n      mstore\n      shl(0x99, 0x2737ba103a34329037bbb732b9)\n        /* \"#utility.yul\":2891:2909   */\n      0x44\n      dup3\n      add\n        /* \"#utility.yul\":2884:2927   */\n      mstore\n        /* \"#utility.yul\":2944:2962   */\n      0x64\n      add\n        /* \"Practical6-Buy-Token.sol\":575:620  require(msg.sender == owner, \"Not the owner\") */\n      tag_31\n        /* \"#utility.yul\":2631:2968   */\n      jump\n        /* \"Practical6-Buy-Token.sol\":575:620  require(msg.sender == owner, \"Not the owner\") */\n    tag_48:\n        /* \"Practical6-Buy-Token.sol\":936:948  exchangeRate */\n      0x02\n        /* \"Practical6-Buy-Token.sol\":936:958  exchangeRate = newRate */\n      sstore\n        /* \"Practical6-Buy-Token.sol\":862:970  function changeEXCTRate(uint256 newRate) external onlyOwner{... */\n      jump\t// out\n        /* \"#utility.yul\":625:805   */\n    tag_27:\n        /* \"#utility.yul\":684:690   */\n      0x00\n        /* \"#utility.yul\":737:739   */\n      0x20\n        /* \"#utility.yul\":725:734   */\n      dup3\n        /* \"#utility.yul\":716:723   */\n      dup5\n        /* \"#utility.yul\":712:735   */\n      sub\n        /* \"#utility.yul\":708:740   */\n      slt\n        /* \"#utility.yul\":705:757   */\n      iszero\n      tag_57\n      jumpi\n        /* \"#utility.yul\":753:754   */\n      0x00\n        /* \"#utility.yul\":750:751   */\n      dup1\n        /* \"#utility.yul\":743:755   */\n      revert\n        /* \"#utility.yul\":705:757   */\n    tag_57:\n      pop\n        /* \"#utility.yul\":776:799   */\n      calldataload\n      swap2\n        /* \"#utility.yul\":625:805   */\n      swap1\n      pop\n      jump\t// out\n        /* \"#utility.yul\":1860:2077   */\n    tag_42:\n        /* \"#utility.yul\":1900:1901   */\n      0x00\n        /* \"#utility.yul\":1926:1927   */\n      dup3\n        /* \"#utility.yul\":1916:2048   */\n      tag_62\n      jumpi\n        /* \"#utility.yul\":1970:1980   */\n      0x4e487b71\n        /* \"#utility.yul\":1965:1968   */\n      0xe0\n        /* \"#utility.yul\":1961:1981   */\n      shl\n        /* \"#utility.yul\":1958:1959   */\n      0x00\n        /* \"#utility.yul\":1951:1982   */\n      mstore\n        /* \"#utility.yul\":2005:2009   */\n      0x12\n        /* \"#utility.yul\":2002:2003   */\n      0x04\n        /* \"#utility.yul\":1995:2010   */\n      mstore\n        /* \"#utility.yul\":2033:2037   */\n      0x24\n        /* \"#utility.yul\":2030:2031   */\n      0x00\n        /* \"#utility.yul\":2023:2038   */\n      revert\n        /* \"#utility.yul\":1916:2048   */\n    tag_62:\n      pop\n        /* \"#utility.yul\":2062:2071   */\n      div\n      swap1\n        /* \"#utility.yul\":1860:2077   */\n      jump\t// out\n        /* \"#utility.yul\":2082:2347   */\n    tag_44:\n        /* \"#utility.yul\":2155:2164   */\n      dup1\n      dup3\n      mul\n        /* \"#utility.yul\":2186:2195   */\n      dup2\n      iszero\n        /* \"#utility.yul\":2203:2218   */\n      dup3\n      dup3\n      div\n        /* \"#utility.yul\":2197:2219   */\n      dup5\n      eq\n        /* \"#utility.yul\":2183:2220   */\n      or\n        /* \"#utility.yul\":2173:2341   */\n      tag_64\n      jumpi\n        /* \"#utility.yul\":2263:2273   */\n      0x4e487b71\n        /* \"#utility.yul\":2258:2261   */\n      0xe0\n        /* \"#utility.yul\":2254:2274   */\n      shl\n        /* \"#utility.yul\":2251:2252   */\n      0x00\n        /* \"#utility.yul\":2244:2275   */\n      mstore\n        /* \"#utility.yul\":2298:2302   */\n      0x11\n        /* \"#utility.yul\":2295:2296   */\n      0x04\n        /* \"#utility.yul\":2288:2303   */\n      mstore\n        /* \"#utility.yul\":2326:2330   */\n      0x24\n        /* \"#utility.yul\":2323:2324   */\n      0x00\n        /* \"#utility.yul\":2316:2331   */\n      revert\n        /* \"#utility.yul\":2173:2341   */\n    tag_64:\n        /* \"#utility.yul\":2082:2347   */\n      swap3\n      swap2\n      pop\n      pop\n      jump\t// out\n\n    auxdata: 0xa2646970667358221220395aba4bc32ad586daa40596ed31bbc464474444592fd3f47763c3d1841fd13864736f6c63430008130033\n}\n",
+						"assembly": "    /* \"Practical6-Buy-Token.sol\":136:1533  contract BuyToken {... */\n  mstore(0x40, 0x80)\n    /* \"Practical6-Buy-Token.sol\":165:240  IERC20 public TTTToken = IERC20(0xc6bDdCd0DA1c50281f02a57B8D2ada2ebF76AEC7) */\n  0x00\n  dup1\n  sload\n  not(sub(shl(0xa0, 0x01), 0x01))\n  and\n    /* \"Practical6-Buy-Token.sol\":197:239  0xc6bDdCd0DA1c50281f02a57B8D2ada2ebF76AEC7 */\n  0xc6bddcd0da1c50281f02a57b8d2ada2ebf76aec7\n    /* \"Practical6-Buy-Token.sol\":165:240  IERC20 public TTTToken = IERC20(0xc6bDdCd0DA1c50281f02a57B8D2ada2ebF76AEC7) */\n  or\n  swap1\n  sstore\n    /* \"Practical6-Buy-Token.sol\":350:409  constructor(){... */\n  callvalue\n  dup1\n  iszero\n  tag_1\n  jumpi\n  0x00\n  dup1\n  revert\ntag_1:\n  pop\n    /* \"Practical6-Buy-Token.sol\":393:397  1000 */\n  0x03e8\n    /* \"Practical6-Buy-Token.sol\":378:390  exchangeRate */\n  0x02\n    /* \"Practical6-Buy-Token.sol\":378:397  exchangeRate = 1000 */\n  sstore\n    /* \"Practical6-Buy-Token.sol\":136:1533  contract BuyToken {... */\n  dataSize(sub_0)\n  dup1\n  dataOffset(sub_0)\n  0x00\n  codecopy\n  0x00\n  return\nstop\n\nsub_0: assembly {\n        /* \"Practical6-Buy-Token.sol\":136:1533  contract BuyToken {... */\n      mstore(0x40, 0x80)\n      jumpi(tag_1, lt(calldatasize, 0x04))\n      shr(0xe0, calldataload(0x00))\n      dup1\n      0x3ba0b9a9\n      eq\n      tag_2\n      jumpi\n      dup1\n      0x634a0234\n      eq\n      tag_3\n      jumpi\n      dup1\n      0x7effb427\n      eq\n      tag_4\n      jumpi\n      dup1\n      0x8da5cb5b\n      eq\n      tag_5\n      jumpi\n      dup1\n      0xbbf1095a\n      eq\n      tag_6\n      jumpi\n    tag_1:\n      0x00\n      dup1\n      revert\n        /* \"Practical6-Buy-Token.sol\":312:339  uint256 public exchangeRate */\n    tag_2:\n      callvalue\n      dup1\n      iszero\n      tag_7\n      jumpi\n      0x00\n      dup1\n      revert\n    tag_7:\n      pop\n      tag_8\n      sload(0x02)\n      dup2\n      jump\n    tag_8:\n      mload(0x40)\n        /* \"#utility.yul\":160:185   */\n      swap1\n      dup2\n      mstore\n        /* \"#utility.yul\":148:150   */\n      0x20\n        /* \"#utility.yul\":133:151   */\n      add\n        /* \"Practical6-Buy-Token.sol\":312:339  uint256 public exchangeRate */\n    tag_10:\n      mload(0x40)\n      dup1\n      swap2\n      sub\n      swap1\n      return\n        /* \"Practical6-Buy-Token.sol\":982:1471  function buyTTTToken() external payable noReentrancy{... */\n    tag_3:\n      tag_12\n      tag_13\n      jump\t// in\n    tag_12:\n      stop\n        /* \"Practical6-Buy-Token.sol\":165:240  IERC20 public TTTToken = IERC20(0xc6bDdCd0DA1c50281f02a57B8D2ada2ebF76AEC7) */\n    tag_4:\n      callvalue\n      dup1\n      iszero\n      tag_14\n      jumpi\n      0x00\n      dup1\n      revert\n    tag_14:\n      pop\n      sload(0x00)\n      tag_15\n      swap1\n      sub(shl(0xa0, 0x01), 0x01)\n      and\n      dup2\n      jump\n    tag_15:\n      mload(0x40)\n      sub(shl(0xa0, 0x01), 0x01)\n        /* \"#utility.yul\":373:405   */\n      swap1\n      swap2\n      and\n        /* \"#utility.yul\":355:406   */\n      dup2\n      mstore\n        /* \"#utility.yul\":343:345   */\n      0x20\n        /* \"#utility.yul\":328:346   */\n      add\n        /* \"Practical6-Buy-Token.sol\":165:240  IERC20 public TTTToken = IERC20(0xc6bDdCd0DA1c50281f02a57B8D2ada2ebF76AEC7) */\n      tag_10\n        /* \"#utility.yul\":196:412   */\n      jump\n        /* \"Practical6-Buy-Token.sol\":281:301  address public owner */\n    tag_5:\n      callvalue\n      dup1\n      iszero\n      tag_19\n      jumpi\n      0x00\n      dup1\n      revert\n    tag_19:\n      pop\n      sload(0x01)\n      tag_15\n      swap1\n      sub(shl(0xa0, 0x01), 0x01)\n      and\n      dup2\n      jump\n        /* \"Practical6-Buy-Token.sol\":862:970  function changeEXCTRate(uint256 newRate) external onlyOwner{... */\n    tag_6:\n      callvalue\n      dup1\n      iszero\n      tag_24\n      jumpi\n      0x00\n      dup1\n      revert\n    tag_24:\n      pop\n      tag_12\n      tag_26\n      calldatasize\n      0x04\n      tag_27\n      jump\t// in\n    tag_26:\n      tag_28\n      jump\t// in\n        /* \"Practical6-Buy-Token.sol\":982:1471  function buyTTTToken() external payable noReentrancy{... */\n    tag_13:\n        /* \"Practical6-Buy-Token.sol\":733:739  locked */\n      sload(0x00)\n      shl(0xa0, 0x01)\n      swap1\n      div\n      0xff\n      and\n        /* \"Practical6-Buy-Token.sol\":732:739  !locked */\n      iszero\n        /* \"Practical6-Buy-Token.sol\":724:765  require(!locked, \"Error: Reentrant call\") */\n      tag_30\n      jumpi\n      mload(0x40)\n      shl(0xe5, 0x461bcd)\n      dup2\n      mstore\n        /* \"#utility.yul\":1012:1014   */\n      0x20\n        /* \"Practical6-Buy-Token.sol\":724:765  require(!locked, \"Error: Reentrant call\") */\n      0x04\n      dup3\n      add\n        /* \"#utility.yul\":994:1015   */\n      mstore\n        /* \"#utility.yul\":1051:1053   */\n      0x15\n        /* \"#utility.yul\":1031:1049   */\n      0x24\n      dup3\n      add\n        /* \"#utility.yul\":1024:1054   */\n      mstore\n      shl(0x5a, 0x115c9c9bdc8e881499595b9d1c985b9d0818d85b1b)\n        /* \"#utility.yul\":1070:1088   */\n      0x44\n      dup3\n      add\n        /* \"#utility.yul\":1063:1114   */\n      mstore\n        /* \"#utility.yul\":1131:1149   */\n      0x64\n      add\n        /* \"Practical6-Buy-Token.sol\":724:765  require(!locked, \"Error: Reentrant call\") */\n    tag_31:\n      mload(0x40)\n      dup1\n      swap2\n      sub\n      swap1\n      revert\n    tag_30:\n        /* \"Practical6-Buy-Token.sol\":780:786  locked */\n      0x00\n        /* \"Practical6-Buy-Token.sol\":780:793  locked = true */\n      dup1\n      sload\n      not(shl(0xa0, 0xff))\n      and\n      shl(0xa0, 0x01)\n      or\n      swap1\n      sstore\n        /* \"Practical6-Buy-Token.sol\":1070:1077  1 ether */\n      0x0de0b6b3a7640000\n        /* \"Practical6-Buy-Token.sol\":1057:1066  msg.value */\n      callvalue\n        /* \"Practical6-Buy-Token.sol\":1057:1077  msg.value >= 1 ether */\n      lt\n      iszero\n        /* \"Practical6-Buy-Token.sol\":1049:1111  require(msg.value >= 1 ether, \"Please at least send 1 ether!\") */\n      tag_34\n      jumpi\n      mload(0x40)\n      shl(0xe5, 0x461bcd)\n      dup2\n      mstore\n        /* \"#utility.yul\":1362:1364   */\n      0x20\n        /* \"Practical6-Buy-Token.sol\":1049:1111  require(msg.value >= 1 ether, \"Please at least send 1 ether!\") */\n      0x04\n      dup3\n      add\n        /* \"#utility.yul\":1344:1365   */\n      mstore\n        /* \"#utility.yul\":1401:1403   */\n      0x1d\n        /* \"#utility.yul\":1381:1399   */\n      0x24\n      dup3\n      add\n        /* \"#utility.yul\":1374:1404   */\n      mstore\n        /* \"#utility.yul\":1440:1471   */\n      0x506c65617365206174206c656173742073656e64203120657468657221000000\n        /* \"#utility.yul\":1420:1438   */\n      0x44\n      dup3\n      add\n        /* \"#utility.yul\":1413:1472   */\n      mstore\n        /* \"#utility.yul\":1489:1507   */\n      0x64\n      add\n        /* \"Practical6-Buy-Token.sol\":1049:1111  require(msg.value >= 1 ether, \"Please at least send 1 ether!\") */\n      tag_31\n        /* \"#utility.yul\":1160:1513   */\n      jump\n        /* \"Practical6-Buy-Token.sol\":1049:1111  require(msg.value >= 1 ether, \"Please at least send 1 ether!\") */\n    tag_34:\n        /* \"Practical6-Buy-Token.sol\":1134:1201  payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value) */\n      mload(0x40)\n        /* \"Practical6-Buy-Token.sol\":1142:1184  0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129 */\n      0x9163f6f9a843827ab2fc1b0fbd95b7ef77763129\n      swap1\n        /* \"Practical6-Buy-Token.sol\":1191:1200  msg.value */\n      callvalue\n        /* \"Practical6-Buy-Token.sol\":1134:1201  payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value) */\n      dup1\n      iszero\n      0x08fc\n      mul\n      swap2\n      0x00\n      dup2\n      dup2\n      dup2\n        /* \"Practical6-Buy-Token.sol\":1191:1200  msg.value */\n      dup6\n        /* \"Practical6-Buy-Token.sol\":1142:1184  0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129 */\n      dup9\n        /* \"Practical6-Buy-Token.sol\":1134:1201  payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value) */\n      dup9\n      call\n      swap4\n      pop\n      pop\n      pop\n      pop\n        /* \"Practical6-Buy-Token.sol\":1126:1218  require(payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value),\"transfer fail\") */\n      tag_38\n      jumpi\n      mload(0x40)\n      shl(0xe5, 0x461bcd)\n      dup2\n      mstore\n        /* \"#utility.yul\":1720:1722   */\n      0x20\n        /* \"Practical6-Buy-Token.sol\":1126:1218  require(payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value),\"transfer fail\") */\n      0x04\n      dup3\n      add\n        /* \"#utility.yul\":1702:1723   */\n      mstore\n        /* \"#utility.yul\":1759:1761   */\n      0x0d\n        /* \"#utility.yul\":1739:1757   */\n      0x24\n      dup3\n      add\n        /* \"#utility.yul\":1732:1762   */\n      mstore\n      shl(0x9a, 0x1d1c985b9cd9995c8819985a5b)\n        /* \"#utility.yul\":1778:1796   */\n      0x44\n      dup3\n      add\n        /* \"#utility.yul\":1771:1814   */\n      mstore\n        /* \"#utility.yul\":1831:1849   */\n      0x64\n      add\n        /* \"Practical6-Buy-Token.sol\":1126:1218  require(payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value),\"transfer fail\") */\n      tag_31\n        /* \"#utility.yul\":1518:1855   */\n      jump\n        /* \"Practical6-Buy-Token.sol\":1126:1218  require(payable(0x9163f6f9A843827aB2fC1B0fBd95B7eF77763129).send(msg.value),\"transfer fail\") */\n    tag_38:\n        /* \"Practical6-Buy-Token.sol\":1273:1285  exchangeRate */\n      sload(0x02)\n        /* \"Practical6-Buy-Token.sol\":1233:1250  uint256 buyAmount */\n      0x00\n      swap1\n        /* \"Practical6-Buy-Token.sol\":1254:1271  msg.value/1 ether */\n      tag_41\n        /* \"Practical6-Buy-Token.sol\":1264:1271  1 ether */\n      0x0de0b6b3a7640000\n        /* \"Practical6-Buy-Token.sol\":1254:1263  msg.value */\n      callvalue\n        /* \"Practical6-Buy-Token.sol\":1254:1271  msg.value/1 ether */\n      tag_42\n      jump\t// in\n    tag_41:\n        /* \"Practical6-Buy-Token.sol\":1253:1285  (msg.value/1 ether)*exchangeRate */\n      tag_43\n      swap2\n      swap1\n      tag_44\n      jump\t// in\n    tag_43:\n        /* \"Practical6-Buy-Token.sol\":1419:1457  topUpSuccessful(buyAmount, msg.sender) */\n      0x40\n      dup1\n      mload\n        /* \"#utility.yul\":2526:2551   */\n      dup3\n      dup2\n      mstore\n        /* \"Practical6-Buy-Token.sol\":1446:1456  msg.sender */\n      caller\n        /* \"#utility.yul\":2582:2584   */\n      0x20\n        /* \"#utility.yul\":2567:2585   */\n      dup3\n      add\n        /* \"#utility.yul\":2560:2620   */\n      mstore\n        /* \"Practical6-Buy-Token.sol\":1233:1285  uint256 buyAmount = (msg.value/1 ether)*exchangeRate */\n      swap2\n      swap3\n      pop\n        /* \"Practical6-Buy-Token.sol\":1419:1457  topUpSuccessful(buyAmount, msg.sender) */\n      0x57be3b095691f7a70e80aaa69b69ec4b9713302028aebe76ce4629a95380978c\n      swap2\n        /* \"#utility.yul\":2499:2517   */\n      add\n        /* \"Practical6-Buy-Token.sol\":1419:1457  topUpSuccessful(buyAmount, msg.sender) */\n      mload(0x40)\n      dup1\n      swap2\n      sub\n      swap1\n      log1\n      pop\n        /* \"Practical6-Buy-Token.sol\":833:838  false */\n      0x00\n        /* \"Practical6-Buy-Token.sol\":824:838  locked = false */\n      dup1\n      sload\n      not(shl(0xa0, 0xff))\n      and\n      swap1\n      sstore\n        /* \"Practical6-Buy-Token.sol\":982:1471  function buyTTTToken() external payable noReentrancy{... */\n      jump\t// out\n        /* \"Practical6-Buy-Token.sol\":862:970  function changeEXCTRate(uint256 newRate) external onlyOwner{... */\n    tag_28:\n        /* \"Practical6-Buy-Token.sol\":597:602  owner */\n      and(sub(shl(0xa0, 0x01), 0x01), sload(0x01))\n        /* \"Practical6-Buy-Token.sol\":583:593  msg.sender */\n      caller\n        /* \"Practical6-Buy-Token.sol\":583:602  msg.sender == owner */\n      eq\n        /* \"Practical6-Buy-Token.sol\":575:620  require(msg.sender == owner, \"Not the owner\") */\n      tag_48\n      jumpi\n      mload(0x40)\n      shl(0xe5, 0x461bcd)\n      dup2\n      mstore\n        /* \"#utility.yul\":2833:2835   */\n      0x20\n        /* \"Practical6-Buy-Token.sol\":575:620  require(msg.sender == owner, \"Not the owner\") */\n      0x04\n      dup3\n      add\n        /* \"#utility.yul\":2815:2836   */\n      mstore\n        /* \"#utility.yul\":2872:2874   */\n      0x0d\n        /* \"#utility.yul\":2852:2870   */\n      0x24\n      dup3\n      add\n        /* \"#utility.yul\":2845:2875   */\n      mstore\n      shl(0x99, 0x2737ba103a34329037bbb732b9)\n        /* \"#utility.yul\":2891:2909   */\n      0x44\n      dup3\n      add\n        /* \"#utility.yul\":2884:2927   */\n      mstore\n        /* \"#utility.yul\":2944:2962   */\n      0x64\n      add\n        /* \"Practical6-Buy-Token.sol\":575:620  require(msg.sender == owner, \"Not the owner\") */\n      tag_31\n        /* \"#utility.yul\":2631:2968   */\n      jump\n        /* \"Practical6-Buy-Token.sol\":575:620  require(msg.sender == owner, \"Not the owner\") */\n    tag_48:\n        /* \"Practical6-Buy-Token.sol\":936:948  exchangeRate */\n      0x02\n        /* \"Practical6-Buy-Token.sol\":936:958  exchangeRate = newRate */\n      sstore\n        /* \"Practical6-Buy-Token.sol\":862:970  function changeEXCTRate(uint256 newRate) external onlyOwner{... */\n      jump\t// out\n        /* \"#utility.yul\":625:805   */\n    tag_27:\n        /* \"#utility.yul\":684:690   */\n      0x00\n        /* \"#utility.yul\":737:739   */\n      0x20\n        /* \"#utility.yul\":725:734   */\n      dup3\n        /* \"#utility.yul\":716:723   */\n      dup5\n        /* \"#utility.yul\":712:735   */\n      sub\n        /* \"#utility.yul\":708:740   */\n      slt\n        /* \"#utility.yul\":705:757   */\n      iszero\n      tag_57\n      jumpi\n        /* \"#utility.yul\":753:754   */\n      0x00\n        /* \"#utility.yul\":750:751   */\n      dup1\n        /* \"#utility.yul\":743:755   */\n      revert\n        /* \"#utility.yul\":705:757   */\n    tag_57:\n      pop\n        /* \"#utility.yul\":776:799   */\n      calldataload\n      swap2\n        /* \"#utility.yul\":625:805   */\n      swap1\n      pop\n      jump\t// out\n        /* \"#utility.yul\":1860:2077   */\n    tag_42:\n        /* \"#utility.yul\":1900:1901   */\n      0x00\n        /* \"#utility.yul\":1926:1927   */\n      dup3\n        /* \"#utility.yul\":1916:2048   */\n      tag_62\n      jumpi\n        /* \"#utility.yul\":1970:1980   */\n      0x4e487b71\n        /* \"#utility.yul\":1965:1968   */\n      0xe0\n        /* \"#utility.yul\":1961:1981   */\n      shl\n        /* \"#utility.yul\":1958:1959   */\n      0x00\n        /* \"#utility.yul\":1951:1982   */\n      mstore\n        /* \"#utility.yul\":2005:2009   */\n      0x12\n        /* \"#utility.yul\":2002:2003   */\n      0x04\n        /* \"#utility.yul\":1995:2010   */\n      mstore\n        /* \"#utility.yul\":2033:2037   */\n      0x24\n        /* \"#utility.yul\":2030:2031   */\n      0x00\n        /* \"#utility.yul\":2023:2038   */\n      revert\n        /* \"#utility.yul\":1916:2048   */\n    tag_62:\n      pop\n        /* \"#utility.yul\":2062:2071   */\n      div\n      swap1\n        /* \"#utility.yul\":1860:2077   */\n      jump\t// out\n        /* \"#utility.yul\":2082:2347   */\n    tag_44:\n        /* \"#utility.yul\":2155:2164   */\n      dup1\n      dup3\n      mul\n        /* \"#utility.yul\":2186:2195   */\n      dup2\n      iszero\n        /* \"#utility.yul\":2203:2218   */\n      dup3\n      dup3\n      div\n        /* \"#utility.yul\":2197:2219   */\n      dup5\n      eq\n        /* \"#utility.yul\":2183:2220   */\n      or\n        /* \"#utility.yul\":2173:2341   */\n      tag_64\n      jumpi\n        /* \"#utility.yul\":2263:2273   */\n      0x4e487b71\n        /* \"#utility.yul\":2258:2261   */\n      0xe0\n        /* \"#utility.yul\":2254:2274   */\n      shl\n        /* \"#utility.yul\":2251:2252   */\n      0x00\n        /* \"#utility.yul\":2244:2275   */\n      mstore\n        /* \"#utility.yul\":2298:2302   */\n      0x11\n        /* \"#utility.yul\":2295:2296   */\n      0x04\n        /* \"#utility.yul\":2288:2303   */\n      mstore\n        /* \"#utility.yul\":2326:2330   */\n      0x24\n        /* \"#utility.yul\":2323:2324   */\n      0x00\n        /* \"#utility.yul\":2316:2331   */\n      revert\n        /* \"#utility.yul\":2173:2341   */\n    tag_64:\n        /* \"#utility.yul\":2082:2347   */\n      swap3\n      swap2\n      pop\n      pop\n      jump\t// out\n\n    auxdata: 0xa2646970667358221220f3bd6c8f42c38753756a6eec2f4b156a51051f1b748e25e5ac0daac3ef93479a64736f6c63430008130033\n}\n",
 						"bytecode": {
 							"functionDebugData": {
 								"@_100": {
@@ -410,8 +410,8 @@
 							},
 							"generatedSources": [],
 							"linkReferences": {},
-							"object": "6080604052600080546001600160a01b03191673c6bddcd0da1c50281f02a57b8d2ada2ebf76aec717905534801561003657600080fd5b506103e860025561037f8061004c6000396000f3fe60806040526004361061004a5760003560e01c80633ba0b9a91461004f578063634a0234146100785780637effb427146100825780638da5cb5b146100ba578063bbf1095a146100da575b600080fd5b34801561005b57600080fd5b5061006560025481565b6040519081526020015b60405180910390f35b6100806100fa565b005b34801561008e57600080fd5b506000546100a2906001600160a01b031681565b6040516001600160a01b03909116815260200161006f565b3480156100c657600080fd5b506001546100a2906001600160a01b031681565b3480156100e657600080fd5b506100806100f53660046102e3565b610294565b600054600160a01b900460ff16156101515760405162461bcd60e51b8152602060048201526015602482015274115c9c9bdc8e881499595b9d1c985b9d0818d85b1b605a1b60448201526064015b60405180910390fd5b6000805460ff60a01b1916600160a01b179055670de0b6b3a76400003410156101bc5760405162461bcd60e51b815260206004820152601d60248201527f506c65617365206174206c656173742073656e642031206574686572210000006044820152606401610148565b604051739163f6f9a843827ab2fc1b0fbd95b7ef77763129903480156108fc02916000818181858888f193505050506102275760405162461bcd60e51b815260206004820152600d60248201526c1d1c985b9cd9995c8819985a5b609a1b6044820152606401610148565b60025460009061023f670de0b6b3a7640000346102fc565b610249919061031e565b604080518281523360208201529192507f57be3b095691f7a70e80aaa69b69ec4b9713302028aebe76ce4629a95380978c910160405180910390a1506000805460ff60a01b19169055565b6001546001600160a01b031633146102de5760405162461bcd60e51b815260206004820152600d60248201526c2737ba103a34329037bbb732b960991b6044820152606401610148565b600255565b6000602082840312156102f557600080fd5b5035919050565b60008261031957634e487b7160e01b600052601260045260246000fd5b500490565b808202811582820484141761034357634e487b7160e01b600052601160045260246000fd5b9291505056fea2646970667358221220395aba4bc32ad586daa40596ed31bbc464474444592fd3f47763c3d1841fd13864736f6c63430008130033",
-							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB NOT AND PUSH20 0xC6BDDCD0DA1C50281F02A57B8D2ADA2EBF76AEC7 OR SWAP1 SSTORE CALLVALUE DUP1 ISZERO PUSH2 0x36 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x3E8 PUSH1 0x2 SSTORE PUSH2 0x37F DUP1 PUSH2 0x4C PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x4 CALLDATASIZE LT PUSH2 0x4A JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x3BA0B9A9 EQ PUSH2 0x4F JUMPI DUP1 PUSH4 0x634A0234 EQ PUSH2 0x78 JUMPI DUP1 PUSH4 0x7EFFB427 EQ PUSH2 0x82 JUMPI DUP1 PUSH4 0x8DA5CB5B EQ PUSH2 0xBA JUMPI DUP1 PUSH4 0xBBF1095A EQ PUSH2 0xDA JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x5B JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x65 PUSH1 0x2 SLOAD DUP2 JUMP JUMPDEST PUSH1 0x40 MLOAD SWAP1 DUP2 MSTORE PUSH1 0x20 ADD JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH2 0x80 PUSH2 0xFA JUMP JUMPDEST STOP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x8E JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x0 SLOAD PUSH2 0xA2 SWAP1 PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP2 JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB SWAP1 SWAP2 AND DUP2 MSTORE PUSH1 0x20 ADD PUSH2 0x6F JUMP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0xC6 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x1 SLOAD PUSH2 0xA2 SWAP1 PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP2 JUMP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0xE6 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x80 PUSH2 0xF5 CALLDATASIZE PUSH1 0x4 PUSH2 0x2E3 JUMP JUMPDEST PUSH2 0x294 JUMP JUMPDEST PUSH1 0x0 SLOAD PUSH1 0x1 PUSH1 0xA0 SHL SWAP1 DIV PUSH1 0xFF AND ISZERO PUSH2 0x151 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x15 PUSH1 0x24 DUP3 ADD MSTORE PUSH21 0x115C9C9BDC8E881499595B9D1C985B9D0818D85B1B PUSH1 0x5A SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST PUSH1 0x0 DUP1 SLOAD PUSH1 0xFF PUSH1 0xA0 SHL NOT AND PUSH1 0x1 PUSH1 0xA0 SHL OR SWAP1 SSTORE PUSH8 0xDE0B6B3A7640000 CALLVALUE LT ISZERO PUSH2 0x1BC JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x1D PUSH1 0x24 DUP3 ADD MSTORE PUSH32 0x506C65617365206174206C656173742073656E64203120657468657221000000 PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x148 JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH20 0x9163F6F9A843827AB2FC1B0FBD95B7EF77763129 SWAP1 CALLVALUE DUP1 ISZERO PUSH2 0x8FC MUL SWAP2 PUSH1 0x0 DUP2 DUP2 DUP2 DUP6 DUP9 DUP9 CALL SWAP4 POP POP POP POP PUSH2 0x227 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0xD PUSH1 0x24 DUP3 ADD MSTORE PUSH13 0x1D1C985B9CD9995C8819985A5B PUSH1 0x9A SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x148 JUMP JUMPDEST PUSH1 0x2 SLOAD PUSH1 0x0 SWAP1 PUSH2 0x23F PUSH8 0xDE0B6B3A7640000 CALLVALUE PUSH2 0x2FC JUMP JUMPDEST PUSH2 0x249 SWAP2 SWAP1 PUSH2 0x31E JUMP JUMPDEST PUSH1 0x40 DUP1 MLOAD DUP3 DUP2 MSTORE CALLER PUSH1 0x20 DUP3 ADD MSTORE SWAP2 SWAP3 POP PUSH32 0x57BE3B095691F7A70E80AAA69B69EC4B9713302028AEBE76CE4629A95380978C SWAP2 ADD PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 LOG1 POP PUSH1 0x0 DUP1 SLOAD PUSH1 0xFF PUSH1 0xA0 SHL NOT AND SWAP1 SSTORE JUMP JUMPDEST PUSH1 0x1 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND CALLER EQ PUSH2 0x2DE JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0xD PUSH1 0x24 DUP3 ADD MSTORE PUSH13 0x2737BA103A34329037BBB732B9 PUSH1 0x99 SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x148 JUMP JUMPDEST PUSH1 0x2 SSTORE JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 DUP3 DUP5 SUB SLT ISZERO PUSH2 0x2F5 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP CALLDATALOAD SWAP2 SWAP1 POP JUMP JUMPDEST PUSH1 0x0 DUP3 PUSH2 0x319 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x12 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST POP DIV SWAP1 JUMP JUMPDEST DUP1 DUP3 MUL DUP2 ISZERO DUP3 DUP3 DIV DUP5 EQ OR PUSH2 0x343 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x11 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST SWAP3 SWAP2 POP POP JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 CODECOPY GAS 0xBA 0x4B 0xC3 0x2A 0xD5 DUP7 0xDA LOG4 SDIV SWAP7 0xED BALANCE 0xBB 0xC4 PUSH5 0x474444592F 0xD3 DELEGATECALL PUSH24 0x63C3D1841FD13864736F6C63430008130033000000000000 ",
+							"object": "6080604052600080546001600160a01b03191673c6bddcd0da1c50281f02a57b8d2ada2ebf76aec717905534801561003657600080fd5b506103e860025561037f8061004c6000396000f3fe60806040526004361061004a5760003560e01c80633ba0b9a91461004f578063634a0234146100785780637effb427146100825780638da5cb5b146100ba578063bbf1095a146100da575b600080fd5b34801561005b57600080fd5b5061006560025481565b6040519081526020015b60405180910390f35b6100806100fa565b005b34801561008e57600080fd5b506000546100a2906001600160a01b031681565b6040516001600160a01b03909116815260200161006f565b3480156100c657600080fd5b506001546100a2906001600160a01b031681565b3480156100e657600080fd5b506100806100f53660046102e3565b610294565b600054600160a01b900460ff16156101515760405162461bcd60e51b8152602060048201526015602482015274115c9c9bdc8e881499595b9d1c985b9d0818d85b1b605a1b60448201526064015b60405180910390fd5b6000805460ff60a01b1916600160a01b179055670de0b6b3a76400003410156101bc5760405162461bcd60e51b815260206004820152601d60248201527f506c65617365206174206c656173742073656e642031206574686572210000006044820152606401610148565b604051739163f6f9a843827ab2fc1b0fbd95b7ef77763129903480156108fc02916000818181858888f193505050506102275760405162461bcd60e51b815260206004820152600d60248201526c1d1c985b9cd9995c8819985a5b609a1b6044820152606401610148565b60025460009061023f670de0b6b3a7640000346102fc565b610249919061031e565b604080518281523360208201529192507f57be3b095691f7a70e80aaa69b69ec4b9713302028aebe76ce4629a95380978c910160405180910390a1506000805460ff60a01b19169055565b6001546001600160a01b031633146102de5760405162461bcd60e51b815260206004820152600d60248201526c2737ba103a34329037bbb732b960991b6044820152606401610148565b600255565b6000602082840312156102f557600080fd5b5035919050565b60008261031957634e487b7160e01b600052601260045260246000fd5b500490565b808202811582820484141761034357634e487b7160e01b600052601160045260246000fd5b9291505056fea2646970667358221220f3bd6c8f42c38753756a6eec2f4b156a51051f1b748e25e5ac0daac3ef93479a64736f6c63430008130033",
+							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB NOT AND PUSH20 0xC6BDDCD0DA1C50281F02A57B8D2ADA2EBF76AEC7 OR SWAP1 SSTORE CALLVALUE DUP1 ISZERO PUSH2 0x36 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x3E8 PUSH1 0x2 SSTORE PUSH2 0x37F DUP1 PUSH2 0x4C PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x4 CALLDATASIZE LT PUSH2 0x4A JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x3BA0B9A9 EQ PUSH2 0x4F JUMPI DUP1 PUSH4 0x634A0234 EQ PUSH2 0x78 JUMPI DUP1 PUSH4 0x7EFFB427 EQ PUSH2 0x82 JUMPI DUP1 PUSH4 0x8DA5CB5B EQ PUSH2 0xBA JUMPI DUP1 PUSH4 0xBBF1095A EQ PUSH2 0xDA JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x5B JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x65 PUSH1 0x2 SLOAD DUP2 JUMP JUMPDEST PUSH1 0x40 MLOAD SWAP1 DUP2 MSTORE PUSH1 0x20 ADD JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH2 0x80 PUSH2 0xFA JUMP JUMPDEST STOP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x8E JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x0 SLOAD PUSH2 0xA2 SWAP1 PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP2 JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB SWAP1 SWAP2 AND DUP2 MSTORE PUSH1 0x20 ADD PUSH2 0x6F JUMP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0xC6 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x1 SLOAD PUSH2 0xA2 SWAP1 PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP2 JUMP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0xE6 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x80 PUSH2 0xF5 CALLDATASIZE PUSH1 0x4 PUSH2 0x2E3 JUMP JUMPDEST PUSH2 0x294 JUMP JUMPDEST PUSH1 0x0 SLOAD PUSH1 0x1 PUSH1 0xA0 SHL SWAP1 DIV PUSH1 0xFF AND ISZERO PUSH2 0x151 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x15 PUSH1 0x24 DUP3 ADD MSTORE PUSH21 0x115C9C9BDC8E881499595B9D1C985B9D0818D85B1B PUSH1 0x5A SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST PUSH1 0x0 DUP1 SLOAD PUSH1 0xFF PUSH1 0xA0 SHL NOT AND PUSH1 0x1 PUSH1 0xA0 SHL OR SWAP1 SSTORE PUSH8 0xDE0B6B3A7640000 CALLVALUE LT ISZERO PUSH2 0x1BC JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x1D PUSH1 0x24 DUP3 ADD MSTORE PUSH32 0x506C65617365206174206C656173742073656E64203120657468657221000000 PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x148 JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH20 0x9163F6F9A843827AB2FC1B0FBD95B7EF77763129 SWAP1 CALLVALUE DUP1 ISZERO PUSH2 0x8FC MUL SWAP2 PUSH1 0x0 DUP2 DUP2 DUP2 DUP6 DUP9 DUP9 CALL SWAP4 POP POP POP POP PUSH2 0x227 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0xD PUSH1 0x24 DUP3 ADD MSTORE PUSH13 0x1D1C985B9CD9995C8819985A5B PUSH1 0x9A SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x148 JUMP JUMPDEST PUSH1 0x2 SLOAD PUSH1 0x0 SWAP1 PUSH2 0x23F PUSH8 0xDE0B6B3A7640000 CALLVALUE PUSH2 0x2FC JUMP JUMPDEST PUSH2 0x249 SWAP2 SWAP1 PUSH2 0x31E JUMP JUMPDEST PUSH1 0x40 DUP1 MLOAD DUP3 DUP2 MSTORE CALLER PUSH1 0x20 DUP3 ADD MSTORE SWAP2 SWAP3 POP PUSH32 0x57BE3B095691F7A70E80AAA69B69EC4B9713302028AEBE76CE4629A95380978C SWAP2 ADD PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 LOG1 POP PUSH1 0x0 DUP1 SLOAD PUSH1 0xFF PUSH1 0xA0 SHL NOT AND SWAP1 SSTORE JUMP JUMPDEST PUSH1 0x1 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND CALLER EQ PUSH2 0x2DE JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0xD PUSH1 0x24 DUP3 ADD MSTORE PUSH13 0x2737BA103A34329037BBB732B9 PUSH1 0x99 SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x148 JUMP JUMPDEST PUSH1 0x2 SSTORE JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 DUP3 DUP5 SUB SLT ISZERO PUSH2 0x2F5 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP CALLDATALOAD SWAP2 SWAP1 POP JUMP JUMPDEST PUSH1 0x0 DUP3 PUSH2 0x319 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x12 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST POP DIV SWAP1 JUMP JUMPDEST DUP1 DUP3 MUL DUP2 ISZERO DUP3 DUP3 DIV DUP5 EQ OR PUSH2 0x343 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x11 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST SWAP3 SWAP2 POP POP JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 RETURN 0xBD PUSH13 0x8F42C38753756A6EEC2F4B156A MLOAD SDIV 0x1F SHL PUSH21 0x8E25E5AC0DAAC3EF93479A64736F6C634300081300 CALLER ",
 							"sourceMap": "136:1397:1:-:0;;;165:75;;;-1:-1:-1;;;;;;165:75:1;197:42;165:75;;;350:59;;;;;;;;;-1:-1:-1;393:4:1;378:12;:19;136:1397;;;;;;"
 						},
 						"deployedBytecode": {
@@ -2418,8 +2418,8 @@
 							],
 							"immutableReferences": {},
 							"linkReferences": {},
-							"object": "60806040526004361061004a5760003560e01c80633ba0b9a91461004f578063634a0234146100785780637effb427146100825780638da5cb5b146100ba578063bbf1095a146100da575b600080fd5b34801561005b57600080fd5b5061006560025481565b6040519081526020015b60405180910390f35b6100806100fa565b005b34801561008e57600080fd5b506000546100a2906001600160a01b031681565b6040516001600160a01b03909116815260200161006f565b3480156100c657600080fd5b506001546100a2906001600160a01b031681565b3480156100e657600080fd5b506100806100f53660046102e3565b610294565b600054600160a01b900460ff16156101515760405162461bcd60e51b8152602060048201526015602482015274115c9c9bdc8e881499595b9d1c985b9d0818d85b1b605a1b60448201526064015b60405180910390fd5b6000805460ff60a01b1916600160a01b179055670de0b6b3a76400003410156101bc5760405162461bcd60e51b815260206004820152601d60248201527f506c65617365206174206c656173742073656e642031206574686572210000006044820152606401610148565b604051739163f6f9a843827ab2fc1b0fbd95b7ef77763129903480156108fc02916000818181858888f193505050506102275760405162461bcd60e51b815260206004820152600d60248201526c1d1c985b9cd9995c8819985a5b609a1b6044820152606401610148565b60025460009061023f670de0b6b3a7640000346102fc565b610249919061031e565b604080518281523360208201529192507f57be3b095691f7a70e80aaa69b69ec4b9713302028aebe76ce4629a95380978c910160405180910390a1506000805460ff60a01b19169055565b6001546001600160a01b031633146102de5760405162461bcd60e51b815260206004820152600d60248201526c2737ba103a34329037bbb732b960991b6044820152606401610148565b600255565b6000602082840312156102f557600080fd5b5035919050565b60008261031957634e487b7160e01b600052601260045260246000fd5b500490565b808202811582820484141761034357634e487b7160e01b600052601160045260246000fd5b9291505056fea2646970667358221220395aba4bc32ad586daa40596ed31bbc464474444592fd3f47763c3d1841fd13864736f6c63430008130033",
-							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x4 CALLDATASIZE LT PUSH2 0x4A JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x3BA0B9A9 EQ PUSH2 0x4F JUMPI DUP1 PUSH4 0x634A0234 EQ PUSH2 0x78 JUMPI DUP1 PUSH4 0x7EFFB427 EQ PUSH2 0x82 JUMPI DUP1 PUSH4 0x8DA5CB5B EQ PUSH2 0xBA JUMPI DUP1 PUSH4 0xBBF1095A EQ PUSH2 0xDA JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x5B JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x65 PUSH1 0x2 SLOAD DUP2 JUMP JUMPDEST PUSH1 0x40 MLOAD SWAP1 DUP2 MSTORE PUSH1 0x20 ADD JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH2 0x80 PUSH2 0xFA JUMP JUMPDEST STOP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x8E JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x0 SLOAD PUSH2 0xA2 SWAP1 PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP2 JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB SWAP1 SWAP2 AND DUP2 MSTORE PUSH1 0x20 ADD PUSH2 0x6F JUMP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0xC6 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x1 SLOAD PUSH2 0xA2 SWAP1 PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP2 JUMP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0xE6 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x80 PUSH2 0xF5 CALLDATASIZE PUSH1 0x4 PUSH2 0x2E3 JUMP JUMPDEST PUSH2 0x294 JUMP JUMPDEST PUSH1 0x0 SLOAD PUSH1 0x1 PUSH1 0xA0 SHL SWAP1 DIV PUSH1 0xFF AND ISZERO PUSH2 0x151 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x15 PUSH1 0x24 DUP3 ADD MSTORE PUSH21 0x115C9C9BDC8E881499595B9D1C985B9D0818D85B1B PUSH1 0x5A SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST PUSH1 0x0 DUP1 SLOAD PUSH1 0xFF PUSH1 0xA0 SHL NOT AND PUSH1 0x1 PUSH1 0xA0 SHL OR SWAP1 SSTORE PUSH8 0xDE0B6B3A7640000 CALLVALUE LT ISZERO PUSH2 0x1BC JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x1D PUSH1 0x24 DUP3 ADD MSTORE PUSH32 0x506C65617365206174206C656173742073656E64203120657468657221000000 PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x148 JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH20 0x9163F6F9A843827AB2FC1B0FBD95B7EF77763129 SWAP1 CALLVALUE DUP1 ISZERO PUSH2 0x8FC MUL SWAP2 PUSH1 0x0 DUP2 DUP2 DUP2 DUP6 DUP9 DUP9 CALL SWAP4 POP POP POP POP PUSH2 0x227 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0xD PUSH1 0x24 DUP3 ADD MSTORE PUSH13 0x1D1C985B9CD9995C8819985A5B PUSH1 0x9A SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x148 JUMP JUMPDEST PUSH1 0x2 SLOAD PUSH1 0x0 SWAP1 PUSH2 0x23F PUSH8 0xDE0B6B3A7640000 CALLVALUE PUSH2 0x2FC JUMP JUMPDEST PUSH2 0x249 SWAP2 SWAP1 PUSH2 0x31E JUMP JUMPDEST PUSH1 0x40 DUP1 MLOAD DUP3 DUP2 MSTORE CALLER PUSH1 0x20 DUP3 ADD MSTORE SWAP2 SWAP3 POP PUSH32 0x57BE3B095691F7A70E80AAA69B69EC4B9713302028AEBE76CE4629A95380978C SWAP2 ADD PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 LOG1 POP PUSH1 0x0 DUP1 SLOAD PUSH1 0xFF PUSH1 0xA0 SHL NOT AND SWAP1 SSTORE JUMP JUMPDEST PUSH1 0x1 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND CALLER EQ PUSH2 0x2DE JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0xD PUSH1 0x24 DUP3 ADD MSTORE PUSH13 0x2737BA103A34329037BBB732B9 PUSH1 0x99 SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x148 JUMP JUMPDEST PUSH1 0x2 SSTORE JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 DUP3 DUP5 SUB SLT ISZERO PUSH2 0x2F5 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP CALLDATALOAD SWAP2 SWAP1 POP JUMP JUMPDEST PUSH1 0x0 DUP3 PUSH2 0x319 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x12 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST POP DIV SWAP1 JUMP JUMPDEST DUP1 DUP3 MUL DUP2 ISZERO DUP3 DUP3 DIV DUP5 EQ OR PUSH2 0x343 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x11 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST SWAP3 SWAP2 POP POP JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 CODECOPY GAS 0xBA 0x4B 0xC3 0x2A 0xD5 DUP7 0xDA LOG4 SDIV SWAP7 0xED BALANCE 0xBB 0xC4 PUSH5 0x474444592F 0xD3 DELEGATECALL PUSH24 0x63C3D1841FD13864736F6C63430008130033000000000000 ",
+							"object": "60806040526004361061004a5760003560e01c80633ba0b9a91461004f578063634a0234146100785780637effb427146100825780638da5cb5b146100ba578063bbf1095a146100da575b600080fd5b34801561005b57600080fd5b5061006560025481565b6040519081526020015b60405180910390f35b6100806100fa565b005b34801561008e57600080fd5b506000546100a2906001600160a01b031681565b6040516001600160a01b03909116815260200161006f565b3480156100c657600080fd5b506001546100a2906001600160a01b031681565b3480156100e657600080fd5b506100806100f53660046102e3565b610294565b600054600160a01b900460ff16156101515760405162461bcd60e51b8152602060048201526015602482015274115c9c9bdc8e881499595b9d1c985b9d0818d85b1b605a1b60448201526064015b60405180910390fd5b6000805460ff60a01b1916600160a01b179055670de0b6b3a76400003410156101bc5760405162461bcd60e51b815260206004820152601d60248201527f506c65617365206174206c656173742073656e642031206574686572210000006044820152606401610148565b604051739163f6f9a843827ab2fc1b0fbd95b7ef77763129903480156108fc02916000818181858888f193505050506102275760405162461bcd60e51b815260206004820152600d60248201526c1d1c985b9cd9995c8819985a5b609a1b6044820152606401610148565b60025460009061023f670de0b6b3a7640000346102fc565b610249919061031e565b604080518281523360208201529192507f57be3b095691f7a70e80aaa69b69ec4b9713302028aebe76ce4629a95380978c910160405180910390a1506000805460ff60a01b19169055565b6001546001600160a01b031633146102de5760405162461bcd60e51b815260206004820152600d60248201526c2737ba103a34329037bbb732b960991b6044820152606401610148565b600255565b6000602082840312156102f557600080fd5b5035919050565b60008261031957634e487b7160e01b600052601260045260246000fd5b500490565b808202811582820484141761034357634e487b7160e01b600052601160045260246000fd5b9291505056fea2646970667358221220f3bd6c8f42c38753756a6eec2f4b156a51051f1b748e25e5ac0daac3ef93479a64736f6c63430008130033",
+							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x4 CALLDATASIZE LT PUSH2 0x4A JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x3BA0B9A9 EQ PUSH2 0x4F JUMPI DUP1 PUSH4 0x634A0234 EQ PUSH2 0x78 JUMPI DUP1 PUSH4 0x7EFFB427 EQ PUSH2 0x82 JUMPI DUP1 PUSH4 0x8DA5CB5B EQ PUSH2 0xBA JUMPI DUP1 PUSH4 0xBBF1095A EQ PUSH2 0xDA JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x5B JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x65 PUSH1 0x2 SLOAD DUP2 JUMP JUMPDEST PUSH1 0x40 MLOAD SWAP1 DUP2 MSTORE PUSH1 0x20 ADD JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH2 0x80 PUSH2 0xFA JUMP JUMPDEST STOP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x8E JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x0 SLOAD PUSH2 0xA2 SWAP1 PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP2 JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB SWAP1 SWAP2 AND DUP2 MSTORE PUSH1 0x20 ADD PUSH2 0x6F JUMP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0xC6 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x1 SLOAD PUSH2 0xA2 SWAP1 PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND DUP2 JUMP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0xE6 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x80 PUSH2 0xF5 CALLDATASIZE PUSH1 0x4 PUSH2 0x2E3 JUMP JUMPDEST PUSH2 0x294 JUMP JUMPDEST PUSH1 0x0 SLOAD PUSH1 0x1 PUSH1 0xA0 SHL SWAP1 DIV PUSH1 0xFF AND ISZERO PUSH2 0x151 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x15 PUSH1 0x24 DUP3 ADD MSTORE PUSH21 0x115C9C9BDC8E881499595B9D1C985B9D0818D85B1B PUSH1 0x5A SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST PUSH1 0x0 DUP1 SLOAD PUSH1 0xFF PUSH1 0xA0 SHL NOT AND PUSH1 0x1 PUSH1 0xA0 SHL OR SWAP1 SSTORE PUSH8 0xDE0B6B3A7640000 CALLVALUE LT ISZERO PUSH2 0x1BC JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x1D PUSH1 0x24 DUP3 ADD MSTORE PUSH32 0x506C65617365206174206C656173742073656E64203120657468657221000000 PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x148 JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH20 0x9163F6F9A843827AB2FC1B0FBD95B7EF77763129 SWAP1 CALLVALUE DUP1 ISZERO PUSH2 0x8FC MUL SWAP2 PUSH1 0x0 DUP2 DUP2 DUP2 DUP6 DUP9 DUP9 CALL SWAP4 POP POP POP POP PUSH2 0x227 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0xD PUSH1 0x24 DUP3 ADD MSTORE PUSH13 0x1D1C985B9CD9995C8819985A5B PUSH1 0x9A SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x148 JUMP JUMPDEST PUSH1 0x2 SLOAD PUSH1 0x0 SWAP1 PUSH2 0x23F PUSH8 0xDE0B6B3A7640000 CALLVALUE PUSH2 0x2FC JUMP JUMPDEST PUSH2 0x249 SWAP2 SWAP1 PUSH2 0x31E JUMP JUMPDEST PUSH1 0x40 DUP1 MLOAD DUP3 DUP2 MSTORE CALLER PUSH1 0x20 DUP3 ADD MSTORE SWAP2 SWAP3 POP PUSH32 0x57BE3B095691F7A70E80AAA69B69EC4B9713302028AEBE76CE4629A95380978C SWAP2 ADD PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 LOG1 POP PUSH1 0x0 DUP1 SLOAD PUSH1 0xFF PUSH1 0xA0 SHL NOT AND SWAP1 SSTORE JUMP JUMPDEST PUSH1 0x1 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND CALLER EQ PUSH2 0x2DE JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0xD PUSH1 0x24 DUP3 ADD MSTORE PUSH13 0x2737BA103A34329037BBB732B9 PUSH1 0x99 SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x148 JUMP JUMPDEST PUSH1 0x2 SSTORE JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 DUP3 DUP5 SUB SLT ISZERO PUSH2 0x2F5 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP CALLDATALOAD SWAP2 SWAP1 POP JUMP JUMPDEST PUSH1 0x0 DUP3 PUSH2 0x319 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x12 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST POP DIV SWAP1 JUMP JUMPDEST DUP1 DUP3 MUL DUP2 ISZERO DUP3 DUP3 DIV DUP5 EQ OR PUSH2 0x343 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x11 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST SWAP3 SWAP2 POP POP JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 RETURN 0xBD PUSH13 0x8F42C38753756A6EEC2F4B156A MLOAD SDIV 0x1F SHL PUSH21 0x8E25E5AC0DAAC3EF93479A64736F6C634300081300 CALLER ",
 							"sourceMap": "136:1397:1:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;312:27;;;;;;;;;;;;;;;;;;;160:25:2;;;148:2;133:18;312:27:1;;;;;;;;982:489;;;:::i;:::-;;165:75;;;;;;;;;;-1:-1:-1;165:75:1;;;;-1:-1:-1;;;;;165:75:1;;;;;;-1:-1:-1;;;;;373:32:2;;;355:51;;343:2;328:18;165:75:1;196:216:2;281:20:1;;;;;;;;;;-1:-1:-1;281:20:1;;;;-1:-1:-1;;;;;281:20:1;;;862:108;;;;;;;;;;-1:-1:-1;862:108:1;;;;;:::i;:::-;;:::i;982:489::-;733:6;;-1:-1:-1;;;733:6:1;;;;732:7;724:41;;;;-1:-1:-1;;;724:41:1;;1012:2:2;724:41:1;;;994:21:2;1051:2;1031:18;;;1024:30;-1:-1:-1;;;1070:18:2;;;1063:51;1131:18;;724:41:1;;;;;;;;;780:6;:13;;-1:-1:-1;;;;780:13:1;-1:-1:-1;;;780:13:1;;;1070:7:::1;1057:9;:20;;1049:62;;;::::0;-1:-1:-1;;;1049:62:1;;1362:2:2;1049:62:1::1;::::0;::::1;1344:21:2::0;1401:2;1381:18;;;1374:30;1440:31;1420:18;;;1413:59;1489:18;;1049:62:1::1;1160:353:2::0;1049:62:1::1;1134:67;::::0;1142:42:::1;::::0;1191:9:::1;1134:67:::0;::::1;;;::::0;::::1;::::0;;;1191:9;1142:42;1134:67;::::1;;;;;;1126:92;;;::::0;-1:-1:-1;;;1126:92:1;;1720:2:2;1126:92:1::1;::::0;::::1;1702:21:2::0;1759:2;1739:18;;;1732:30;-1:-1:-1;;;1778:18:2;;;1771:43;1831:18;;1126:92:1::1;1518:337:2::0;1126:92:1::1;1273:12;::::0;1233:17:::1;::::0;1254::::1;1264:7;1254:9;:17;:::i;:::-;1253:32;;;;:::i;:::-;1419:38;::::0;;2526:25:2;;;1446:10:1::1;2582:2:2::0;2567:18;;2560:60;1233:52:1;;-1:-1:-1;1419:38:1::1;::::0;2499:18:2;1419:38:1::1;;;;;;;-1:-1:-1::0;833:5:1;824:14;;-1:-1:-1;;;;824:14:1;;;982:489::o;862:108::-;597:5;;-1:-1:-1;;;;;597:5:1;583:10;:19;575:45;;;;-1:-1:-1;;;575:45:1;;2833:2:2;575:45:1;;;2815:21:2;2872:2;2852:18;;;2845:30;-1:-1:-1;;;2891:18:2;;;2884:43;2944:18;;575:45:1;2631:337:2;575:45:1;936:12:::1;:22:::0;862:108::o;625:180:2:-;684:6;737:2;725:9;716:7;712:23;708:32;705:52;;;753:1;750;743:12;705:52;-1:-1:-1;776:23:2;;625:180;-1:-1:-1;625:180:2:o;1860:217::-;1900:1;1926;1916:132;;1970:10;1965:3;1961:20;1958:1;1951:31;2005:4;2002:1;1995:15;2033:4;2030:1;2023:15;1916:132;-1:-1:-1;2062:9:2;;1860:217::o;2082:265::-;2155:9;;;2186;;2203:15;;;2197:22;;2183:37;2173:168;;2263:10;2258:3;2254:20;2251:1;2244:31;2298:4;2295:1;2288:15;2326:4;2323:1;2316:15;2173:168;2082:265;;;;:::o"
 						},
 						"gasEstimates": {
@@ -2685,7 +2685,7 @@
 							],
 							".data": {
 								"0": {
-									".auxdata": "a2646970667358221220395aba4bc32ad586daa40596ed31bbc464474444592fd3f47763c3d1841fd13864736f6c63430008130033",
+									".auxdata": "a2646970667358221220f3bd6c8f42c38753756a6eec2f4b156a51051f1b748e25e5ac0daac3ef93479a64736f6c63430008130033",
 									".code": [
 										{
 											"begin": 136,
@@ -6022,7 +6022,7 @@
 							"owner()": "8da5cb5b"
 						}
 					},
-					"metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"buyer\",\"type\":\"address\"}],\"name\":\"topUpSuccessful\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"TTTToken\",\"outputs\":[{\"internalType\":\"contract IERC20\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"buyTTTToken\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newRate\",\"type\":\"uint256\"}],\"name\":\"changeEXCTRate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"exchangeRate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"Practical6-Buy-Token.sol\":\"BuyToken\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x4ce6e9f30dba5ae30f26321dc851b669caf3f953f8c832304d05df2a523f1af3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://eb24de66bbfa42093a20d448cb2564655525cba0342035a42a37654e5d922deb\",\"dweb:/ipfs/QmYgnFHamrgy5qurrxVLR1qDb7MirvGEoxCVwqiF1YvDMf\"]},\"Practical6-Buy-Token.sol\":{\"keccak256\":\"0xbb4f5d9b7f41f945ba3b667d81cec4baab62f629574088b7c015cf8cc6224b3e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cf004b0904647b5c179b486be3ef6ace2ce3bb816225c6a993fe1798edfa468d\",\"dweb:/ipfs/Qmdwx9zzWaFAsxKhhkGDh27UHHe4S2sJMgakMN5oG8EFEV\"]}},\"version\":1}",
+					"metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"buyer\",\"type\":\"address\"}],\"name\":\"topUpSuccessful\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"TTTToken\",\"outputs\":[{\"internalType\":\"contract IERC20\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"buyTTTToken\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newRate\",\"type\":\"uint256\"}],\"name\":\"changeEXCTRate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"exchangeRate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"Practical6-Buy-Token.sol\":\"BuyToken\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x25426f3e504d03db010ebc11385b2853f59b20e15c79375e9b08d2eea9f9ba05\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2b15634a3537cd402ee40a70b3f0f37a3b5e5d865a6c4b7a5eba8ed802c30fa8\",\"dweb:/ipfs/QmNeJ6cWMMvAeLUJXQq5CtQ7yvQmkdpLboQebUJbF3aeQs\"]},\"Practical6-Buy-Token.sol\":{\"keccak256\":\"0xbb4f5d9b7f41f945ba3b667d81cec4baab62f629574088b7c015cf8cc6224b3e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cf004b0904647b5c179b486be3ef6ace2ce3bb816225c6a993fe1798edfa468d\",\"dweb:/ipfs/Qmdwx9zzWaFAsxKhhkGDh27UHHe4S2sJMgakMN5oG8EFEV\"]}},\"version\":1}",
 					"storageLayout": {
 						"storage": [
 							{
@@ -6106,12 +6106,15 @@
 							"id": 1,
 							"literals": [
 								"solidity",
-								"^",
+								">=",
+								"0.6",
+								".0",
+								"<=",
 								"0.8",
 								".19"
 							],
 							"nodeType": "PragmaDirective",
-							"src": "106:24:0"
+							"src": "33:33:0"
 						},
 						{
 							"abstract": false,
@@ -6122,7 +6125,7 @@
 							"documentation": {
 								"id": 2,
 								"nodeType": "StructuredDocumentation",
-								"src": "132:70:0",
+								"src": "68:70:0",
 								"text": " @dev Interface of the ERC20 standard as defined in the EIP."
 							},
 							"fullyImplemented": false,
@@ -6131,94 +6134,43 @@
 								77
 							],
 							"name": "IERC20",
-							"nameLocation": "213:6:0",
+							"nameLocation": "149:6:0",
 							"nodeType": "ContractDefinition",
 							"nodes": [
 								{
-									"anonymous": false,
 									"documentation": {
 										"id": 3,
 										"nodeType": "StructuredDocumentation",
-										"src": "226:158:0",
-										"text": " @dev Emitted when `value` tokens are moved from one account (`from`) to\n another (`to`).\n Note that `value` may be zero."
+										"src": "162:66:0",
+										"text": " @dev Returns the amount of tokens in existence."
 									},
-									"eventSelector": "ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-									"id": 11,
-									"name": "Transfer",
-									"nameLocation": "395:8:0",
-									"nodeType": "EventDefinition",
+									"functionSelector": "18160ddd",
+									"id": 8,
+									"implemented": false,
+									"kind": "function",
+									"modifiers": [],
+									"name": "totalSupply",
+									"nameLocation": "242:11:0",
+									"nodeType": "FunctionDefinition",
 									"parameters": {
-										"id": 10,
+										"id": 4,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "253:2:0"
+									},
+									"returnParameters": {
+										"id": 7,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 5,
-												"indexed": true,
+												"id": 6,
 												"mutability": "mutable",
-												"name": "from",
-												"nameLocation": "420:4:0",
+												"name": "",
+												"nameLocation": "-1:-1:-1",
 												"nodeType": "VariableDeclaration",
-												"scope": 11,
-												"src": "404:20:0",
-												"stateVariable": false,
-												"storageLocation": "default",
-												"typeDescriptions": {
-													"typeIdentifier": "t_address",
-													"typeString": "address"
-												},
-												"typeName": {
-													"id": 4,
-													"name": "address",
-													"nodeType": "ElementaryTypeName",
-													"src": "404:7:0",
-													"stateMutability": "nonpayable",
-													"typeDescriptions": {
-														"typeIdentifier": "t_address",
-														"typeString": "address"
-													}
-												},
-												"visibility": "internal"
-											},
-											{
-												"constant": false,
-												"id": 7,
-												"indexed": true,
-												"mutability": "mutable",
-												"name": "to",
-												"nameLocation": "442:2:0",
-												"nodeType": "VariableDeclaration",
-												"scope": 11,
-												"src": "426:18:0",
-												"stateVariable": false,
-												"storageLocation": "default",
-												"typeDescriptions": {
-													"typeIdentifier": "t_address",
-													"typeString": "address"
-												},
-												"typeName": {
-													"id": 6,
-													"name": "address",
-													"nodeType": "ElementaryTypeName",
-													"src": "426:7:0",
-													"stateMutability": "nonpayable",
-													"typeDescriptions": {
-														"typeIdentifier": "t_address",
-														"typeString": "address"
-													}
-												},
-												"visibility": "internal"
-											},
-											{
-												"constant": false,
-												"id": 9,
-												"indexed": false,
-												"mutability": "mutable",
-												"name": "value",
-												"nameLocation": "454:5:0",
-												"nodeType": "VariableDeclaration",
-												"scope": 11,
-												"src": "446:13:0",
+												"scope": 8,
+												"src": "279:7:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -6226,10 +6178,10 @@
 													"typeString": "uint256"
 												},
 												"typeName": {
-													"id": 8,
+													"id": 5,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "446:7:0",
+													"src": "279:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -6238,95 +6190,77 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "403:57:0"
+										"src": "278:9:0"
 									},
-									"src": "389:72:0"
+									"scope": 77,
+									"src": "233:55:0",
+									"stateMutability": "view",
+									"virtual": false,
+									"visibility": "external"
 								},
 								{
-									"anonymous": false,
 									"documentation": {
-										"id": 12,
+										"id": 9,
 										"nodeType": "StructuredDocumentation",
-										"src": "467:148:0",
-										"text": " @dev Emitted when the allowance of a `spender` for an `owner` is set by\n a call to {approve}. `value` is the new allowance."
+										"src": "294:72:0",
+										"text": " @dev Returns the amount of tokens owned by `account`."
 									},
-									"eventSelector": "8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
-									"id": 20,
-									"name": "Approval",
-									"nameLocation": "626:8:0",
-									"nodeType": "EventDefinition",
+									"functionSelector": "70a08231",
+									"id": 16,
+									"implemented": false,
+									"kind": "function",
+									"modifiers": [],
+									"name": "balanceOf",
+									"nameLocation": "380:9:0",
+									"nodeType": "FunctionDefinition",
 									"parameters": {
-										"id": 19,
+										"id": 12,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 11,
+												"mutability": "mutable",
+												"name": "account",
+												"nameLocation": "398:7:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 16,
+												"src": "390:15:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 10,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "390:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "389:17:0"
+									},
+									"returnParameters": {
+										"id": 15,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
 												"id": 14,
-												"indexed": true,
 												"mutability": "mutable",
-												"name": "owner",
-												"nameLocation": "651:5:0",
+												"name": "",
+												"nameLocation": "-1:-1:-1",
 												"nodeType": "VariableDeclaration",
-												"scope": 20,
-												"src": "635:21:0",
-												"stateVariable": false,
-												"storageLocation": "default",
-												"typeDescriptions": {
-													"typeIdentifier": "t_address",
-													"typeString": "address"
-												},
-												"typeName": {
-													"id": 13,
-													"name": "address",
-													"nodeType": "ElementaryTypeName",
-													"src": "635:7:0",
-													"stateMutability": "nonpayable",
-													"typeDescriptions": {
-														"typeIdentifier": "t_address",
-														"typeString": "address"
-													}
-												},
-												"visibility": "internal"
-											},
-											{
-												"constant": false,
-												"id": 16,
-												"indexed": true,
-												"mutability": "mutable",
-												"name": "spender",
-												"nameLocation": "674:7:0",
-												"nodeType": "VariableDeclaration",
-												"scope": 20,
-												"src": "658:23:0",
-												"stateVariable": false,
-												"storageLocation": "default",
-												"typeDescriptions": {
-													"typeIdentifier": "t_address",
-													"typeString": "address"
-												},
-												"typeName": {
-													"id": 15,
-													"name": "address",
-													"nodeType": "ElementaryTypeName",
-													"src": "658:7:0",
-													"stateMutability": "nonpayable",
-													"typeDescriptions": {
-														"typeIdentifier": "t_address",
-														"typeString": "address"
-													}
-												},
-												"visibility": "internal"
-											},
-											{
-												"constant": false,
-												"id": 18,
-												"indexed": false,
-												"mutability": "mutable",
-												"name": "value",
-												"nameLocation": "691:5:0",
-												"nodeType": "VariableDeclaration",
-												"scope": 20,
-												"src": "683:13:0",
+												"scope": 16,
+												"src": "430:7:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -6334,10 +6268,10 @@
 													"typeString": "uint256"
 												},
 												"typeName": {
-													"id": 17,
+													"id": 13,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "683:7:0",
+													"src": "430:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -6346,30 +6280,90 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "634:63:0"
+										"src": "429:9:0"
 									},
-									"src": "620:78:0"
+									"scope": 77,
+									"src": "371:68:0",
+									"stateMutability": "view",
+									"virtual": false,
+									"visibility": "external"
 								},
 								{
 									"documentation": {
-										"id": 21,
+										"id": 17,
 										"nodeType": "StructuredDocumentation",
-										"src": "704:65:0",
-										"text": " @dev Returns the value of tokens in existence."
+										"src": "445:209:0",
+										"text": " @dev Moves `amount` tokens from the caller's account to `recipient`.\n Returns a boolean value indicating whether the operation succeeded.\n Emits a {Transfer} event."
 									},
-									"functionSelector": "18160ddd",
+									"functionSelector": "a9059cbb",
 									"id": 26,
 									"implemented": false,
 									"kind": "function",
 									"modifiers": [],
-									"name": "totalSupply",
-									"nameLocation": "783:11:0",
+									"name": "transfer",
+									"nameLocation": "668:8:0",
 									"nodeType": "FunctionDefinition",
 									"parameters": {
 										"id": 22,
 										"nodeType": "ParameterList",
-										"parameters": [],
-										"src": "794:2:0"
+										"parameters": [
+											{
+												"constant": false,
+												"id": 19,
+												"mutability": "mutable",
+												"name": "recipient",
+												"nameLocation": "685:9:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 26,
+												"src": "677:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 18,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "677:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 21,
+												"mutability": "mutable",
+												"name": "amount",
+												"nameLocation": "704:6:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 26,
+												"src": "696:14:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 20,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "696:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "676:35:0"
 									},
 									"returnParameters": {
 										"id": 25,
@@ -6383,31 +6377,31 @@
 												"nameLocation": "-1:-1:-1",
 												"nodeType": "VariableDeclaration",
 												"scope": 26,
-												"src": "820:7:0",
+												"src": "730:4:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
-													"typeIdentifier": "t_uint256",
-													"typeString": "uint256"
+													"typeIdentifier": "t_bool",
+													"typeString": "bool"
 												},
 												"typeName": {
 													"id": 23,
-													"name": "uint256",
+													"name": "bool",
 													"nodeType": "ElementaryTypeName",
-													"src": "820:7:0",
+													"src": "730:4:0",
 													"typeDescriptions": {
-														"typeIdentifier": "t_uint256",
-														"typeString": "uint256"
+														"typeIdentifier": "t_bool",
+														"typeString": "bool"
 													}
 												},
 												"visibility": "internal"
 											}
 										],
-										"src": "819:9:0"
+										"src": "729:6:0"
 									},
 									"scope": 77,
-									"src": "774:55:0",
-									"stateMutability": "view",
+									"src": "659:77:0",
+									"stateMutability": "nonpayable",
 									"virtual": false,
 									"visibility": "external"
 								},
@@ -6415,30 +6409,30 @@
 									"documentation": {
 										"id": 27,
 										"nodeType": "StructuredDocumentation",
-										"src": "835:71:0",
-										"text": " @dev Returns the value of tokens owned by `account`."
+										"src": "742:264:0",
+										"text": " @dev Returns the remaining number of tokens that `spender` will be\n allowed to spend on behalf of `owner` through {transferFrom}. This is\n zero by default.\n This value changes when {approve} or {transferFrom} are called."
 									},
-									"functionSelector": "70a08231",
-									"id": 34,
+									"functionSelector": "dd62ed3e",
+									"id": 36,
 									"implemented": false,
 									"kind": "function",
 									"modifiers": [],
-									"name": "balanceOf",
-									"nameLocation": "920:9:0",
+									"name": "allowance",
+									"nameLocation": "1020:9:0",
 									"nodeType": "FunctionDefinition",
 									"parameters": {
-										"id": 30,
+										"id": 32,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
 												"id": 29,
 												"mutability": "mutable",
-												"name": "account",
-												"nameLocation": "938:7:0",
+												"name": "owner",
+												"nameLocation": "1038:5:0",
 												"nodeType": "VariableDeclaration",
-												"scope": 34,
-												"src": "930:15:0",
+												"scope": 36,
+												"src": "1030:13:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -6449,97 +6443,7 @@
 													"id": 28,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "930:7:0",
-													"stateMutability": "nonpayable",
-													"typeDescriptions": {
-														"typeIdentifier": "t_address",
-														"typeString": "address"
-													}
-												},
-												"visibility": "internal"
-											}
-										],
-										"src": "929:17:0"
-									},
-									"returnParameters": {
-										"id": 33,
-										"nodeType": "ParameterList",
-										"parameters": [
-											{
-												"constant": false,
-												"id": 32,
-												"mutability": "mutable",
-												"name": "",
-												"nameLocation": "-1:-1:-1",
-												"nodeType": "VariableDeclaration",
-												"scope": 34,
-												"src": "970:7:0",
-												"stateVariable": false,
-												"storageLocation": "default",
-												"typeDescriptions": {
-													"typeIdentifier": "t_uint256",
-													"typeString": "uint256"
-												},
-												"typeName": {
-													"id": 31,
-													"name": "uint256",
-													"nodeType": "ElementaryTypeName",
-													"src": "970:7:0",
-													"typeDescriptions": {
-														"typeIdentifier": "t_uint256",
-														"typeString": "uint256"
-													}
-												},
-												"visibility": "internal"
-											}
-										],
-										"src": "969:9:0"
-									},
-									"scope": 77,
-									"src": "911:68:0",
-									"stateMutability": "view",
-									"virtual": false,
-									"visibility": "external"
-								},
-								{
-									"documentation": {
-										"id": 35,
-										"nodeType": "StructuredDocumentation",
-										"src": "985:213:0",
-										"text": " @dev Moves a `value` amount of tokens from the caller's account to `to`.\n Returns a boolean value indicating whether the operation succeeded.\n Emits a {Transfer} event."
-									},
-									"functionSelector": "a9059cbb",
-									"id": 44,
-									"implemented": false,
-									"kind": "function",
-									"modifiers": [],
-									"name": "transfer",
-									"nameLocation": "1212:8:0",
-									"nodeType": "FunctionDefinition",
-									"parameters": {
-										"id": 40,
-										"nodeType": "ParameterList",
-										"parameters": [
-											{
-												"constant": false,
-												"id": 37,
-												"mutability": "mutable",
-												"name": "to",
-												"nameLocation": "1229:2:0",
-												"nodeType": "VariableDeclaration",
-												"scope": 44,
-												"src": "1221:10:0",
-												"stateVariable": false,
-												"storageLocation": "default",
-												"typeDescriptions": {
-													"typeIdentifier": "t_address",
-													"typeString": "address"
-												},
-												"typeName": {
-													"id": 36,
-													"name": "address",
-													"nodeType": "ElementaryTypeName",
-													"src": "1221:7:0",
+													"src": "1030:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -6550,13 +6454,48 @@
 											},
 											{
 												"constant": false,
-												"id": 39,
+												"id": 31,
 												"mutability": "mutable",
-												"name": "value",
-												"nameLocation": "1241:5:0",
+												"name": "spender",
+												"nameLocation": "1053:7:0",
 												"nodeType": "VariableDeclaration",
-												"scope": 44,
-												"src": "1233:13:0",
+												"scope": 36,
+												"src": "1045:15:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 30,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "1045:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1029:32:0"
+									},
+									"returnParameters": {
+										"id": 35,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 34,
+												"mutability": "mutable",
+												"name": "",
+												"nameLocation": "-1:-1:-1",
+												"nodeType": "VariableDeclaration",
+												"scope": 36,
+												"src": "1085:7:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -6564,10 +6503,10 @@
 													"typeString": "uint256"
 												},
 												"typeName": {
-													"id": 38,
+													"id": 33,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "1233:7:0",
+													"src": "1085:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -6576,21 +6515,104 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "1220:27:0"
+										"src": "1084:9:0"
 									},
-									"returnParameters": {
-										"id": 43,
+									"scope": 77,
+									"src": "1011:83:0",
+									"stateMutability": "view",
+									"virtual": false,
+									"visibility": "external"
+								},
+								{
+									"documentation": {
+										"id": 37,
+										"nodeType": "StructuredDocumentation",
+										"src": "1100:642:0",
+										"text": " @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\n Returns a boolean value indicating whether the operation succeeded.\n IMPORTANT: Beware that changing an allowance with this method brings the risk\n that someone may use both the old and the new allowance by unfortunate\n transaction ordering. One possible solution to mitigate this race\n condition is to first reduce the spender's allowance to 0 and set the\n desired value afterwards:\n https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\n Emits an {Approval} event."
+									},
+									"functionSelector": "095ea7b3",
+									"id": 46,
+									"implemented": false,
+									"kind": "function",
+									"modifiers": [],
+									"name": "approve",
+									"nameLocation": "1756:7:0",
+									"nodeType": "FunctionDefinition",
+									"parameters": {
+										"id": 42,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 42,
+												"id": 39,
+												"mutability": "mutable",
+												"name": "spender",
+												"nameLocation": "1772:7:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 46,
+												"src": "1764:15:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 38,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "1764:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 41,
+												"mutability": "mutable",
+												"name": "amount",
+												"nameLocation": "1789:6:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 46,
+												"src": "1781:14:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 40,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "1781:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1763:33:0"
+									},
+									"returnParameters": {
+										"id": 45,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 44,
 												"mutability": "mutable",
 												"name": "",
 												"nameLocation": "-1:-1:-1",
 												"nodeType": "VariableDeclaration",
-												"scope": 44,
-												"src": "1266:4:0",
+												"scope": 46,
+												"src": "1815:4:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -6598,10 +6620,10 @@
 													"typeString": "bool"
 												},
 												"typeName": {
-													"id": 41,
+													"id": 43,
 													"name": "bool",
 													"nodeType": "ElementaryTypeName",
-													"src": "1266:4:0",
+													"src": "1815:4:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_bool",
 														"typeString": "bool"
@@ -6610,70 +6632,42 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "1265:6:0"
+										"src": "1814:6:0"
 									},
 									"scope": 77,
-									"src": "1203:69:0",
+									"src": "1747:74:0",
 									"stateMutability": "nonpayable",
 									"virtual": false,
 									"visibility": "external"
 								},
 								{
 									"documentation": {
-										"id": 45,
+										"id": 47,
 										"nodeType": "StructuredDocumentation",
-										"src": "1278:264:0",
-										"text": " @dev Returns the remaining number of tokens that `spender` will be\n allowed to spend on behalf of `owner` through {transferFrom}. This is\n zero by default.\n This value changes when {approve} or {transferFrom} are called."
+										"src": "1827:296:0",
+										"text": " @dev Moves `amount` tokens from `sender` to `recipient` using the\n allowance mechanism. `amount` is then deducted from the caller's\n allowance.\n Returns a boolean value indicating whether the operation succeeded.\n Emits a {Transfer} event."
 									},
-									"functionSelector": "dd62ed3e",
-									"id": 54,
+									"functionSelector": "23b872dd",
+									"id": 58,
 									"implemented": false,
 									"kind": "function",
 									"modifiers": [],
-									"name": "allowance",
-									"nameLocation": "1556:9:0",
+									"name": "transferFrom",
+									"nameLocation": "2137:12:0",
 									"nodeType": "FunctionDefinition",
 									"parameters": {
-										"id": 50,
+										"id": 54,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 47,
-												"mutability": "mutable",
-												"name": "owner",
-												"nameLocation": "1574:5:0",
-												"nodeType": "VariableDeclaration",
-												"scope": 54,
-												"src": "1566:13:0",
-												"stateVariable": false,
-												"storageLocation": "default",
-												"typeDescriptions": {
-													"typeIdentifier": "t_address",
-													"typeString": "address"
-												},
-												"typeName": {
-													"id": 46,
-													"name": "address",
-													"nodeType": "ElementaryTypeName",
-													"src": "1566:7:0",
-													"stateMutability": "nonpayable",
-													"typeDescriptions": {
-														"typeIdentifier": "t_address",
-														"typeString": "address"
-													}
-												},
-												"visibility": "internal"
-											},
-											{
-												"constant": false,
 												"id": 49,
 												"mutability": "mutable",
-												"name": "spender",
-												"nameLocation": "1589:7:0",
+												"name": "sender",
+												"nameLocation": "2158:6:0",
 												"nodeType": "VariableDeclaration",
-												"scope": 54,
-												"src": "1581:15:0",
+												"scope": 58,
+												"src": "2150:14:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -6684,97 +6678,7 @@
 													"id": 48,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "1581:7:0",
-													"stateMutability": "nonpayable",
-													"typeDescriptions": {
-														"typeIdentifier": "t_address",
-														"typeString": "address"
-													}
-												},
-												"visibility": "internal"
-											}
-										],
-										"src": "1565:32:0"
-									},
-									"returnParameters": {
-										"id": 53,
-										"nodeType": "ParameterList",
-										"parameters": [
-											{
-												"constant": false,
-												"id": 52,
-												"mutability": "mutable",
-												"name": "",
-												"nameLocation": "-1:-1:-1",
-												"nodeType": "VariableDeclaration",
-												"scope": 54,
-												"src": "1621:7:0",
-												"stateVariable": false,
-												"storageLocation": "default",
-												"typeDescriptions": {
-													"typeIdentifier": "t_uint256",
-													"typeString": "uint256"
-												},
-												"typeName": {
-													"id": 51,
-													"name": "uint256",
-													"nodeType": "ElementaryTypeName",
-													"src": "1621:7:0",
-													"typeDescriptions": {
-														"typeIdentifier": "t_uint256",
-														"typeString": "uint256"
-													}
-												},
-												"visibility": "internal"
-											}
-										],
-										"src": "1620:9:0"
-									},
-									"scope": 77,
-									"src": "1547:83:0",
-									"stateMutability": "view",
-									"virtual": false,
-									"visibility": "external"
-								},
-								{
-									"documentation": {
-										"id": 55,
-										"nodeType": "StructuredDocumentation",
-										"src": "1636:667:0",
-										"text": " @dev Sets a `value` amount of tokens as the allowance of `spender` over the\n caller's tokens.\n Returns a boolean value indicating whether the operation succeeded.\n IMPORTANT: Beware that changing an allowance with this method brings the risk\n that someone may use both the old and the new allowance by unfortunate\n transaction ordering. One possible solution to mitigate this race\n condition is to first reduce the spender's allowance to 0 and set the\n desired value afterwards:\n https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\n Emits an {Approval} event."
-									},
-									"functionSelector": "095ea7b3",
-									"id": 64,
-									"implemented": false,
-									"kind": "function",
-									"modifiers": [],
-									"name": "approve",
-									"nameLocation": "2317:7:0",
-									"nodeType": "FunctionDefinition",
-									"parameters": {
-										"id": 60,
-										"nodeType": "ParameterList",
-										"parameters": [
-											{
-												"constant": false,
-												"id": 57,
-												"mutability": "mutable",
-												"name": "spender",
-												"nameLocation": "2333:7:0",
-												"nodeType": "VariableDeclaration",
-												"scope": 64,
-												"src": "2325:15:0",
-												"stateVariable": false,
-												"storageLocation": "default",
-												"typeDescriptions": {
-													"typeIdentifier": "t_address",
-													"typeString": "address"
-												},
-												"typeName": {
-													"id": 56,
-													"name": "address",
-													"nodeType": "ElementaryTypeName",
-													"src": "2325:7:0",
+													"src": "2150:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -6785,13 +6689,41 @@
 											},
 											{
 												"constant": false,
-												"id": 59,
+												"id": 51,
 												"mutability": "mutable",
-												"name": "value",
-												"nameLocation": "2350:5:0",
+												"name": "recipient",
+												"nameLocation": "2174:9:0",
 												"nodeType": "VariableDeclaration",
-												"scope": 64,
-												"src": "2342:13:0",
+												"scope": 58,
+												"src": "2166:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 50,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "2166:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 53,
+												"mutability": "mutable",
+												"name": "amount",
+												"nameLocation": "2193:6:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 58,
+												"src": "2185:14:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -6799,10 +6731,10 @@
 													"typeString": "uint256"
 												},
 												"typeName": {
-													"id": 58,
+													"id": 52,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "2342:7:0",
+													"src": "2185:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -6811,21 +6743,21 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "2324:32:0"
+										"src": "2149:51:0"
 									},
 									"returnParameters": {
-										"id": 63,
+										"id": 57,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 62,
+												"id": 56,
 												"mutability": "mutable",
 												"name": "",
 												"nameLocation": "-1:-1:-1",
 												"nodeType": "VariableDeclaration",
-												"scope": 64,
-												"src": "2375:4:0",
+												"scope": 58,
+												"src": "2219:4:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -6833,10 +6765,10 @@
 													"typeString": "bool"
 												},
 												"typeName": {
-													"id": 61,
+													"id": 55,
 													"name": "bool",
 													"nodeType": "ElementaryTypeName",
-													"src": "2375:4:0",
+													"src": "2219:4:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_bool",
 														"typeString": "bool"
@@ -6845,42 +6777,41 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "2374:6:0"
+										"src": "2218:6:0"
 									},
 									"scope": 77,
-									"src": "2308:73:0",
+									"src": "2128:97:0",
 									"stateMutability": "nonpayable",
 									"virtual": false,
 									"visibility": "external"
 								},
 								{
+									"anonymous": false,
 									"documentation": {
-										"id": 65,
+										"id": 59,
 										"nodeType": "StructuredDocumentation",
-										"src": "2387:297:0",
-										"text": " @dev Moves a `value` amount of tokens from `from` to `to` using the\n allowance mechanism. `value` is then deducted from the caller's\n allowance.\n Returns a boolean value indicating whether the operation succeeded.\n Emits a {Transfer} event."
+										"src": "2231:158:0",
+										"text": " @dev Emitted when `value` tokens are moved from one account (`from`) to\n another (`to`).\n Note that `value` may be zero."
 									},
-									"functionSelector": "23b872dd",
-									"id": 76,
-									"implemented": false,
-									"kind": "function",
-									"modifiers": [],
-									"name": "transferFrom",
-									"nameLocation": "2698:12:0",
-									"nodeType": "FunctionDefinition",
+									"eventSelector": "ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+									"id": 67,
+									"name": "Transfer",
+									"nameLocation": "2400:8:0",
+									"nodeType": "EventDefinition",
 									"parameters": {
-										"id": 72,
+										"id": 66,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 67,
+												"id": 61,
+												"indexed": true,
 												"mutability": "mutable",
 												"name": "from",
-												"nameLocation": "2719:4:0",
+												"nameLocation": "2425:4:0",
 												"nodeType": "VariableDeclaration",
-												"scope": 76,
-												"src": "2711:12:0",
+												"scope": 67,
+												"src": "2409:20:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -6888,10 +6819,10 @@
 													"typeString": "address"
 												},
 												"typeName": {
-													"id": 66,
+													"id": 60,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "2711:7:0",
+													"src": "2409:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -6902,13 +6833,14 @@
 											},
 											{
 												"constant": false,
-												"id": 69,
+												"id": 63,
+												"indexed": true,
 												"mutability": "mutable",
 												"name": "to",
-												"nameLocation": "2733:2:0",
+												"nameLocation": "2447:2:0",
 												"nodeType": "VariableDeclaration",
-												"scope": 76,
-												"src": "2725:10:0",
+												"scope": 67,
+												"src": "2431:18:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -6916,10 +6848,10 @@
 													"typeString": "address"
 												},
 												"typeName": {
-													"id": 68,
+													"id": 62,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "2725:7:0",
+													"src": "2431:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -6930,13 +6862,14 @@
 											},
 											{
 												"constant": false,
-												"id": 71,
+												"id": 65,
+												"indexed": false,
 												"mutability": "mutable",
 												"name": "value",
-												"nameLocation": "2745:5:0",
+												"nameLocation": "2459:5:0",
 												"nodeType": "VariableDeclaration",
-												"scope": 76,
-												"src": "2737:13:0",
+												"scope": 67,
+												"src": "2451:13:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -6944,10 +6877,10 @@
 													"typeString": "uint256"
 												},
 												"typeName": {
-													"id": 70,
+													"id": 64,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "2737:7:0",
+													"src": "2451:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -6956,55 +6889,125 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "2710:41:0"
+										"src": "2408:57:0"
 									},
-									"returnParameters": {
+									"src": "2394:72:0"
+								},
+								{
+									"anonymous": false,
+									"documentation": {
+										"id": 68,
+										"nodeType": "StructuredDocumentation",
+										"src": "2472:148:0",
+										"text": " @dev Emitted when the allowance of a `spender` for an `owner` is set by\n a call to {approve}. `value` is the new allowance."
+									},
+									"eventSelector": "8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+									"id": 76,
+									"name": "Approval",
+									"nameLocation": "2631:8:0",
+									"nodeType": "EventDefinition",
+									"parameters": {
 										"id": 75,
 										"nodeType": "ParameterList",
 										"parameters": [
 											{
 												"constant": false,
-												"id": 74,
+												"id": 70,
+												"indexed": true,
 												"mutability": "mutable",
-												"name": "",
-												"nameLocation": "-1:-1:-1",
+												"name": "owner",
+												"nameLocation": "2656:5:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 76,
-												"src": "2770:4:0",
+												"src": "2640:21:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
-													"typeIdentifier": "t_bool",
-													"typeString": "bool"
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 69,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "2640:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 72,
+												"indexed": true,
+												"mutability": "mutable",
+												"name": "spender",
+												"nameLocation": "2679:7:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 76,
+												"src": "2663:23:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 71,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "2663:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 74,
+												"indexed": false,
+												"mutability": "mutable",
+												"name": "value",
+												"nameLocation": "2696:5:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 76,
+												"src": "2688:13:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
 												},
 												"typeName": {
 													"id": 73,
-													"name": "bool",
+													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "2770:4:0",
+													"src": "2688:7:0",
 													"typeDescriptions": {
-														"typeIdentifier": "t_bool",
-														"typeString": "bool"
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
 													}
 												},
 												"visibility": "internal"
 											}
 										],
-										"src": "2769:6:0"
+										"src": "2639:63:0"
 									},
-									"scope": 77,
-									"src": "2689:87:0",
-									"stateMutability": "nonpayable",
-									"virtual": false,
-									"visibility": "external"
+									"src": "2625:78:0"
 								}
 							],
 							"scope": 78,
-							"src": "203:2575:0",
+							"src": "139:2566:0",
 							"usedErrors": []
 						}
 					],
-					"src": "106:2673:0"
+					"src": "33:2673:0"
 				},
 				"id": 0
 			},

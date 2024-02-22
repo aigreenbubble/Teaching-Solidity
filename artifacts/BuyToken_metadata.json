@@ -117,11 +117,11 @@
 	},
 	"sources": {
 		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
-			"keccak256": "0x4ce6e9f30dba5ae30f26321dc851b669caf3f953f8c832304d05df2a523f1af3",
+			"keccak256": "0x25426f3e504d03db010ebc11385b2853f59b20e15c79375e9b08d2eea9f9ba05",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://eb24de66bbfa42093a20d448cb2564655525cba0342035a42a37654e5d922deb",
-				"dweb:/ipfs/QmYgnFHamrgy5qurrxVLR1qDb7MirvGEoxCVwqiF1YvDMf"
+				"bzz-raw://2b15634a3537cd402ee40a70b3f0f37a3b5e5d865a6c4b7a5eba8ed802c30fa8",
+				"dweb:/ipfs/QmNeJ6cWMMvAeLUJXQq5CtQ7yvQmkdpLboQebUJbF3aeQs"
 			]
 		},
 		"Practical6-Buy-Token.sol": {

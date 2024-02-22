@@ -58,11 +58,11 @@
 	},
 	"sources": {
 		"TTT_ERC1155Token-Jason.sol": {
-			"keccak256": "0xdeddc96a9007960b7cd7ab14295c6e752d070b8cac42d1ca3de151eb3f9d4cc3",
+			"keccak256": "0xadaea21f5bd374f06b6b9785765d7a9ba86f9e4362ec30a16177b7bdbb4ae2d7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://58e1a2b7a1743f9c094d8360c7570c22f6dc61d92aee03eea61753169efaec9d",
-				"dweb:/ipfs/Qma531WDLjEg22QjFAtypN4efEfTktuZvGZ9XCGkNP9RmS"
+				"bzz-raw://bb43c0b7568a9d240b5656fb9ea9e8609287234e7b40a61db4909cd0682bab09",
+				"dweb:/ipfs/QmQ2REx1om5PaFtNiDncCihK14LvWetk1ubEFcy4LHpaFv"
 			]
 		}
 	},

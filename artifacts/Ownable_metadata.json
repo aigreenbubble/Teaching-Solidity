@@ -6,11 +6,6 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
-				"stateMutability": "nonpayable",
-				"type": "constructor"
-			},
-			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -64,6 +59,7 @@
 			}
 		],
 		"devdoc": {
+			"details": "Contract module which provides a basic access control mechanism, where there is an account (an owner) that can be granted exclusive access to specific functions. By default, the owner account will be the one that deploys the contract. This can later be changed with {transferOwnership}. This module is used through inheritance. It will make available the modifier `onlyOwner`, which can be applied to your functions to restrict their use to the owner.",
 			"kind": "dev",
 			"methods": {
 				"constructor": {
@@ -89,7 +85,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"TTT_token.sol": "Ownable"
+			"TTT_ERC1155Token-Jason.sol": "Ownable"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -103,12 +99,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"TTT_token.sol": {
-			"keccak256": "0xfaa6d346423004f18655fe77fc5c115becbbedabef34b16568c8679c0b29fa5a",
+		"TTT_ERC1155Token-Jason.sol": {
+			"keccak256": "0xadaea21f5bd374f06b6b9785765d7a9ba86f9e4362ec30a16177b7bdbb4ae2d7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://038d6085ad0850d2dc448235fa19f75bc07a0cbe4e96ab5540894b816c8605b6",
-				"dweb:/ipfs/Qme8Z9QrKQFPeRCoigaxE4a6gcN5CNecXPDWGZcwrjbnH6"
+				"bzz-raw://bb43c0b7568a9d240b5656fb9ea9e8609287234e7b40a61db4909cd0682bab09",
+				"dweb:/ipfs/QmQ2REx1om5PaFtNiDncCihK14LvWetk1ubEFcy4LHpaFv"
 			]
 		}
 	},
