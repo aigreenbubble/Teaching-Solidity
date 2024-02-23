@@ -1250,7 +1250,7 @@
 
 
     contract TickTackToe is ERC1155{
-        constructor() ERC1155("www") { //"https://ipfs.io/ipfs/QmZ4v7tCs3RgHSZFms9BMRZhqLPMtz9V5zETHczpmZq4qn/{id}.json"
+        constructor() ERC1155("") { //"https://ipfs.io/ipfs/QmRkbqZ2CmMqDLxU7r84VMjk5qmYJJLXLxqWPe5ooFgRPL/{id}.json"
             owner = msg.sender;
         }
         // constructor(){

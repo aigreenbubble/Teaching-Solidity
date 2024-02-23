@@ -19,7 +19,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"TTT_ERC1155Token-Jason.sol": "SafeMath"
+			"Practical6-Apply-TTT-Token.sol": "SafeMath"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -33,12 +33,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"TTT_ERC1155Token-Jason.sol": {
-			"keccak256": "0xadaea21f5bd374f06b6b9785765d7a9ba86f9e4362ec30a16177b7bdbb4ae2d7",
+		"Practical6-Apply-TTT-Token.sol": {
+			"keccak256": "0xc18ca4284c7a69c77a7b6ce4260f7f580c9bcbb2a8e595459a08a249055b7834",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://bb43c0b7568a9d240b5656fb9ea9e8609287234e7b40a61db4909cd0682bab09",
-				"dweb:/ipfs/QmQ2REx1om5PaFtNiDncCihK14LvWetk1ubEFcy4LHpaFv"
+				"bzz-raw://a7e19dbfaf191746090e2f56292c0b8cfdfd815a9209dd9861391b56f2f3ce9f",
+				"dweb:/ipfs/QmSB4eCorxcx6wNN81L9hdbyME2ip6dKNUbmY57DAHAVVf"
 			]
 		}
 	},
